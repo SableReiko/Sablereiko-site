@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Sable Reiko</title>
+<meta name="description" content="Persistent-World GM — a battle-tested behavioral framework for long-horizon LLM campaigns — and Vespergate, the gothic-cyberpunk city built to demonstrate it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── work-specific ── */
+  .page-head{padding:clamp(2.5rem,7vh,4.5rem) 0 clamp(1.5rem,4vh,2.5rem)}
+  .page-head h1{font-size:clamp(2.6rem,7vw,4.2rem);margin-top:.5rem}
+  .page-head .lede{max-width:38rem;color:var(--smoke);margin-top:1rem}
+
+  .dossier{
+    margin-top:2.5rem;
+    border:1px solid var(--hairline);
+    background:var(--ash);
+    padding:clamp(1.5rem,4vw,2.5rem);
+  }
+  .dossier-head{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.75rem 1.5rem;
+    padding-bottom:1.2rem;margin-bottom:1.4rem;
+    border-bottom:1px solid var(--hairline);
+  }
+  .dossier-head .desig{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;
+    color:var(--violet);text-transform:uppercase;
+  }
+  .dossier-head h2{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:clamp(1.7rem,4vw,2.4rem);line-height:1;letter-spacing:.02em;
+  }
+  .dossier-head .status{
+    margin-left:auto;font-family:var(--mono);font-size:.68rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--smoke);
+  }
+  .dossier p{max-width:44rem;margin-bottom:1.1rem}
+  .dossier p:last-of-type{margin-bottom:0}
+
+  .dossier .fields{
+    margin:1.5rem 0 0;padding-top:1.2rem;
+    border-top:1px solid var(--hairline);
+  }
+  .dossier .actions{
+    margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.7rem;
+  }
+  .dossier .actions a{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--paper);
+    border:1px solid var(--steel);border-bottom:1px solid var(--steel);
+    padding:.55rem .95rem;transition:border-color .15s ease,color .15s ease;
+  }
+  .dossier .actions a:hover{border-color:var(--violet);color:var(--violet)}
+  @media (prefers-reduced-motion:reduce){.dossier .actions a{transition:none}}
+
+  .crossref{
+    margin-top:3rem;font-family:var(--mono);font-size:.78rem;
+    color:var(--smoke);letter-spacing:.06em;
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html">Sablereiko.com</a>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="work.html" aria-current="page">Work</a>
+    <a href="writing.html">Writing</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <div class="page-head">
+    <p class="eyebrow"><span class="tick">SR-W</span> · section record · 2 entries</p>
+    <h1 class="display">Work</h1>
+    <p class="lede">Systems for making a model hold a world steady. Built in live play, extracted into law, released whole.</p>
+  </div>
+
+  <!-- ── entry 1: the framework ─────────────────────────── -->
+  <article class="dossier fracture">
+    <div class="dossier-head">
+      <span class="desig">SR-W1</span>
+      <h2>Persistent-World GM</h2>
+      <span class="status">Public · CC BY 4.0</span>
+    </div>
+
+    <p>A behavioral framework for running long-horizon RPG campaigns with LLMs — extracted from a single persistent campaign run for months, long enough for every failure mode to show up more than once. Each rule exists because something specific broke without it.</p>
+
+    <p>It is not writing advice. It is the harder layer underneath: keeping a model behaved across hundreds of turns, dozens of context resets, and multiple model versions — without voice drift, canon contamination, silent state corruption, or the slow erosion of player agency. The player is never paraphrased. Behavior and lore live in separate documents because they age differently. Numbers the model tracks are named, and corrections happen in the open. State you can paste is state you can trust.</p>
+
+    <div class="fields">
+      <p class="field"><b>TYPE</b> — behavioral contract · system prompt with template slots</p>
+      <p class="field"><b>CONTENTS</b> — framework · worked demo setting · design essay</p>
+      <p class="field"><b>COMPATIBILITY</b> — written for Claude · rules are model-agnostic</p>
+    </div>
+
+    <div class="actions">
+      <a href="https://github.com/theobliviax/Text-based-rpg-claude">Repository →</a>
+      <a href="writing.html">Design essay →</a>
+    </div>
+  </article>
+
+  <!-- ── entry 2: vespergate ────────────────────────────── -->
+  <article class="dossier">
+    <div class="dossier-head">
+      <span class="desig">SR-W2</span>
+      <h2>Vespergate</h2>
+      <span class="status">Worked example</span>
+    </div>
+
+    <p>A vertical city that buried its sky. Gothic-cyberpunk: cathedral-corporate Houses of Record, secondhand rain, and the restless digital dead — echoes — settled by licensed Requiemists. Built as the framework's worked example, with every template slot filled: the hard negatives, the never-bench rule and its escape valve, the restricted names, the quantities the world refuses to measure.</p>
+
+    <p>It exists so a stranger can see the machinery running before building their own world on it. Paste the framework into a fresh chat, paste the city after it, and play.</p>
+
+    <div class="fields">
+      <p class="field"><b>TYPE</b> — demo campaign setting · every framework slot filled</p>
+      <p class="field"><b>CAST</b> — a Requiemist, a Canoness, an unlicensed rival, a roost-keeper</p>
+      <p class="field"><b>OPEN THREAD</b> — the Testament of Aldous Vane, rewriting itself nightly</p>
+    </div>
+
+    <div class="actions">
+      <a href="https://github.com/theobliviax/Text-based-rpg-claude">Full setting on GitHub →</a>
+    </div>
+  </article>
+
+  <p class="crossref">Design essays are filed under <a href="writing.html">Writing</a>. Hulls and personnel are filed under <a href="gallery.html">Gallery</a>.</p>
+
+</main>
+
+<footer>
+  <span>© 2026 Sable Reiko</span>
+  <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
+</footer>
+
+</body>
+</html>
