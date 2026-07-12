@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Sable Reiko</title>
+<meta name="description" content="The hull registry and the personnel files. Fleet, restricted, and unclassified hulls; the household, the frames, the kin, and the crews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── gallery-specific ── */
+  .page-head{padding:clamp(2.5rem,7vh,4.5rem) 0 clamp(1rem,3vh,1.5rem)}
+  .page-head h1{font-size:clamp(2.6rem,7vw,4.2rem);margin-top:.5rem}
+
+  .register-head{
+    margin:clamp(2.5rem,6vh,4rem) 0 .4rem;
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  }
+  .register-head h2{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:.02em;
+  }
+
+  .tier-head{
+    margin:2.2rem 0 1rem;
+    display:flex;align-items:baseline;gap:1rem;
+    border-top:1px solid var(--hairline);
+    padding-top:1.1rem;
+  }
+  .tier-head h3{
+    font-family:var(--mono);font-weight:500;font-size:.78rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--paper);
+  }
+  .tier-head .count{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+    color:var(--smoke);
+  }
+
+  /* hull grid: wide plates, uniform */
+  .grid-hulls{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;
+  }
+  @media (max-width:720px){.grid-hulls{grid-template-columns:1fr}}
+
+  /* personnel: masonry columns so mixed aspects never crop */
+  .grid-personnel{columns:3;column-gap:1.4rem}
+  @media (max-width:980px){.grid-personnel{columns:2}}
+  @media (max-width:560px){.grid-personnel{columns:1}}
+  .grid-personnel .plate{break-inside:avoid;margin-bottom:1.4rem}
+
+  /* plate card */
+  .plate{background:var(--ash);border:1px solid var(--hairline)}
+  .plate a{display:block;border-bottom:none}
+  .plate img{width:100%;height:auto;display:block}
+  .grid-hulls .plate img{aspect-ratio:16/9;object-fit:cover}
+  .plate .cap{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .8rem;
+    padding:.7rem .85rem .75rem;
+    border-top:1px solid var(--hairline);
+  }
+  .plate .cap .name{
+    font-family:var(--display);font-weight:600;text-transform:uppercase;
+    font-size:1.02rem;letter-spacing:.03em;color:var(--paper);
+  }
+  .plate .cap .meta{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--smoke);
+    flex-basis:100%;
+  }
+  .plate a:hover .name{color:var(--violet)}
+  .plate a:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+
+  /* the missing record */
+  .plate.missing{
+    display:flex;flex-direction:column;justify-content:center;
+    min-height:9rem;padding:1.2rem .85rem;
+  }
+  .plate.missing .name{color:var(--steel)}
+  .plate.missing .meta{color:var(--steel)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html">Sablereiko.com</a>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="work.html">Work</a>
+    <a href="writing.html">Writing</a>
+    <a href="gallery.html" aria-current="page">Gallery</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <div class="page-head">
+    <p class="eyebrow"><span class="tick">SR-G</span> · section record · 40 plates</p>
+    <h1 class="display">Gallery</h1>
+  </div>
+
+  <div class="register-head">
+    <h2>Hull Registry</h2>
+    <p class="eyebrow">3 tiers</p>
+  </div>
+  <div id="hulls"></div>
+
+  <div class="register-head">
+    <h2>Personnel Files</h2>
+    <p class="eyebrow">4 strata</p>
+  </div>
+  <div id="personnel"></div>
+
+</main>
+
+<footer>
+  <span>© 2026 Sable Reiko</span>
+  <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
+</footer>
+
+<script>
+/* ═══ THE MANIFEST ═════════════════════════════════════════
+   Everything on this page renders from these arrays.
+   To retitle, re-tier, or annotate a plate: edit it here.
+   To add a plate: drop the image in images/hulls or
+   images/personnel and add one entry. Nothing else changes.
+   file:  filename inside the folder (exact, lowercase)
+   name:  display title (any punctuation welcome)
+   meta:  mono caption line — class, role, origin, status
+   ═══════════════════════════════════════════════════════ */
+
+const HULL_TIERS = [
+  { tier:"Fleet Register", plates:[
+    { file:"standard-corvette.jpg",        name:"Standard Corvette",        meta:"Class: CV-45 · in service" },
+    { file:"single-seater-fighters.jpg",   name:"Single-Seater Fighters",   meta:"Class: VF-9 · squadron strength" },
+    { file:"converted-racing-frames.jpg",  name:"Converted Racing Frames",  meta:"Class: modified · race-certified" },
+    { file:"purchased-fighters.jpg",       name:"Purchased Fighters",       meta:"Origin: outside acquisition" },
+    { file:"the-obsessive-courier.jpg",    name:"The Obsessive Courier",    meta:"Class: courier · high hours" },
+    { file:"the-surplus-that-isnt.jpg",    name:"The Surplus That Isn't",   meta:"Ex-service · decommissioned on paper" },
+  ]},
+  { tier:"Restricted Register", plates:[
+    { file:"dusk-and-dawn.jpg",            name:"Dusk & Dawn",              meta:"Paired hulls · access controlled" },
+    { file:"stealth-dropship.jpg",         name:"Stealth Dropship",         meta:"Sig. mask 92.7% · thermal cold" },
+    { file:"the-whisper.jpg",              name:"The Whisper",              meta:"Faceted hull · anomalous reflect" },
+    { file:"sable-edit-whisper.jpg",       name:"The Whisper — Sable Edit", meta:"Refit · registry copy" },
+    { file:"vael-pattern-interceptors.jpg",name:"Vael-Pattern Interceptors",meta:"Maker-pattern · flight of three" },
+    { file:"vaeloth-sirrethaan-maker-fighters.jpg", name:"Vaeloth-Sirreth'aan Maker Fighters", meta:"Maker craft · handle with ceremony" },
+  ]},
+  { tier:"Unclassified Hulls", plates:[
+    { file:"the-old-one.jpg",                       name:"The Old One",        meta:"Origin: unknown · age: considerable" },
+    { file:"unclassified-1-the-older-one.jpg",      name:"№1 — The Older One", meta:"Origin: unknown · inscribed" },
+    { file:"unclassified-2-the-later-one.jpg",      name:"№2 — The Later One", meta:"Origin: unknown · powered" },
+    { file:"unclassified-3-the-hybrid.jpg",         name:"№3 — The Hybrid",    meta:"Origin: mixed · seam visible" },
+    { file:"unclassified-4-the-coral-hull.jpg",     name:"№4 — The Coral Hull",meta:"Origin: unknown · grown, not built" },
+    { file:"unclassified-5-the-crystalline.jpg",    name:"№5 — The Crystalline",meta:"Origin: unknown · refracts" },
+    { file:"unclassified-6-the-drowned.jpg",        name:"№6 — The Drowned",   meta:"Origin: unknown · recovered" },
+    { missing:true,                                  name:"№7 —",              meta:"Record missing" },
+    { file:"unclassified-8-the-ornamented-other.jpg",name:"№8 — The Ornamented Other", meta:"Origin: unknown · gilded" },
+  ]},
+];
+
+const PERSONNEL_STRATA = [
+  { tier:"The Household", plates:[
+    { file:"doss.jpg",          name:"Doss",          meta:"Spymaster" },
+    { file:"cassian-vey.jpg",   name:"Cassian Vey",   meta:"Keeper of the Wounded" },
+    { file:"emil-tarrow.jpg",   name:"Emil Tarrow",   meta:"Master of the Schoolroom" },
+    { file:"brakus-oll.jpg",    name:"Brakus Oll",    meta:"Watch-Captain of the Hollow Watch" },
+    { file:"sythe-sisters.jpg", name:"Ila & Onaa — The Sythe Sisters", meta:"Media preservers" },
+  ]},
+  { tier:"The Frames", plates:[
+    { file:"apex-3.jpg",          name:"Apex",            meta:"Frame · turnaround record" },
+    { file:"apex-and-nitro.jpg",  name:"Apex & Nitro",    meta:"Paired frames" },
+    { file:"bot-amazon.jpg",      name:"Amazon",          meta:"Frame" },
+    { file:"bot-duelist.jpg",     name:"Duelist",         meta:"Frame" },
+    { file:"bot-goliath.jpg",     name:"Goliath 07",      meta:"Siege-class frame" },
+    { file:"bot-petite-agile.jpg",name:"Petite / Agile",  meta:"Frame" },
+    { file:"bot-qel.jpg",         name:"Qel — Frame",     meta:"Frame record" },
+    { file:"bot-sythe.jpg",       name:"Sythe",           meta:"Frame" },
+  ]},
+  { tier:"The Kin", plates:[
+    { file:"calla-drenn-vyss.jpg",name:"Calla Drenn-Vyss",meta:"Drevani" },
+    { file:"pell.jpg",            name:"Pell",            meta:"—" },
+    { file:"qel.jpg",             name:"Qel",             meta:"—" },
+    { file:"unfiled.jpg",         name:"Unfiled Record",  meta:"Designation: —" },
+  ]},
+  { tier:"The Crews", plates:[
+    { file:"reyla-sunderkit.jpg", name:"Reyla Sunderkit", meta:"Greywake Squadron Lead" },
+    { file:"kestrava.jpg",        name:'Kestrava — "Kes"',meta:"Crew" },
+    { file:"marda.jpg",           name:"Marda",           meta:"Crew" },
+  ]},
+];
+
+/* ═══ render ═══════════════════════════════════════════ */
+
+function plateCard(folder, p){
+  if (p.missing){
+    return '<div class="plate missing"><div class="cap">'
+      + '<span class="name">' + p.name + '</span>'
+      + '<span class="meta">' + p.meta + '</span>'
+      + '</div></div>';
+  }
+  const src = "images/" + folder + "/" + p.file;
+  return '<figure class="plate">'
+    + '<a href="' + src + '" target="_blank" rel="noopener">'
+    + '<img src="' + src + '" alt="' + p.name.replace(/"/g,"&quot;") + '" loading="lazy" '
+    + 'onerror="this.closest(\'figure\').classList.add(\'missing\');this.remove();">'
+    + '<figcaption class="cap">'
+    + '<span class="name">' + p.name + '</span>'
+    + '<span class="meta">' + p.meta + '</span>'
+    + '</figcaption></a></figure>';
+}
+
+function renderRegister(mountId, folder, tiers, gridClass){
+  const mount = document.getElementById(mountId);
+  let html = "";
+  for (const t of tiers){
+    const n = t.plates.length;
+    html += '<div class="tier-head"><h3>' + t.tier + '</h3>'
+         +  '<span class="count">' + n + (n === 1 ? " plate" : " plates") + '</span></div>'
+         +  '<div class="' + gridClass + '">'
+         +  t.plates.map(p => plateCard(folder, p)).join("")
+         +  '</div>';
+  }
+  mount.innerHTML = html;
+}
+
+renderRegister("hulls", "hulls", HULL_TIERS, "grid-hulls");
+renderRegister("personnel", "personnel", PERSONNEL_STRATA, "grid-personnel");
+</script>
+
+</body>
+</html>
