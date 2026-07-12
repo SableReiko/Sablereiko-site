@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play — Vespergate Fragment</title>
+<meta name="description" content="A playable fragment of Vespergate — a taste of the persistent-world GM framework in motion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="ambient" aria-hidden="true"></canvas>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="work.html">Work</a>
+  <a href="sable-reiko.html">Sable Reiko</a>
+  <a href="play.html" aria-current="page">Play</a>
+</nav>
+
+<main>
+  <header>
+    <p class="eyebrow">A Vespergate Fragment</p>
+    <h1>Step Through</h1>
+    <p class="tagline">Ninety seconds in a city that keeps score.</p>
+  </header>
+
+  <div id="teaser">
+    <p id="scene-text"></p>
+    <div id="choices"></div>
+  </div>
+
+  <section style="margin-top: 3rem;">
+    <p>This fragment is a taste of the full framework — persistent state, real consequences, a world that remembers what you did. The complete system and the full Vespergate setting live on <a href="https://github.com/SableReiko">GitHub</a>.</p>
+  </section>
+
+  <footer>
+    <div class="links">
+      <a href="https://github.com/SableReiko">GitHub</a>
+    </div>
+    <p>© 2026 Sable Reiko</p>
+  </footer>
+</main>
+
+<script src="ambient.js"></script>
+<script>
+const nodes = {
+  start: {
+    text: `Vespergate at dusk. The city's outer wall is old stone stitched with newer chrome, and the gate itself stands open — it always stands open. That's the first thing they tell you, and the last thing they explain.
+
+A tollkeeper leans in the archway. She doesn't ask for coin. She asks, "What are you carrying that you'd rather forget?"`,
+    choices: [
+      { label: 'Answer her honestly.', to: 'honest' },
+      { label: 'Lie. Smoothly, you hope.', to: 'lie' },
+      { label: 'Ask what happens to the things people forget here.', to: 'ask' }
+    ]
+  },
+  honest: {
+    text: `You tell her. The real thing — the one you haven't said aloud in years.
+
+She nods once, unsurprised, and marks nothing down. "The city heard you," she says. "That's the toll. Vespergate doesn't take your memories. It just insists on knowing they exist."
+
+Inside the walls, lamplight the color of bruised violets. Two streets diverge: one loud with market noise, one quiet enough to hear your own footsteps.`,
+    choices: [
+      { label: 'Take the loud street.', to: 'market' },
+      { label: 'Take the quiet one.', to: 'quiet' }
+    ]
+  },
+  lie: {
+    text: `You give her something small and false. She smiles like she's heard ten thousand of these.
+
+"Fine," she says, and waves you through. "But the city keeps score, traveler. It'll know the difference before you do."
+
+Inside the walls, the lamplight seems to follow you a half-second late. Two streets diverge: one loud with market noise, one quiet enough to hear your own footsteps.`,
+    choices: [
+      { label: 'Take the loud street.', to: 'market' },
+      { label: 'Take the quiet one.', to: 'quiet' }
+    ]
+  },
+  ask: {
+    text: `The tollkeeper's smile sharpens — the first genuine expression she's shown.
+
+"Nothing is forgotten here. That's the whole trouble with Vespergate. The city remembers everything anyone ever left at its gate, and somewhere down in the understreets, all of it is still... growing."
+
+She steps aside. "You'll do fine here. You ask the right kind of question."`,
+    choices: [
+      { label: 'Enter the city.', to: 'quiet' }
+    ]
+  },
+  market: {
+    text: `The market street sells the usual — food, tools, favors — and the unusual: sealed jars labeled in handwriting that changes when you look away. A broker calls out prices for "secondhand certainty."
+
+An old man at a corner stall catches your eye and holds up something wrapped in black cloth. "You dropped this," he says. "Years ago. Somewhere else."
+
+You have never seen him before in your life. You're almost sure.`,
+    choices: [
+      { label: 'Take the bundle.', to: 'end_bundle' },
+      { label: 'Refuse and walk on.', to: 'end_refuse' }
+    ]
+  },
+  quiet: {
+    text: `The quiet street runs beneath balconies thick with vines — real ones, growing through gaps in chrome cladding as if the metal were soil. Every few doors, a small shrine: a candle, a name, a date. Some of the dates haven't happened yet.
+
+At the street's end, a door stands ajar. Warm light. The smell of tea. A voice from inside — composed, dry, amused: "You may as well come in. The city already told me you were coming."`,
+    choices: [
+      { label: 'Step inside.', to: 'end_tea' },
+      { label: 'Keep walking. Some invitations are traps.', to: 'end_refuse' }
+    ]
+  },
+  end_bundle: {
+    text: `You take it. It's heavier than it looks, and warm, like something recently alive.
+
+You won't open it tonight. But Vespergate has already written this into its ledger: what you carried in, and what you chose to carry further.
+
+— END OF FRAGMENT —
+
+The full campaign runs from here in any direction you choose: the framework tracks every thread, every debt, every name. The city keeps score. That's the whole point.`,
+    choices: [
+      { label: 'Play again', to: 'start' }
+    ]
+  },
+  end_refuse: {
+    text: `You walk on. Behind you, quietly, the city adjusts its accounting.
+
+Refusal is a choice too, and Vespergate honors choices above all things — it just never forgets which ones you made.
+
+— END OF FRAGMENT —
+
+The full campaign runs from here in any direction you choose: the framework tracks every thread, every debt, every name. The city keeps score. That's the whole point.`,
+    choices: [
+      { label: 'Play again', to: 'start' }
+    ]
+  },
+  end_tea: {
+    text: `Inside: a parlor of dark velvet and darker wood, vines curling along the ceiling beams, and your host pouring a second cup she had clearly set out before you arrived.
+
+"Sit," she says. "You have questions. I have two thousand years of answers and very few people worth giving them to. Let's see which you are."
+
+— END OF FRAGMENT —
+
+The full campaign runs from here in any direction you choose: the framework tracks every thread, every debt, every name. The city keeps score. That's the whole point.`,
+    choices: [
+      { label: 'Play again', to: 'start' }
+    ]
+  }
+};
+
+const sceneEl = document.getElementById('scene-text');
+const choicesEl = document.getElementById('choices');
+
+function render(id) {
+  const node = nodes[id];
+  sceneEl.textContent = node.text;
+  choicesEl.innerHTML = '';
+  for (const c of node.choices) {
+    const btn = document.createElement('button');
+    btn.textContent = c.label;
+    btn.addEventListener('click', () => render(c.to));
+    choicesEl.appendChild(btn);
+  }
+  sceneEl.focus?.();
+}
+
+render('start');
+</script>
+</body>
+</html>

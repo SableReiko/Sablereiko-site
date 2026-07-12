@@ -1,0 +1,212 @@
+:root {
+  --void: #0a0a10;
+  --panel: #12111a;
+  --violet: #9d7bd8;
+  --violet-dim: #6b4fa0;
+  --silver: #b8b8c6;
+  --chrome-hi: #e8e8f2;
+  --text: #cfcfda;
+  --hairline: rgba(157, 123, 216, 0.25);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 5rem;
+}
+
+/* ---- Ambient particle canvas ---- */
+#ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- Nav ---- */
+nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 1.75rem;
+  justify-content: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+nav a {
+  color: var(--silver);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+nav a:hover, nav a:focus-visible { color: var(--chrome-hi); border-color: var(--violet); }
+nav a[aria-current="page"] { color: var(--violet); }
+
+/* ---- Type ---- */
+.eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--violet);
+  margin-bottom: 1.25rem;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(3rem, 9vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  background: linear-gradient(105deg,
+    var(--silver) 0%, var(--chrome-hi) 30%, var(--violet) 55%,
+    var(--silver) 80%, var(--chrome-hi) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: chrome-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes chrome-drift {
+  from { background-position: 0% center; }
+  to   { background-position: 100% center; }
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
+  color: var(--chrome-hi);
+  margin-bottom: 1.1rem;
+}
+
+header { margin-bottom: 4rem; }
+
+.tagline {
+  margin-top: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--silver);
+  min-height: 2.2rem;
+}
+
+section p + p { margin-top: 1rem; }
+section + section { margin-top: 3.5rem; }
+em { color: var(--silver); }
+
+a { color: var(--violet); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.2s ease, border-color 0.2s ease; }
+a:hover, a:focus-visible { color: var(--chrome-hi); border-color: var(--violet); }
+a:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 2px; }
+
+/* ---- Circuit divider ---- */
+.divider { display: block; width: 100%; height: 24px; margin: 3.5rem 0; }
+
+/* ---- Work list ---- */
+.work { list-style: none; margin-top: 1.5rem; }
+.work li { padding: 1.25rem 0; border-top: 1px solid var(--hairline); }
+.work li:last-child { border-bottom: 1px solid var(--hairline); }
+.work .title { display: block; font-weight: 500; color: var(--chrome-hi); letter-spacing: 0.02em; }
+.work .desc { display: block; font-size: 0.95rem; margin-top: 0.25rem; }
+
+/* ---- Gallery ---- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.gallery figure {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery figure:hover {
+  border-color: var(--violet);
+  box-shadow: 0 0 24px rgba(157, 123, 216, 0.25);
+}
+
+.gallery img { display: block; width: 100%; height: auto; }
+
+.gallery figcaption {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+/* ---- Vespergate teaser ---- */
+#teaser {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 2rem 1.75rem;
+  margin-top: 1.5rem;
+}
+
+#scene-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--chrome-hi);
+  white-space: pre-line;
+}
+
+#choices { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+#choices button {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: var(--violet);
+  background: transparent;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+#choices button:hover, #choices button:focus-visible {
+  color: var(--chrome-hi);
+  border-color: var(--violet);
+  background: rgba(157, 123, 216, 0.08);
+}
+
+#choices button:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+
+/* ---- Footer ---- */
+footer { margin-top: 4rem; font-size: 0.85rem; color: var(--silver); letter-spacing: 0.05em; position: relative; z-index: 1; }
+footer .links { margin-bottom: 0.75rem; }
+footer .links a { margin-right: 1.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  h1 { animation: none; }
+  #ambient { display: none; }
+}
