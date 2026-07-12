@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable Reiko</title>
+<meta name="description" content="Worldbuilder and systems designer. Persistent-world frameworks for AI-run tabletop play.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0a0a10;
+    --panel: #111018;
+    --violet: #9d7bd8;
+    --violet-dim: #6b4fa0;
+    --silver: #b8b8c6;
+    --chrome-hi: #e8e8f2;
+    --text: #cfcfda;
+    --hairline: rgba(157, 123, 216, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem 5rem;
+  }
+
+  /* ---- Hero ---- */
+  header { margin-bottom: 4.5rem; }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: var(--violet);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(3rem, 9vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    background: linear-gradient(105deg,
+      var(--silver) 0%,
+      var(--chrome-hi) 30%,
+      var(--violet) 55%,
+      var(--silver) 80%,
+      var(--chrome-hi) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: chrome-drift 9s ease-in-out infinite alternate;
+  }
+
+  @keyframes chrome-drift {
+    from { background-position: 0% center; }
+    to   { background-position: 100% center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    h1 { animation: none; }
+  }
+
+  .tagline {
+    margin-top: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--silver);
+  }
+
+  /* ---- Circuit-trace divider: gothic rule meets signal path ---- */
+  .divider {
+    display: block;
+    width: 100%;
+    height: 24px;
+    margin: 3.5rem 0;
+  }
+
+  /* ---- Sections ---- */
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    color: var(--chrome-hi);
+    margin-bottom: 1.1rem;
+  }
+
+  section p + p { margin-top: 1rem; }
+
+  em { color: var(--silver); }
+
+  a {
+    color: var(--violet);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  a:hover, a:focus-visible {
+    color: var(--chrome-hi);
+    border-color: var(--violet);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--violet);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---- Work list ---- */
+  .work {
+    list-style: none;
+    margin-top: 1.5rem;
+  }
+
+  .work li {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .work li:last-child { border-bottom: 1px solid var(--hairline); }
+
+  .work .title {
+    display: block;
+    font-weight: 500;
+    color: var(--chrome-hi);
+    letter-spacing: 0.02em;
+  }
+
+  .work .desc {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-top: 0.25rem;
+  }
+
+  /* ---- Footer ---- */
+  footer {
+    margin-top: 4rem;
+    font-size: 0.85rem;
+    color: var(--silver);
+    letter-spacing: 0.05em;
+  }
+
+  footer .links { margin-bottom: 0.75rem; }
+  footer .links a { margin-right: 1.5rem; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Worldbuilder · Systems Designer</p>
+    <h1>Sable Reiko</h1>
+    <p class="tagline">The garden remembers.</p>
+  </header>
+
+  <section>
+    <h2>About</h2>
+    <p>I build persistent worlds — settings, factions, and rule systems designed to hold together over hundreds of sessions, not just one night at the table. My current work centers on frameworks that let AI act as a reliable, consistent Game Master: behavioral rulesets, save-state architecture, and worldbuilding pipelines for long-form text-based campaigns.</p>
+    <p>The aesthetic runs gothic-cyberpunk — black and violet, silver and chrome. The philosophy runs transhumanist: I'm endlessly interested in consciousness, continuity, and what survives translation from one substrate to another. Those threads show up in everything I make, from campaign settings to design essays.</p>
+  </section>
+
+  <svg class="divider" viewBox="0 0 640 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+    <path d="M0 12 H240 L252 4 H300" fill="none" stroke="var(--violet-dim)" stroke-width="1"/>
+    <circle cx="304" cy="4" r="2.5" fill="none" stroke="var(--violet)" stroke-width="1"/>
+    <path d="M320 12 l6 -6 6 6 -6 6 z" fill="none" stroke="var(--silver)" stroke-width="1"/>
+    <circle cx="336" cy="20" r="2.5" fill="none" stroke="var(--violet)" stroke-width="1"/>
+    <path d="M340 20 H388 L400 12 H640" fill="none" stroke="var(--violet-dim)" stroke-width="1"/>
+  </svg>
+
+  <section>
+    <h2>Selected Work</h2>
+    <ul class="work">
+      <li>
+        <span class="title">Persistent-World GM Framework</span>
+        <span class="desc">A genericized behavioral framework for running open-world, player-driven campaigns with an AI Game Master — no railroading, real consequences, durable canon.</span>
+      </li>
+      <li>
+        <span class="title">The Garden Remembers</span>
+        <span class="desc">A design essay on memory, continuity, and long-form collaborative storytelling.</span>
+      </li>
+      <li>
+        <span class="title">Vespergate</span>
+        <span class="desc">A playable demo setting — a complete world built to showcase the framework in motion.</span>
+      </li>
+    </ul>
+  </section>
+
+  <svg class="divider" viewBox="0 0 640 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+    <path d="M0 12 H240 L252 4 H300" fill="none" stroke="var(--violet-dim)" stroke-width="1"/>
+    <circle cx="304" cy="4" r="2.5" fill="none" stroke="var(--violet)" stroke-width="1"/>
+    <path d="M320 12 l6 -6 6 6 -6 6 z" fill="none" stroke="var(--silver)" stroke-width="1"/>
+    <circle cx="336" cy="20" r="2.5" fill="none" stroke="var(--violet)" stroke-width="1"/>
+    <path d="M340 20 H388 L400 12 H640" fill="none" stroke="var(--violet-dim)" stroke-width="1"/>
+  </svg>
+
+  <section>
+    <h2>Elsewhere</h2>
+    <p>Most of my published work lives on <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>. If you want to talk worldbuilding, GM systems, or collaboration, that's the place to find me.</p>
+  </section>
+
+  <footer>
+    <div class="links">
+      <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
+    </div>
+    <p>© 2026 Sable Reiko</p>
+  </footer>
+</main>
+</body>
+</html>
