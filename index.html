@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable Reiko</title>
+<meta name="description" content="Prompt engineering is worldbuilding by other means. Characters, ships, and the statutes that keep them coherent — by Sable Reiko.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── home-specific ── */
+  .hero{
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+    gap:clamp(2rem,5vw,4.5rem);
+    align-items:center;
+    padding:clamp(3rem,8vh,6rem) 0 clamp(2.5rem,6vh,4rem);
+  }
+  .hero h1{font-size:clamp(3.4rem,9vw,6.5rem)}
+  .hero .eyebrow{margin-bottom:1.2rem}
+  .thesis{
+    margin-top:1.6rem;max-width:34rem;
+    font-size:clamp(1.05rem,1.6vw,1.2rem);
+    color:var(--paper);
+  }
+  .thesis em{color:var(--violet);font-style:italic}
+  .hero .fields{margin-top:1.8rem}
+
+  .portrait{background:var(--ash)}
+  .portrait img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:saturate(.92)}
+  .portrait-cap{
+    margin-top:.7rem;display:flex;justify-content:space-between;gap:1rem;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--smoke);
+  }
+
+  .section-head{
+    margin:clamp(2.5rem,7vh,4.5rem) 0 1.1rem;
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  }
+  .section-head .display{font-size:1.15rem;letter-spacing:.06em;color:var(--smoke)}
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;padding-top:2.5rem}
+    .portrait{max-width:26rem}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html">Sablereiko.com</a>
+  <nav>
+    <a href="index.html" aria-current="page">Index</a>
+    <a href="work.html">Work</a>
+    <a href="writing.html">Writing</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow"><span class="tick">SR-000</span> · operator record · active</p>
+      <h1 class="display">Sable<br>Reiko</h1>
+      <p class="thesis">Prompt engineering is worldbuilding by other means — you are not writing instructions, you are writing <em>law</em>, and the model will find every ambiguity you left it. I design characters, ships, and the statutes that keep them coherent across months.</p>
+      <div class="fields">
+        <p class="field"><b>DISCIPLINE</b> — prompt &amp; context engineering · character &amp; world design</p>
+        <p class="field"><b>HOLDINGS</b> — one framework · one city · a fleet · a household</p>
+      </div>
+    </div>
+
+    <figure>
+      <div class="portrait fracture">
+        <img id="author-photo" src="images/author-01.jpg" alt="Sable Reiko — author record" width="800" height="800">
+      </div>
+      <figcaption class="portrait-cap">
+        <span>Author record</span>
+        <span id="photo-index">plate 01 / 03</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <div class="section-head">
+    <h2 class="display">Registry</h2>
+    <p class="eyebrow">3 sections</p>
+  </div>
+
+  <a class="record" href="work.html">
+    <span class="desig">SR-W</span>
+    <span class="title">Work</span>
+    <span class="go">→</span>
+    <span class="desc">A battle-tested behavioral framework for long-horizon LLM campaigns, and Vespergate — the gothic-cyberpunk city built to demonstrate it.</span>
+  </a>
+
+  <a class="record" href="writing.html">
+    <span class="desig">SR-E</span>
+    <span class="title">Writing</span>
+    <span class="go">→</span>
+    <span class="desc">Design essays. What breaks when a model runs a world for months, and the rules that stopped it — starting with The Garden Remembers.</span>
+  </a>
+
+  <a class="record" href="gallery.html">
+    <span class="desig">SR-G</span>
+    <span class="title">Gallery</span>
+    <span class="go">→</span>
+    <span class="desc">The hull registry and the personnel files. Fleet, restricted, and unclassified hulls; the household, the frames, the kin, and the crews.</span>
+  </a>
+
+</main>
+
+<footer>
+  <span>© 2026 Sable Reiko</span>
+  <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
+</footer>
+
+<script>
+// Author record rotates on every visit. To add a plate: drop the file in
+// /images and add its path here — nothing else to change.
+const PLATES = [
+  "images/author-01.jpg",
+  "images/author-02.jpg",
+  "images/author-03.jpg",
+];
+const pick = Math.floor(Math.random() * PLATES.length);
+const img = document.getElementById("author-photo");
+img.src = PLATES[pick];
+document.getElementById("photo-index").textContent =
+  "plate " + String(pick + 1).padStart(2, "0") + " / " + String(PLATES.length).padStart(2, "0");
+</script>
+
+</body>
+</html>

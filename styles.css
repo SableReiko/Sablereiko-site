@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════════════════════
+   SABLEREIKO.COM — Cold Iron design system
+   Shared stylesheet for all pages. Load before page-specific CSS.
+   ═══════════════════════════════════════════════════════════ */
+
+:root{
+  /* palette — Cold Iron */
+  --soot:#08080A;      /* page ground */
+  --ash:#131318;       /* raised surfaces */
+  --paper:#ECE9E3;     /* primary text */
+  --smoke:#76747E;     /* secondary text, metadata */
+  --steel:#5A5D68;     /* structure */
+  --violet:#8B5CF6;    /* the single accent — spend sparingly */
+  --hairline:rgba(236,233,227,.12);
+
+  /* type roles */
+  --display:"Barlow Condensed",Impact,sans-serif;
+  --body:"Source Serif 4",Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--soot);scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  font-family:var(--body);
+  color:var(--paper);
+  line-height:1.7;
+  font-size:1.05rem;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(139,92,246,.35)}
+a:hover{border-bottom-color:var(--violet)}
+a:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:1px}
+img{max-width:100%;display:block}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.bar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  padding:1.1rem clamp(1.25rem,4vw,3rem);
+  border-bottom:1px solid var(--hairline);
+}
+.bar .mark{
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.18em;
+  color:var(--paper);border-bottom:none;text-transform:uppercase;
+}
+.bar .mark:hover{color:var(--violet)}
+.bar nav{display:flex;gap:1.6rem}
+.bar nav a{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--smoke);border-bottom:none;
+}
+.bar nav a:hover,.bar nav a[aria-current="page"]{color:var(--paper)}
+.bar nav a[aria-current="page"]{color:var(--violet)}
+
+/* ── shell ───────────────────────────────────────────────── */
+.shell{
+  width:100%;max-width:72rem;margin:0 auto;
+  padding:0 clamp(1.25rem,4vw,3rem);
+  flex:1;
+}
+
+/* ── type roles ──────────────────────────────────────────── */
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--smoke);
+}
+.eyebrow .tick{color:var(--violet)}
+
+.display{
+  font-family:var(--display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.015em;line-height:.92;color:var(--paper);
+}
+
+.field{ /* mono metadata line: LABEL: value */
+  font-family:var(--mono);font-size:.78rem;line-height:1.9;
+  color:var(--smoke);letter-spacing:.04em;
+}
+.field b{color:var(--paper);font-weight:500}
+
+/* ── registry records (the signature component) ──────────── */
+.record{
+  display:grid;
+  grid-template-columns:7.5rem 1fr auto;
+  gap:0 1.5rem;align-items:baseline;
+  padding:1.4rem 1rem 1.4rem 1.25rem;
+  border-top:1px solid var(--hairline);
+  border-left:2px solid transparent;
+  color:inherit;border-bottom:none;
+  transition:background .15s ease,border-color .15s ease;
+}
+.record:last-of-type{border-bottom:1px solid var(--hairline)}
+a.record:hover{background:var(--ash);border-left-color:var(--violet)}
+@media (prefers-reduced-motion:reduce){.record{transition:none}}
+
+.record .desig{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;
+  color:var(--smoke);text-transform:uppercase;
+}
+.record .title{
+  font-family:var(--display);font-weight:600;text-transform:uppercase;
+  font-size:1.5rem;letter-spacing:.02em;color:var(--paper);line-height:1.1;
+}
+.record .desc{
+  grid-column:2;font-size:.95rem;color:var(--smoke);
+  margin-top:.35rem;max-width:46rem;
+}
+.record .go{
+  font-family:var(--mono);font-size:.8rem;color:var(--steel);
+  align-self:center;
+}
+a.record:hover .go{color:var(--violet)}
+
+@media (max-width:640px){
+  .record{grid-template-columns:1fr;gap:.15rem}
+  .record .desc{grid-column:1}
+  .record .go{display:none}
+}
+
+/* ── fracture (use once per page) ────────────────────────── */
+.fracture{
+  position:relative;
+  clip-path:polygon(0 0, calc(100% - 2.4rem) 0, 100% 2.4rem, 100% 100%, 0 100%);
+}
+.fracture::after{ /* the seam across the cut corner */
+  content:"";position:absolute;top:-1px;right:-1px;
+  width:3.6rem;height:3.6rem;
+  background:linear-gradient(135deg,transparent calc(50% - 1px),var(--violet) 50%,transparent calc(50% + 1px));
+  pointer-events:none;
+}
+
+/* ── footer ──────────────────────────────────────────────── */
+footer{
+  margin-top:5rem;
+  border-top:1px solid var(--hairline);
+  padding:1.8rem clamp(1.25rem,4vw,3rem) 2.2rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;
+  color:var(--smoke);text-transform:uppercase;
+}
+footer a{color:var(--smoke);border-bottom:none}
+footer a:hover{color:var(--paper)}
