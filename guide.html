@@ -319,6 +319,29 @@ in-fiction; treat (parentheses) as out-of-character.
 
     <p>When you stop, say <strong>"save"</strong> — the GM appends a <code style="font-family:var(--mono);font-size:.85em">[CURRENT STATE]</code> block. That block is the campaign's portable soul. To resume: open a chat <strong>inside the same project</strong>, paste the block, and continue. Never resume cold, on ambient memory — that is precisely how worlds drift, and it is a lesson this system learned at full price.</p>
 
+    <p><strong>What a state block tracks.</strong> A slot in the block is earned by one question: <em>could this silently change, and would the fiction be embarrassed to forget it?</em> The framework's field list covers the answer: <strong>Location</strong> (where the scene stands), <strong>Player</strong> (condition, injuries, what they're wearing or carrying on their person), <strong>Key Items / Spine</strong> (the possessions the story turns on — not the whole inventory), <strong>Present / Nearby</strong> (who is in and around the scene), <strong>Tracked Quantities</strong> (every number that persists — treasury, crew, elapsed time), <strong>Active Threads</strong> (open situations, not resolved ones), <strong>World Flags</strong> (facts the world is waiting on — a vote pending, a debt due), <strong>Recent Events</strong> (the last two or three beats, no further back), and <strong>Mood / Tension</strong> (the emotional weather the next session should open into). What does <em>not</em> belong: static lore (that lives in the canon package), full histories (that's what the fiction was), and anything you'd never notice going wrong.</p>
+
+    <p>Here's what one actually looks like, continuing the worked example from above:</p>
+
+    <div class="docblock">
+      <div class="doc-head">
+        <span class="doc-title">[current state] · worked example</span>
+        <button type="button" data-copy="doc-stateblock">copy</button>
+      </div>
+      <pre id="doc-stateblock">[CURRENT STATE]
+Location: aboard The Patient Creditor, berth nine, Pale Anchorage.
+Player: Rell Vantar — unhurt, factor's coat, house seal on the collar. Tally attending.
+Key Items / Spine: house seal · salvage writ #7741 · the maker coin (house vault, unexamined).
+Present / Nearby: Tally (adjutant, aboard) · Captain Brene (crew chief, aboard) · Ossa (maintainer, dockside).
+Tracked Quantities: treasury 12,400 marks · crew 41 · days since charter renewal 63.
+Active Threads: the contested salvage claim (three claimants, broker's first offer declined) · the heir's respectability campaign.
+World Flags: Callowmere fleet levy vote pending · unnamed broker's client still unnamed.
+Recent Events: docked at Pale Anchorage; took the salvage meeting; declined the first offer without closing the door.
+Mood / Tension: quiet and watchful — money on the table, nobody reaching yet.</pre>
+    </div>
+
+    <p><strong>Creating one for your campaign.</strong> You don't write the first block — the framework instructs the GM to write it when you say "save." Your job is the part the GM can't do: <em>audit it</em>. The first few saves, read every line against your own memory of the session — a number that shifted, a thread that vanished, an item quietly forgotten — and correct it in the reply before you accept it. Each save <em>replaces</em> the last block entirely; a state block is a snapshot, never a log, so resolved threads drop off and stale events roll away. Keep it short enough to proofread in thirty seconds — a block too long to read is a corruption you've pre-approved. And per the custody rule: copy each accepted block out of the chat into a plain text file you own. The full design reasoning is in <a href="writing.html#portable-soul">The Portable Soul</a>.</p>
+
     <div class="doctrine">
       <span class="label">Doctrine</span>
       No block, no session. The state block outranks memory, and resumes happen inside the project — always.
