@@ -1,46 +1,23 @@
 /* ═══════════════════════════════════════════════════════════
    SABLEREIKO.COM — ambience
-   Falling ash + a cold light that follows the cursor.
+   Falling ash.
    Self-contained: include with
      <script src="ambience.js" defer></script>
    on any page. No markup or CSS changes required.
 
    Behavior notes:
-   - Everything renders BEHIND the content (z-index:-1),
-     so text and plates are never obscured.
+   - Renders BEHIND the content (z-index:-1), so text and
+     plates are never obscured.
    - Respects prefers-reduced-motion: the effect simply
      does not start.
    - Pauses when the tab is hidden. Adapts particle count
-     to viewport size. No cursor glow on touch devices.
+     to viewport size.
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
   "use strict";
 
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  /* ── the cold light ──────────────────────────────────── */
-  const hasPointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  let glow, gx = innerWidth / 2, gy = innerHeight / 3, tx = gx, ty = gy;
-
-  if (hasPointer) {
-    glow = document.createElement("div");
-    glow.setAttribute("aria-hidden", "true");
-    Object.assign(glow.style, {
-      position: "fixed",
-      left: "0", top: "0",
-      width: "56rem", height: "56rem",
-      marginLeft: "-28rem", marginTop: "-28rem",
-      borderRadius: "50%",
-      pointerEvents: "none",
-      zIndex: "-1",
-      background:
-        "radial-gradient(circle, rgba(139,92,246,.055) 0%, rgba(139,92,246,.025) 35%, transparent 70%)",
-      willChange: "transform",
-    });
-    document.body.appendChild(glow);
-    addEventListener("mousemove", (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-  }
 
   /* ── the ash ─────────────────────────────────────────── */
   const canvas = document.createElement("canvas");
@@ -100,13 +77,6 @@
         ? "rgba(139,92,246," + (f.a + 0.08) + ")"
         : "rgba(236,233,227," + f.a + ")";
       ctx.fill();
-    }
-
-    if (glow) {
-      // the light lags the cursor — it follows, it doesn't chase
-      gx += (tx - gx) * 0.06;
-      gy += (ty - gy) * 0.06;
-      glow.style.transform = "translate(" + gx + "px," + gy + "px)";
     }
 
     requestAnimationFrame(frame);
