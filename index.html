@@ -28,8 +28,27 @@
   .thesis em{color:var(--violet);font-style:italic}
   .hero .fields{margin-top:1.8rem}
 
-  .portrait{background:var(--ash)}
-  .portrait img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:saturate(.92)}
+  .portrait{background:var(--ash);position:relative}
+  .portrait img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:saturate(.92);transition:opacity .45s ease}
+  .portrait img.fading{opacity:0}
+  @media (prefers-reduced-motion:reduce){
+    .portrait img{transition:none}
+  }
+  .plate-nav{
+    position:absolute;top:0;bottom:0;width:22%;
+    display:flex;align-items:center;
+    background:none;border:none;cursor:pointer;
+    color:transparent;font-family:var(--mono);font-size:1.5rem;
+    transition:color .15s ease;
+    z-index:2;
+  }
+  .plate-nav.prev{left:0;justify-content:flex-start;padding-left:.8rem}
+  .plate-nav.next{right:0;justify-content:flex-end;padding-right:.8rem}
+  .portrait:hover .plate-nav,.plate-nav:focus-visible{color:rgba(236,233,227,.75)}
+  .plate-nav:hover{color:var(--violet)}
+  .plate-nav:focus-visible{outline:2px solid var(--violet);outline-offset:-4px}
+  @media (prefers-reduced-motion:reduce){.plate-nav{transition:none}}
+  @media (hover:none){.plate-nav{color:rgba(236,233,227,.45)}}
   .portrait-cap{
     margin-top:.7rem;display:flex;justify-content:space-between;gap:1rem;
     font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;
@@ -76,6 +95,8 @@
     <figure>
       <div class="portrait fracture">
         <img id="author-photo" src="images/author-01.jpg" alt="Sable Reiko — author record" width="800" height="800">
+        <button class="plate-nav prev" type="button" aria-label="Previous plate">‹</button>
+        <button class="plate-nav next" type="button" aria-label="Next plate">›</button>
       </div>
       <figcaption class="portrait-cap">
         <span>Author record</span>
@@ -118,18 +139,63 @@
 </footer>
 
 <script>
-// Author record rotates on every visit. To add a plate: drop the file in
-// /images and add its path here — nothing else to change.
+// Author record: starts on a random plate, cycles while the page is open,
+// and the side arrows step through manually. To add a plate: drop the file
+// in /images and add its path here — nothing else to change.
 const PLATES = [
   "images/author-01.jpg",
   "images/author-02.jpg",
   "images/author-03.jpg",
 ];
-const pick = Math.floor(Math.random() * PLATES.length);
+const HOLD_MS = 7000; // time each plate is held before auto-advance
+
 const img = document.getElementById("author-photo");
-img.src = PLATES[pick];
-document.getElementById("photo-index").textContent =
-  "plate " + String(pick + 1).padStart(2, "0") + " / " + String(PLATES.length).padStart(2, "0");
+const cap = document.getElementById("photo-index");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let current = Math.floor(Math.random() * PLATES.length);
+let timer = null;
+
+// preload so transitions never flash empty
+PLATES.forEach(src => { const p = new Image(); p.src = src; });
+
+function caption(){
+  cap.textContent = "plate " + String(current + 1).padStart(2, "0")
+                  + " / " + String(PLATES.length).padStart(2, "0");
+}
+
+function show(idx){
+  current = (idx + PLATES.length) % PLATES.length;
+  if (reduceMotion){
+    img.src = PLATES[current];
+    caption();
+    return;
+  }
+  img.classList.add("fading");
+  setTimeout(() => {
+    img.src = PLATES[current];
+    caption();
+    img.classList.remove("fading");
+  }, 450);
+}
+
+function schedule(){
+  if (timer) clearInterval(timer);
+  if (reduceMotion) return; // no unattended motion for reduced-motion users
+  timer = setInterval(() => show(current + 1), HOLD_MS);
+}
+
+document.querySelector(".plate-nav.prev").addEventListener("click", () => { show(current - 1); schedule(); });
+document.querySelector(".plate-nav.next").addEventListener("click", () => { show(current + 1); schedule(); });
+
+// pause the cycle while the tab is hidden
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden){ if (timer) clearInterval(timer); }
+  else schedule();
+});
+
+img.src = PLATES[current];
+caption();
+schedule();
 </script>
 
 </body>
