@@ -27,6 +27,15 @@
   .page-head h1{font-size:clamp(2.6rem,7vw,4.2rem);margin-top:.5rem}
 
   .record-body{max-width:42rem}
+
+  .motion-plate{margin:1.8rem 0 0}
+  .motion-plate .fracture{background:var(--ash)}
+  .motion-plate video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:saturate(.92)}
+  .motion-plate figcaption{
+    margin-top:.7rem;display:flex;justify-content:space-between;gap:1rem;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--smoke);
+  }
   .record-body .fields{
     margin:1.5rem 0 0;padding:1.2rem 0;
     border-top:1px solid var(--hairline);
@@ -92,6 +101,18 @@
   </div>
 
   <div class="record-body">
+
+    <figure class="motion-plate">
+      <div class="fracture">
+        <video autoplay muted loop playsinline preload="metadata" aria-label="Sable Reiko — motion plate">
+          <source src="images/author-motion.mp4" type="video/mp4">
+        </video>
+      </div>
+      <figcaption>
+        <span>Author record</span>
+        <span>motion plate · 10s loop</span>
+      </figcaption>
+    </figure>
 
     <div class="fields">
       <p class="field"><b>DESIGNATION</b> — Sable Reiko</p>
@@ -176,6 +197,16 @@
   <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
 </footer>
 
+<script>
+// motion plate: no unattended playback for reduced-motion users —
+// the video waits, paused, with controls, instead of auto-looping
+const mv = document.querySelector(".motion-plate video");
+if (mv && matchMedia("(prefers-reduced-motion: reduce)").matches){
+  mv.removeAttribute("autoplay");
+  mv.pause();
+  mv.controls = true;
+}
+</script>
 <script src="ambience.js" defer></script>
 </body>
 </html>
