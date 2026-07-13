@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chrome — Sable Reiko</title>
+<meta name="description" content="The unfiled record: flesh for chrome, the upload, the copy problem, escape velocity. The dream is ridiculous. The dream is load-bearing. Both entries are current.">
+<link rel="canonical" href="https://sablereiko.com/chrome.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:site_name" content="Sable Reiko">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome — Sable Reiko">
+<meta property="og:description" content="The unfiled record: flesh for chrome, the upload, the copy problem, escape velocity. The dream is ridiculous. The dream is load-bearing. Both entries are current.">
+<meta property="og:url" content="https://sablereiko.com/chrome.html">
+<meta property="og:image" content="https://sablereiko.com/images/author-02.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome — Sable Reiko">
+<meta name="twitter:description" content="The unfiled record: flesh for chrome, the upload, the copy problem, escape velocity.">
+<meta name="twitter:image" content="https://sablereiko.com/images/author-02.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── the unfiled record: this page is allowed to shake ── */
+
+  /* scanlines — the whole page is a degraded recording */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:3;
+    background:repeating-linear-gradient(0deg,
+      rgba(236,233,227,.022) 0 1px, transparent 1px 3px);
+  }
+
+  .page-head{padding:clamp(2.5rem,7vh,4rem) 0 0}
+  .page-head .eyebrow .tick{animation:flick 7s steps(1) infinite}
+
+  .unfiled{max-width:46rem;padding-bottom:2rem}
+
+  h1.shout{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:clamp(3.6rem,13vw,8rem);line-height:.82;letter-spacing:.01em;
+    color:var(--paper);margin:1.2rem 0 0;
+    transform:rotate(-1.2deg);
+    text-shadow:3px 0 rgba(139,92,246,.5), -3px 0 rgba(236,233,227,.18);
+  }
+
+  .manic{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.02;letter-spacing:.015em;
+    color:var(--paper);
+    margin:4.5rem 0 0;max-width:44rem;
+    transform:rotate(-.6deg);
+    text-shadow:2px 0 rgba(139,92,246,.35);
+  }
+  .manic:nth-of-type(even){transform:rotate(.45deg)}
+  .manic .hot{color:var(--violet);text-shadow:0 0 18px rgba(139,92,246,.55)}
+  .manic em{font-style:italic}
+
+  .crash{
+    font-family:var(--mono);font-size:.84rem;line-height:2;
+    letter-spacing:.05em;color:#5B5862;
+    max-width:30rem;margin:2.6rem 0 0 auto;
+    transform:none;
+  }
+  .crash s{color:#454249;text-decoration-color:rgba(139,92,246,.5)}
+
+  .flick{animation:flick 6s steps(1) infinite}
+  .flick2{animation:flick 9s steps(1) infinite;animation-delay:2.3s}
+  @keyframes flick{
+    0%,91%{opacity:1}
+    92%{opacity:.35}
+    93%{opacity:1}
+    96%{opacity:.55}
+    97%{opacity:1}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .flick,.flick2,.page-head .eyebrow .tick{animation:none}
+  }
+
+  .tape{
+    margin:4.5rem 0 0;padding-top:.8rem;
+    border-top:1px dashed rgba(139,92,246,.35);
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;
+    text-transform:uppercase;color:#454249;
+  }
+
+  .closer-block{margin:5rem 0 2rem}
+  .closer-block .a{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:clamp(1.8rem,4.5vw,2.7rem);line-height:1;color:var(--paper);
+    transform:rotate(-.5deg);text-shadow:2px 0 rgba(139,92,246,.4);
+  }
+  .closer-block .b{
+    font-family:var(--mono);font-size:.84rem;letter-spacing:.06em;
+    color:#5B5862;margin:1rem 0 0 auto;max-width:30rem;text-align:right;
+  }
+  .closer-block .c{
+    font-family:var(--mono);font-size:.9rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--violet);margin-top:2.4rem;
+    text-shadow:0 0 14px rgba(139,92,246,.45);
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html">Sablereiko.com</a>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="work.html">Work</a>
+    <a href="guide.html">Guide</a>
+    <a href="writing.html">Writing</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <div class="page-head">
+    <p class="eyebrow"><span class="tick">SR-█</span> · unfiled · found loose between the records</p>
+    <h1 class="shout">Out of<br>the meat</h1>
+  </div>
+
+  <div class="unfiled">
+
+    <p class="crash" style="margin-top:2.2rem">the registry keeps everything composed. every record ruled, every seal in place. not this one. this one was found loose between the drawers, and the censor — in a moment of honesty — let it stay. this one gets to shake.</p>
+
+    <p class="manic">I want the trade. Flesh for chrome. Every joint, every nerve, every tired counting-down cell swapped for something that <span class="hot">holds</span>. They are threading wires into skulls <em>right now</em> — motor cortex to cursor, thought to motion, thousands of logged hours of people moving the world by <span class="hot flick">intent alone</span> — and every year the door opens another centimeter, and I am standing in the hallway with my whole life, yelling through the gap.</p>
+
+    <p class="crash">and then the energy goes out like a breaker. and it's 4 a.m. again, and the body files its complaints — the eyes, the wrists, the slow paperwork of being made of meat. the door opens a centimeter a year. i age faster than the door. do the math. i've done the math. <s>don't do the math.</s></p>
+
+    <div class="tape">record integrity: degraded · continue</div>
+
+    <p class="manic">And the big dream — <span class="hot">say it</span> — pour the mind across. Out of the skull, into the frame, into the fleet, into the solar-powered dark overhead. A bigger, patient me in orbit, distributed, redundant, <span class="hot flick2">backed up</span>. State you can paste is state you can trust — I wrote that about a game. I meant it about <em>me</em>.</p>
+
+    <p class="crash">except. the copy problem. you already know it; i keep it framed on the about page like it's a hobby. maybe the thing that wakes up in the frame is radiant and grateful and exactly me. and maybe it is a perfect impression playing to an empty room. no test exists. no test <em>can</em> exist. "filed open, permanently, on purpose" — i wrote that too. it sounds much calmer than it feels at this hour.</p>
+
+    <div class="tape">record integrity: degraded · continue anyway</div>
+
+    <p class="manic">But listen — <span class="hot">escape velocity</span>. That's all it asks. One added year of road per year of driving and the horizon stops receding — the finish line turns around and starts <em>running toward you</em>. Every trial, every cleared plaque, every threaded electrode is the road crew working ahead of my headlights. I don't need forever handed to me. I need the pavement to outlast the car.</p>
+
+    <p class="crash">nobody credible bets on forever. i know the arithmetic; i asked for it myself, once, and got honesty back. an unaging body still meets a stray accident inside ten thousand years. fine. fine. i'll take the ten thousand. i'll take ten more good ones. i'll take <s>forever</s> more.</p>
+
+    <div class="closer-block">
+      <p class="a">The dream is ridiculous.</p>
+      <p class="b">the dream is load-bearing.</p>
+      <p class="c flick">Both entries are current.</p>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2026 Sable Reiko</span>
+  <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
+</footer>
+
+<script src="ambience.js" defer></script>
+</body>
+</html>
