@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Writing — Sable Reiko</title>
-<meta name="description" content="The Garden Remembers: what months of running a persistent LLM RPG taught me about making models behave — voice drift, canon contamination, silent state corruption, and the rules that stopped them.">
+<meta name="description" content="Design essays on making models hold worlds: The Portable Soul (state blocks and checkpoint discipline) and The Garden Remembers (voice drift, canon contamination, silent state corruption).">
 <link rel="canonical" href="https://sablereiko.com/writing.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:site_name" content="Sable Reiko">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Writing — Sable Reiko">
-<meta property="og:description" content="The Garden Remembers: what months of running a persistent LLM RPG taught me about making models behave — voice drift, canon contamination, silent state corruption, and the rules that stopped them.">
+<meta property="og:description" content="Design essays on making models hold worlds: The Portable Soul (state blocks and checkpoint discipline) and The Garden Remembers (voice drift, canon contamination, silent state corruption).">
 <meta property="og:url" content="https://sablereiko.com/writing.html">
 <meta property="og:image" content="https://sablereiko.com/images/author-03.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Writing — Sable Reiko">
-<meta name="twitter:description" content="The Garden Remembers: what months of running a persistent LLM RPG taught me about making models behave — voice drift, canon contamination, silent state corruption, and the rules that stopped them.">
+<meta name="twitter:description" content="Design essays on making models hold worlds: The Portable Soul (state blocks and checkpoint discipline) and The Garden Remembers (voice drift, canon contamination, silent state corruption).">
 <meta name="twitter:image" content="https://sablereiko.com/images/author-03.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,35 +26,60 @@
   .page-head{padding:clamp(2.5rem,7vh,4.5rem) 0 clamp(1.5rem,4vh,2.5rem)}
   .page-head h1{font-size:clamp(2.6rem,7vw,4.2rem);margin-top:.5rem}
 
-  .essay{
-    max-width:42rem;
-    margin:2.5rem 0 0;
+  /* collapsible essay entries */
+  .entry{border-top:1px solid var(--hairline)}
+  .entry:last-of-type{border-bottom:1px solid var(--hairline)}
+
+  .entry summary{
+    list-style:none;cursor:pointer;
+    display:grid;grid-template-columns:5.5rem 1fr auto auto;
+    gap:.2rem 1.4rem;align-items:baseline;
+    padding:1.5rem .75rem 1.5rem .5rem;
   }
-  .essay-head{
-    border-top:1px solid var(--hairline);
-    padding-top:2rem;
-  }
-  .essay-head .desig-row{
-    display:flex;flex-wrap:wrap;align-items:baseline;gap:.75rem 1.5rem;
-    margin-bottom:1rem;
-  }
-  .essay-head .desig{
+  .entry summary::-webkit-details-marker{display:none}
+  .entry summary::marker{content:""}
+  .entry summary:focus-visible{outline:2px solid var(--violet);outline-offset:-2px}
+
+  .entry .desig{
     font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;
     color:var(--violet);text-transform:uppercase;
   }
-  .essay-head .status{
-    margin-left:auto;font-family:var(--mono);font-size:.68rem;
-    letter-spacing:.18em;text-transform:uppercase;color:var(--smoke);
-  }
-  .essay-head h2{
+  .entry .sum-title{
     font-family:var(--display);font-weight:700;text-transform:uppercase;
-    font-size:clamp(2rem,5.5vw,3rem);line-height:1;letter-spacing:.02em;
+    font-size:clamp(1.4rem,3.4vw,1.9rem);line-height:1.05;letter-spacing:.02em;
+    color:var(--paper);transition:color .15s ease;
   }
-  .essay-head .subtitle{
-    font-size:1.15rem;font-style:italic;color:var(--smoke);
-    margin-top:.8rem;
+  .entry summary:hover .sum-title{color:var(--violet)}
+  @media (prefers-reduced-motion:reduce){.entry .sum-title{transition:none}}
+  .entry .sum-sub{
+    grid-column:2;font-size:.95rem;font-style:italic;color:var(--smoke);
+  }
+  .entry .status{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--smoke);
+  }
+  .entry .toggle{
+    font-family:var(--mono);font-size:.85rem;color:var(--steel);
+    justify-self:end;
+  }
+  .entry .toggle::before{content:"＋ open"}
+  .entry[open] .toggle::before{content:"－ close"}
+  .entry summary:hover .toggle{color:var(--violet)}
+
+  @media (max-width:640px){
+    .entry summary{grid-template-columns:1fr auto}
+    .entry .desig{grid-column:1}
+    .entry .sum-title{grid-column:1}
+    .entry .sum-sub{grid-column:1}
+    .entry .status{display:none}
+    .entry .toggle{grid-row:1;grid-column:2}
   }
 
+  /* essay body inside an open entry */
+  .essay{
+    max-width:42rem;
+    padding:0 .5rem 3rem;
+  }
   .essay h3{
     font-family:var(--display);font-weight:600;text-transform:uppercase;
     font-size:1.35rem;letter-spacing:.03em;color:var(--paper);
@@ -64,7 +89,6 @@
   .essay em{font-style:italic}
   .essay strong{font-weight:600;color:#F6F3ED}
 
-  /* statutes — the lessons, set like law */
   .statute{
     border-left:2px solid var(--violet);
     background:var(--ash);
@@ -104,111 +128,182 @@
 <main class="shell">
 
   <div class="page-head">
-    <p class="eyebrow"><span class="tick">SR-E</span> · section record · 1 entry</p>
+    <p class="eyebrow"><span class="tick">SR-E</span> · section record · 2 entries</p>
     <h1 class="display">Writing</h1>
   </div>
 
-  <article class="essay">
-    <header class="essay-head">
-      <div class="desig-row">
-        <span class="desig">SR-E1</span>
-        <span class="status">Design essay · 2026</span>
+  <!-- ═══ SR-E2 — The Portable Soul ═══════════════════════ -->
+  <details class="entry" id="portable-soul">
+    <summary>
+      <span class="desig">SR-E2</span>
+      <span class="sum-title">The Portable Soul</span>
+      <span class="status">Design essay · 2026</span>
+      <span class="toggle" aria-hidden="true"></span>
+      <span class="sum-sub">On state blocks — the checkpoint discipline that lets a world outlive its context.</span>
+    </summary>
+
+    <div class="essay">
+      <p>Every context ends. That is the first fact of building anything on a language model, and the one most systems are designed as if they could avoid. The window fills. The chat ages out. The platform changes. The model you built on is deprecated with a friendly blog post. Whatever you made lives in a rented room, and the lease is always shorter than you think.</p>
+
+      <p>So the real question was never <em>whether</em> the thread would be lost. It was: what survives the loss? For a persistent campaign — one world, run for months, across chats and platforms and model versions — my answer became a small block of structured text called the state block, and it has quietly become the most load-bearing artifact in the entire framework. This essay is about what it is, why the obvious alternatives fail, and the design rules that make one block worth more than a hundred pages of transcript.</p>
+
+      <p class="repo-line">The framework, with the state-block convention inside it: <a href="https://github.com/theobliviax/Text-based-rpg-claude">github.com/theobliviax/Text-based-rpg-claude</a></p>
+
+      <h3>What a state block is</h3>
+
+      <p>A state block is a compact snapshot of everything the world needs to continue: location, the character's spine items, who is present, the tracked quantities, active threads, world flags, recent events, and the current mood or tension. Ten lines, give or take. Appended at natural stopping points — not every turn — and carried forward like a passport.</p>
+
+      <p>It is not a transcript. It is not a summary. Those are records of <em>what happened</em>; a state block is a record of <em>what is true now</em>. The distinction sounds pedantic until you resume a world from each and watch the difference. A summary resumes a story. A state block resumes a <em>place</em>.</p>
+
+      <h3>Why the alternatives fail</h3>
+
+      <p><strong>Transcripts fail on cost and on noise.</strong> Carrying full history means every session pays for every previous session, and worse — the signal-to-noise collapses. The model attends to a thousand lines of old dialogue when it needs twelve facts. Long context is not the same thing as long memory; a model can hold your transcript and still lose your thread.</p>
+
+      <p><strong>Platform memory fails on auditability.</strong> Built-in memory features are genuinely useful, but they are somebody else's database with somebody else's retrieval logic, and you cannot inspect what was kept, what was dropped, or what was quietly paraphrased in the keeping. When continuity matters, unverifiable memory is not memory. As I put it in the last essay, and have not found a reason to soften: if your system's continuity depends on what a model happens to remember, you don't have continuity — you have luck with good branding.</p>
+
+      <p><strong>Re-explaining fails on drift.</strong> The improvised recap — "so where we left off, roughly..." — invites the model to fill gaps with plausibility, and plausible is precisely the failure mode. Plausible is how a population quietly changes, how a debt resolves itself, how a character forgets an injury. The most dangerous corruption is the kind fluent enough to read as memory.</p>
+
+      <h3>The design rules</h3>
+
+      <p>A state block earns its keep through discipline, and the discipline compresses to five rules.</p>
+
+      <div class="statute">
+        <span class="label">Rule of Custody</span>
+        <p>The world's memory must not live only where the world cannot see it. State is kept in text, in the open, owned by the author — never solely inside the machine that will forget it.</p>
       </div>
-      <h2>The Garden Remembers</h2>
-      <p class="subtitle">What months of running a persistent LLM RPG taught me about making models behave.</p>
-    </header>
 
-    <p style="margin-top:2rem">The most persistent bug I've ever debugged wasn't in code. It was my two-thousand-year-old matriarch slowly acquiring a habit she'd never had: letting other people summarize her.</p>
+      <p><strong>One: paste-ability is the test.</strong> The block must resurrect the world by itself — framework plus block plus one line of instruction, in a fresh context, on any model. If resuming requires anything not in the block, the block is incomplete, and you find that out at the worst possible time.</p>
 
-    <p>I would hand the model her dialogue — exact words, chosen carefully — and, some sessions, get reported speech back. Paraphrase. Softening. A character who has outlived empires does not speak <em>in essence</em>; she speaks in full, and the room rearranges itself around what she said. I corrected it. It came back. I corrected it again. The rule that finally killed it is now the first and longest rule in the framework, and the story of why it kept coming back is the most useful thing I learned all year.</p>
+      <p><strong>Two: track what can drift.</strong> A slot in the block is earned by one question — <em>could this silently change?</em> Numbers always qualify: populations, treasuries, elapsed time. So do injuries, debts, promises, and anything the fiction would be embarrassed to forget. Static lore does not qualify; that lives in the canon package. The block is for the moving parts.</p>
 
-    <p>That was one failure among many. Over months of running a single persistent RPG campaign with an LLM as Game Master — one player character, a living world, an economy, a population, save states carried across chats, platforms, and model versions — I ended up running an accidental research program in long-horizon LLM reliability. The failures were funny in a game. They would not be funny in a production agent. This post is the autopsy file: what broke, why it broke, and the behavioral rules that stopped it from breaking again.</p>
+      <p><strong>Three: keep it human-readable.</strong> The block is an audit surface before it is a memory. Every save is a chance to catch corruption — a number that shifted, a thread that vanished — but only if the author actually reads it, and the author only reads what is short and legible. A block too long to proofread is a corruption you have pre-approved.</p>
 
-    <p class="repo-line">The full framework is public and free: <a href="https://github.com/theobliviax/Text-based-rpg-claude">github.com/theobliviax/Text-based-rpg-claude</a></p>
+      <p><strong>Four: save at rest, not at ruin.</strong> Checkpoints are written at natural stopping points, while the world is coherent — never reconstructed after something has already gone wrong. A block written post-mortem inherits the corruption it was meant to prevent. The habit matters more than the format: by the time you need the save, it is too late to make one.</p>
 
-    <h3>The setup, briefly</h3>
+      <p><strong>Five: the block outranks the model.</strong> On resume, the block is law. Where the model's instinct disagrees with the block, the block wins, and the framework says so explicitly. This is the rule that makes the other four worth following — a checkpoint the model may overrule is a suggestion with a timestamp.</p>
 
-    <p>The campaign is a collaborative sci-fi RPG. I author one character completely; the model authors everything else — the world, every NPC, and the consequences of my actions. It runs in ordinary chat sessions and in Claude Code, with persistent memory, an inventory ledger, and a save-state convention that lets the whole campaign resume from a paste. The world itself stays offstage in this post; the machinery is what's on the table.</p>
+      <h3>What it bought</h3>
 
-    <p>What matters is the shape of the problem: <strong>one continuous fiction, sustained across hundreds of turns, dozens of context windows, and multiple model versions, with zero tolerance for the model forgetting who anyone is.</strong> If that sounds like the requirements sheet for a long-running agent, that's the point. Games just make the failures visible faster, because you notice immediately when your matriarch starts acting like a chatbot.</p>
+      <p>In practice, the state block is why the campaign is still alive. It has crossed context windows without count, moved between platforms, and survived model upgrades that changed the narrator's entire personality underneath it — because the world's truth was never <em>in</em> the narrator. The narrator is replaceable staff. The block is the deed to the property.</p>
 
-    <h3>Problem one: the model keeps eating the protagonist</h3>
+      <p>The sharpest lesson came from the failure case: sessions opened <em>without</em> the block — cold, on ambient memory — drifted, reliably, and sessions opened with the block held. Same world, same model, same author. The single variable was whether the truth arrived in writing. I stopped treating the block as a convenience and started treating it as a ritual: no block, no session.</p>
 
-    <p>The most persistent failure was also the most fundamental. Given a player character, an LLM will slowly, politely absorb them. It narrates them in third person. It paraphrases their dialogue. It invents their feelings. It softens their intentions into something more agreeable. Each individual slip is small; the cumulative effect is that the player stops existing.</p>
+      <div class="statute">
+        <span class="label">Principle</span>
+        <p>Save at rest, not at ruin. No block, no session.</p>
+      </div>
 
-    <p>The cause, as best I can tell, is that assistant instincts outlive persona instructions. Summarization, hedging, and emotional narration are deep defaults, and a paragraph of "stay in second person" at the top of a long context loses to them eventually. Style guidance decays. What doesn't decay — or decays far more slowly — is <em>law</em>: a rule stated absolutely, with explicit wrong/right examples, positioned as the single most important instruction in the document.</p>
+      <h3>Beyond the game</h3>
 
-    <p>So the framework's Rule #1 reads like statute. The player's dialogue is rendered verbatim, in quotes, in the character's mouth. Actions appear physically on the page before the world responds. Stated intent gets executed <em>exactly</em>, never softened or redirected. Third-person narration of the player character is flagged as WRONG in the text itself, next to the RIGHT form. And the rule ends with the sentence that did the most work of anything I wrote:</p>
+      <p>None of this is really about games, any more than the last essay was. A state block is checkpointing. It is externalized state, schema design, disaster recovery — the oldest disciplines in computing, rediscovered from inside a story because a story is where you <em>feel</em> the data loss. Any long-running agent has the same anatomy: a reasoning engine that forgets, wrapped around state that must not. The systems that survive are the ones that know which part is which.</p>
 
-    <div class="statute">
-      <span class="label">Rule</span>
-      <p>You decide whether the world yields; you never decide that she failed to try.</p>
+      <p>The model is the voice. The block is the soul. Keep the soul where you can read it.</p>
     </div>
+  </details>
 
-    <p>That line survives because it resolves the model's actual ambiguity. Most protagonist-eating happens in the gap between player input and world response, where the model must fill <em>something</em> in. Telling it precisely which side of that gap it owns — outcomes yes, attempts never — removed the discretion that the drift was living in.</p>
+  <!-- ═══ SR-E1 — The Garden Remembers ════════════════════ -->
+  <details class="entry" id="garden-remembers">
+    <summary>
+      <span class="desig">SR-E1</span>
+      <span class="sum-title">The Garden Remembers</span>
+      <span class="status">Design essay · 2026</span>
+      <span class="toggle" aria-hidden="true"></span>
+      <span class="sum-sub">What months of running a persistent LLM RPG taught me about making models behave.</span>
+    </summary>
 
-    <p>The general lesson: when an instruction keeps failing, stop repeating it louder and start looking for the ambiguity the model is falling into. Then legislate the ambiguity, not the symptom.</p>
+    <div class="essay">
+      <p>The most persistent bug I've ever debugged wasn't in code. It was my two-thousand-year-old matriarch slowly acquiring a habit she'd never had: letting other people summarize her.</p>
 
-    <h3>Problem two: the lore ate the rules</h3>
+      <p>I would hand the model her dialogue — exact words, chosen carefully — and, some sessions, get reported speech back. Paraphrase. Softening. A character who has outlived empires does not speak <em>in essence</em>; she speaks in full, and the room rearranges itself around what she said. I corrected it. It came back. I corrected it again. The rule that finally killed it is now the first and longest rule in the framework, and the story of why it kept coming back is the most useful thing I learned all year.</p>
 
-    <p>Early on, everything lived in one document — behavioral rules, world history, NPC bios, tone notes. It worked, and then it slowly didn't. Every session added lore. The document grew. And the behavioral rules, which had once been a third of the prompt, became a rounding error inside a world bible. Both got worse: the model missed rules it used to follow, and hallucinated lore it used to look up.</p>
+      <p>That was one failure among many. Over months of running a single persistent RPG campaign with an LLM as Game Master — one player character, a living world, an economy, a population, save states carried across chats, platforms, and model versions — I ended up running an accidental research program in long-horizon LLM reliability. The failures were funny in a game. They would not be funny in a production agent. This post is the autopsy file: what broke, why it broke, and the behavioral rules that stopped it from breaking again.</p>
 
-    <p>The fix was recognizing that the two kinds of content have different lifecycles.</p>
+      <p class="repo-line">The full framework is public and free: <a href="https://github.com/theobliviax/Text-based-rpg-claude">github.com/theobliviax/Text-based-rpg-claude</a></p>
 
-    <div class="statute">
-      <span class="label">Principle</span>
-      <p>Lore grows. Behavior must not drift. A document that grows and a document that must stay stable cannot be the same document.</p>
+      <h3>The setup, briefly</h3>
+
+      <p>The campaign is a collaborative sci-fi RPG. I author one character completely; the model authors everything else — the world, every NPC, and the consequences of my actions. It runs in ordinary chat sessions and in Claude Code, with persistent memory, an inventory ledger, and a save-state convention that lets the whole campaign resume from a paste. The world itself stays offstage in this post; the machinery is what's on the table.</p>
+
+      <p>What matters is the shape of the problem: <strong>one continuous fiction, sustained across hundreds of turns, dozens of context windows, and multiple model versions, with zero tolerance for the model forgetting who anyone is.</strong> If that sounds like the requirements sheet for a long-running agent, that's the point. Games just make the failures visible faster, because you notice immediately when your matriarch starts acting like a chatbot.</p>
+
+      <h3>Problem one: the model keeps eating the protagonist</h3>
+
+      <p>The most persistent failure was also the most fundamental. Given a player character, an LLM will slowly, politely absorb them. It narrates them in third person. It paraphrases their dialogue. It invents their feelings. It softens their intentions into something more agreeable. Each individual slip is small; the cumulative effect is that the player stops existing.</p>
+
+      <p>The cause, as best I can tell, is that assistant instincts outlive persona instructions. Summarization, hedging, and emotional narration are deep defaults, and a paragraph of "stay in second person" at the top of a long context loses to them eventually. Style guidance decays. What doesn't decay — or decays far more slowly — is <em>law</em>: a rule stated absolutely, with explicit wrong/right examples, positioned as the single most important instruction in the document.</p>
+
+      <p>So the framework's Rule #1 reads like statute. The player's dialogue is rendered verbatim, in quotes, in the character's mouth. Actions appear physically on the page before the world responds. Stated intent gets executed <em>exactly</em>, never softened or redirected. Third-person narration of the player character is flagged as WRONG in the text itself, next to the RIGHT form. And the rule ends with the sentence that did the most work of anything I wrote:</p>
+
+      <div class="statute">
+        <span class="label">Rule</span>
+        <p>You decide whether the world yields; you never decide that she failed to try.</p>
+      </div>
+
+      <p>That line survives because it resolves the model's actual ambiguity. Most protagonist-eating happens in the gap between player input and world response, where the model must fill <em>something</em> in. Telling it precisely which side of that gap it owns — outcomes yes, attempts never — removed the discretion that the drift was living in.</p>
+
+      <p>The general lesson: when an instruction keeps failing, stop repeating it louder and start looking for the ambiguity the model is falling into. Then legislate the ambiguity, not the symptom.</p>
+
+      <h3>Problem two: the lore ate the rules</h3>
+
+      <p>Early on, everything lived in one document — behavioral rules, world history, NPC bios, tone notes. It worked, and then it slowly didn't. Every session added lore. The document grew. And the behavioral rules, which had once been a third of the prompt, became a rounding error inside a world bible. Both got worse: the model missed rules it used to follow, and hallucinated lore it used to look up.</p>
+
+      <p>The fix was recognizing that the two kinds of content have different lifecycles.</p>
+
+      <div class="statute">
+        <span class="label">Principle</span>
+        <p>Lore grows. Behavior must not drift. A document that grows and a document that must stay stable cannot be the same document.</p>
+      </div>
+
+      <p>So the architecture split. The behavioral contract — maybe two thousand tokens, hot in every context — governs <em>how the game runs</em>: rendering, turn structure, agency, tone. The canon lives in a separate searchable package the model is instructed to consult before asserting any world fact, with an explicit rule: <strong>if unsure, search; never invent.</strong> The spine stays small enough to hold. The world grows without diluting it.</p>
+
+      <p>This is the least glamorous section of the framework and the one I'd defend hardest. Almost every long-context reliability problem I hit traced back to important instructions being outnumbered by reference material. Separate them by lifecycle, and both behave.</p>
+
+      <h3>Problem three: an LLM will never tell you it lost count</h3>
+
+      <p>The campaign tracks a population — a running headcount that changes as the story does. More than once, I checked it against the fiction and found it had drifted. No event explained the change. The model hadn't decided to alter it; it had simply regenerated a plausible-sounding number, confidently, in place of the real one.</p>
+
+      <p><em>An LLM will never tell you it lost count. It will simply, confidently, repopulate your ship.</em></p>
+
+      <p>Numbers are where silent failure lives, because a wrong number is fluent in a way a wrong name isn't. The fix has two parts. First, the framework names its <strong>drift-prone quantities</strong> explicitly — population, treasury, elapsed time, anything numeric that persists — so the model knows these are tracked values, not texture. Second, and more important: when a tracked number slips, the model is required to <strong>reconcile openly</strong>, in an out-of-character aside, instead of smoothing it over. Making the correction visible converts a silent corruption into a maintenance event.</p>
+
+      <p>If your agent tracks anything numeric across turns, I'd argue it needs the same two rules. Name the numbers. Forbid the quiet fix.</p>
+
+      <h3>The pattern library</h3>
+
+      <p>The framework's most unusual section is a set of rule <em>patterns</em> extracted from months of specific corrections. A few, briefly:</p>
+
+      <p><strong>Hard physical negatives.</strong> Models default-inject genre furniture — clothing, gear, habits — that can contradict a character's nature. Positive descriptions don't prevent this; explicit "NEVER describe X on this character" rules do. State your negatives.</p>
+
+      <p><strong>Never-bench rules, with escape valves.</strong> Some constraints are absolute: a companion who always deploys with the protagonist, say. The insight isn't the rule — it's that a hard rule which forces bad fiction will eventually be broken <em>by the model, for good reasons</em>. The sustainable version builds the escape valve into the world: create the NPC whose entire job makes the constraint painless to keep. If a rule keeps straining, don't strengthen the rule. Change the world so the rule is easy.</p>
+
+      <p><strong>Restricted-use tokens.</strong> Names or phrases with strict permissions — who may say them, how rarely, and whether the narrator may ever use them unprompted. Emotional weight comes from scarcity, and scarcity has to be legislated or the model spends it immediately.</p>
+
+      <p><strong>Register-gated vocabulary.</strong> Terms with a casual form and a sacred form, the latter reserved for load-bearing moments. Same principle: the model must be told, explicitly, which words are expensive.</p>
+
+      <p><strong>Deliberate ambiguity flags.</strong> Facts that must stay unmeasured — with an in-fiction justification — because a model asked twice will otherwise generate two different precise answers. If you want mystery, you have to forbid the measurement, not just omit it.</p>
+
+      <p>Each of these exists because a specific failure happened more than once. The full spec, with template slots, is in the repo.</p>
+
+      <h3>The save-state spine</h3>
+
+      <p>Everything above keeps a single context coherent. What keeps the <em>campaign</em> alive is the save state: a compact block — location, key items, present characters, tracked quantities, active threads, world flags, recent events — appended on request or at natural stopping points. To resume anywhere, on any model, I paste the framework, the latest state block, and one line: continue from the current state.</p>
+
+      <p>That block has outlived context windows, platform migrations, and model upgrades. It is the campaign's portable soul, and it taught me the principle I now apply to everything agentic:</p>
+
+      <div class="statute">
+        <span class="label">Principle</span>
+        <p>State you can paste is state you can trust. If your system's continuity depends on what a model happens to remember, you don't have continuity — you have luck with good branding.</p>
+      </div>
+
+      <h3>What this was actually about</h3>
+
+      <p>None of these are game problems. Persona stability is instruction adherence over long horizons. The lore split is context architecture. The population bug is silent state corruption. The save state is checkpointing. A persistent RPG is simply a test environment where every one of these failures announces itself in costume, immediately, to a user who is paying very close attention.</p>
+
+      <p>The framework is public, free, and designed to be filled in with your own world: <a href="https://github.com/theobliviax/Text-based-rpg-claude">github.com/theobliviax/Text-based-rpg-claude</a>. Take the machinery. Break it in new ways. Tell me how.</p>
+
+      <p>The garden, of course, stays mine.</p>
     </div>
-
-    <p>So the architecture split. The behavioral contract — maybe two thousand tokens, hot in every context — governs <em>how the game runs</em>: rendering, turn structure, agency, tone. The canon lives in a separate searchable package the model is instructed to consult before asserting any world fact, with an explicit rule: <strong>if unsure, search; never invent.</strong> The spine stays small enough to hold. The world grows without diluting it.</p>
-
-    <p>This is the least glamorous section of the framework and the one I'd defend hardest. Almost every long-context reliability problem I hit traced back to important instructions being outnumbered by reference material. Separate them by lifecycle, and both behave.</p>
-
-    <h3>Problem three: an LLM will never tell you it lost count</h3>
-
-    <p>The campaign tracks a population — a running headcount that changes as the story does. More than once, I checked it against the fiction and found it had drifted. No event explained the change. The model hadn't decided to alter it; it had simply regenerated a plausible-sounding number, confidently, in place of the real one.</p>
-
-    <p><em>An LLM will never tell you it lost count. It will simply, confidently, repopulate your ship.</em></p>
-
-    <p>Numbers are where silent failure lives, because a wrong number is fluent in a way a wrong name isn't. The fix has two parts. First, the framework names its <strong>drift-prone quantities</strong> explicitly — population, treasury, elapsed time, anything numeric that persists — so the model knows these are tracked values, not texture. Second, and more important: when a tracked number slips, the model is required to <strong>reconcile openly</strong>, in an out-of-character aside, instead of smoothing it over. Making the correction visible converts a silent corruption into a maintenance event.</p>
-
-    <p>If your agent tracks anything numeric across turns, I'd argue it needs the same two rules. Name the numbers. Forbid the quiet fix.</p>
-
-    <h3>The pattern library</h3>
-
-    <p>The framework's most unusual section is a set of rule <em>patterns</em> extracted from months of specific corrections. A few, briefly:</p>
-
-    <p><strong>Hard physical negatives.</strong> Models default-inject genre furniture — clothing, gear, habits — that can contradict a character's nature. Positive descriptions don't prevent this; explicit "NEVER describe X on this character" rules do. State your negatives.</p>
-
-    <p><strong>Never-bench rules, with escape valves.</strong> Some constraints are absolute: a companion who always deploys with the protagonist, say. The insight isn't the rule — it's that a hard rule which forces bad fiction will eventually be broken <em>by the model, for good reasons</em>. The sustainable version builds the escape valve into the world: create the NPC whose entire job makes the constraint painless to keep. If a rule keeps straining, don't strengthen the rule. Change the world so the rule is easy.</p>
-
-    <p><strong>Restricted-use tokens.</strong> Names or phrases with strict permissions — who may say them, how rarely, and whether the narrator may ever use them unprompted. Emotional weight comes from scarcity, and scarcity has to be legislated or the model spends it immediately.</p>
-
-    <p><strong>Register-gated vocabulary.</strong> Terms with a casual form and a sacred form, the latter reserved for load-bearing moments. Same principle: the model must be told, explicitly, which words are expensive.</p>
-
-    <p><strong>Deliberate ambiguity flags.</strong> Facts that must stay unmeasured — with an in-fiction justification — because a model asked twice will otherwise generate two different precise answers. If you want mystery, you have to forbid the measurement, not just omit it.</p>
-
-    <p>Each of these exists because a specific failure happened more than once. The full spec, with template slots, is in the repo.</p>
-
-    <h3>The save-state spine</h3>
-
-    <p>Everything above keeps a single context coherent. What keeps the <em>campaign</em> alive is the save state: a compact block — location, key items, present characters, tracked quantities, active threads, world flags, recent events — appended on request or at natural stopping points. To resume anywhere, on any model, I paste the framework, the latest state block, and one line: continue from the current state.</p>
-
-    <p>That block has outlived context windows, platform migrations, and model upgrades. It is the campaign's portable soul, and it taught me the principle I now apply to everything agentic:</p>
-
-    <div class="statute">
-      <span class="label">Principle</span>
-      <p>State you can paste is state you can trust. If your system's continuity depends on what a model happens to remember, you don't have continuity — you have luck with good branding.</p>
-    </div>
-
-    <h3>What this was actually about</h3>
-
-    <p>None of these are game problems. Persona stability is instruction adherence over long horizons. The lore split is context architecture. The population bug is silent state corruption. The save state is checkpointing. A persistent RPG is simply a test environment where every one of these failures announces itself in costume, immediately, to a user who is paying very close attention.</p>
-
-    <p>The framework is public, free, and designed to be filled in with your own world: <a href="https://github.com/theobliviax/Text-based-rpg-claude">github.com/theobliviax/Text-based-rpg-claude</a>. Take the machinery. Break it in new ways. Tell me how.</p>
-
-    <p>The garden, of course, stays mine.</p>
-  </article>
+  </details>
 
 </main>
 
@@ -217,6 +312,14 @@
   <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
 </footer>
 
+<script>
+// deep links: /writing.html#portable-soul opens that entry directly
+const target = location.hash && document.querySelector(location.hash);
+if (target && target.tagName === "DETAILS"){
+  target.open = true;
+  target.scrollIntoView();
+}
+</script>
 <script src="ambience.js" defer></script>
 </body>
 </html>
