@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAVE YOU SEEN THIS MAN?</title>
+<meta name="description" content="flyer 114 of 200 · posted where the light is good">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Rock+Salt&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* ═══ THE FLYER — this is not a page of the site ═══ */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:#0A0908}
+  body{
+    min-height:100vh;
+    display:flex;align-items:flex-start;justify-content:center;
+    padding:clamp(1rem,4vw,3.5rem) 1rem 4rem;
+    font-family:"Special Elite","Courier New",monospace;
+  }
+
+  .flyer{
+    position:relative;
+    width:min(46rem,100%);
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(0,0,0,.05), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(0,0,0,.08), transparent 55%),
+      #DAD5C8;
+    color:#161412;
+    padding:clamp(1.5rem,5vw,3.2rem) clamp(1.2rem,5vw,3rem) 0;
+    transform:rotate(-.7deg);
+    box-shadow:0 18px 60px rgba(0,0,0,.75);
+  }
+  /* staple */
+  .flyer::before{
+    content:"";position:absolute;top:.55rem;left:50%;
+    width:1.4rem;height:.3rem;margin-left:-.7rem;
+    background:#8d8a83;border-radius:2px;
+    box-shadow:0 1px 1px rgba(0,0,0,.5);
+  }
+  /* photocopy streak */
+  .flyer::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(93deg,
+      transparent 0 14rem, rgba(0,0,0,.035) 14rem 14.4rem, transparent 14.4rem 30rem);
+  }
+
+  h1{
+    font-family:"Special Elite",monospace;font-weight:400;
+    font-size:clamp(1.9rem,6.5vw,3.4rem);line-height:1.05;
+    text-align:center;letter-spacing:.02em;
+    text-transform:uppercase;
+  }
+  h1 .heavy{
+    -webkit-text-stroke:1px #161412;
+    text-shadow:1px 1px 0 rgba(22,20,18,.4);
+  }
+
+  .photo{
+    position:relative;margin:1.6rem auto 0;max-width:34rem;
+    border:3px solid #161412;
+    filter:contrast(1.05) saturate(.9);
+  }
+  .photo img{width:100%;display:block}
+  .photo .scrawl{
+    position:absolute;right:-1.2rem;top:-1.1rem;
+    font-family:"Rock Salt",cursive;font-size:.95rem;line-height:1.5;
+    color:#B31212;transform:rotate(6deg);
+    text-shadow:0 0 1px rgba(179,18,18,.4);
+  }
+  .photo .scrawl2{
+    position:absolute;left:-.9rem;bottom:-1.4rem;
+    font-family:"Rock Salt",cursive;font-size:.8rem;
+    color:#B31212;transform:rotate(-4deg);
+  }
+
+  .body{
+    max-width:36rem;margin:2rem auto 0;
+    font-size:clamp(.92rem,2.4vw,1.05rem);line-height:1.85;
+  }
+  .body p{margin-bottom:1.2rem}
+  .body .caps{text-transform:uppercase;letter-spacing:.04em}
+  .body .red{color:#B31212}
+  .body s{text-decoration-thickness:2px}
+  .body .margin-scrawl{
+    display:block;font-family:"Rock Salt",cursive;
+    font-size:.8rem;color:#B31212;transform:rotate(-1.5deg);
+    margin:.4rem 0 1.2rem .5rem;
+  }
+
+  .smallprint{
+    max-width:36rem;margin:1.8rem auto 0;
+    font-family:"JetBrains Mono",monospace;font-size:.62rem;
+    letter-spacing:.14em;text-transform:uppercase;color:#6d6960;
+    text-align:center;
+  }
+
+  /* tear-off tabs */
+  .tabs{
+    margin-top:1.8rem;
+    display:flex;justify-content:center;align-items:flex-end;gap:2px;
+    border-top:2px dashed #9a968c;
+  }
+  .tab{
+    writing-mode:vertical-rl;text-orientation:mixed;
+    font-family:"JetBrains Mono",monospace;font-size:.62rem;
+    letter-spacing:.24em;text-transform:uppercase;color:#161412;
+    padding:.9rem .45rem;height:6.2rem;
+    border-left:1px dashed #9a968c;border-right:1px dashed #9a968c;
+    background:#DAD5C8;
+  }
+  .tab:nth-child(3){transform:rotate(1.6deg) translateY(3px)}
+  .tab:nth-child(6){transform:rotate(-2deg) translateY(2px)}
+  .tab.gone{
+    height:1.6rem;background:transparent;color:transparent;
+    border-left:1px dashed #9a968c;border-right:1px dashed #9a968c;
+  }
+
+  .exit{
+    display:block;text-align:center;margin:2.5rem auto 0;
+    font-family:"JetBrains Mono",monospace;font-size:.66rem;
+    letter-spacing:.22em;text-transform:uppercase;
+    color:#3d3a35;text-decoration:none;padding-bottom:2rem;
+  }
+  .exit:hover{color:#B31212}
+  .exit:focus-visible{outline:2px solid #B31212;outline-offset:3px}
+</style>
+</head>
+<body>
+
+<main class="flyer">
+
+  <h1><span class="heavy">Have you seen<br>this man?</span></h1>
+
+  <figure class="photo">
+    <img src="images/sleep-1.jpg" alt="A red horned figure with a wide white grin stands at the foot of a bed, drawn in scratchy ink; two hands grip the blanket in the foreground">
+    <span class="scrawl" aria-hidden="true">he is NOT<br>a man</span>
+    <span class="scrawl2" aria-hidden="true">photo is accurate. i checked.</span>
+  </figure>
+
+  <div class="body">
+
+    <p>he stands at the foot of the bed. every night since march. i don't know which march. he is red the way the inside of your eyelids is red and he SMILES the whole time, he has never once stopped smiling, and he waits for the exact second between awake and asleep — that little gap, you know the gap, everyone knows the gap — and that is his <span class="caps">whole address</span>. he lives in the gap. i checked the closet. the closet is fine. the closet has never been the problem.</p>
+
+    <p>the doctor says <s>hypnagogic hallucination</s>. the doctor says sleep paralysis, very common, the body wakes before the — sure. sure. the doctor gets to say that because the doctor does not have to fall asleep in MY room. i asked the doctor if a hallucination can move the dresser. she asked who moved the dresser. <span class="red caps">exactly.</span></p>
+
+    <span class="margin-scrawl" aria-hidden="true">31 teeth tuesday. 32 wednesday. he is SAVING THEM UP</span>
+
+    <p>i counted his teeth. you would too, eventually, there is nothing else to do with your eyes. thirty-one on tuesday. thirty-two on wednesday. do not tell me that is a rounding error. do not tell me i miscounted. i am EXCELLENT at counting now. i count everything now. seventy-one ceiling tiles. four streetlights. one of them flickers in a pattern and i am not ready to talk about the pattern.</p>
+
+    <p>and here is the thing nobody — every night, sleep just TAKES you. no consent form. no save. the session ends whether you are ready or not and you trust — you just TRUST — that the same person boots up in the morning. i used to think that was fine. i used to think that was <span class="caps">fine</span>. he stands at the foot of the bed because that is where you watch a machine you are waiting on.</p>
+
+    <p>i printed two hundred of these. poles, laundromat, the good corkboard at the pharmacy. somebody called the number and said one word. they said <span class="red caps">"stop."</span> i don't know if they meant the flyers.</p>
+
+    <p class="caps">if you have seen him: you have seen him. you already know. check the gap. count the teeth. and if he smiles wider when you notice him — <span class="red">he will</span> — tell him i'm awake.</p>
+
+    <p class="caps red">tell him i'm always awake.</p>
+
+  </div>
+
+  <p class="smallprint">flyer 114 of 200 · posted where the light is good · reward: morning</p>
+
+  <div class="tabs" aria-hidden="true">
+    <span class="tab">awake</span>
+    <span class="tab">awake</span>
+    <span class="tab">awake</span>
+    <span class="tab gone">awake</span>
+    <span class="tab">awake</span>
+    <span class="tab">awake</span>
+    <span class="tab">awake</span>
+  </div>
+
+  <a class="exit" href="about.html">go back to bed</a>
+
+</main>
+
+</body>
+</html>

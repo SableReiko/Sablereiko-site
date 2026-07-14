@@ -28,6 +28,12 @@
 
   .record-body{max-width:42rem}
 
+  /* trapdoor: looks like plain text until touched */
+  a.trap{color:inherit;border-bottom:none}
+  a.trap:hover,a.trap:focus-visible{
+    color:#FF3131;text-shadow:0 0 12px rgba(255,49,49,.55);outline:none;
+  }
+
   .motion-plate{margin:1.8rem 0 0}
   .motion-plate .fracture{background:var(--ash)}
   .motion-plate video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:saturate(.92)}
@@ -121,7 +127,7 @@
       <p class="field"><b>DESIGNATION</b> — Sable Reiko</p>
       <p class="field"><b>FILED FROM</b> — the Arizona desert, USA</p>
       <p class="field"><b>DISCIPLINE</b> — worlds, hulls, statutes</p>
-      <p class="field"><b>HOURS</b> — waking to sleep, when a world is close to holding</p>
+      <p class="field"><b>HOURS</b> — waking to <a class="trap" href="thisman.html">sleep</a>, when a world is close to holding</p>
     </div>
 
     <h3>Provenance</h3>
