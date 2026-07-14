@@ -12,23 +12,36 @@
 <meta property="og:title" content="Chrome — Sable Reiko">
 <meta property="og:description" content="The unfiled record: flesh for chrome, the upload, the copy problem, escape velocity. The dream is ridiculous. The dream is load-bearing. Both entries are current.">
 <meta property="og:url" content="https://sablereiko.com/chrome.html">
-<meta property="og:image" content="https://sablereiko.com/images/author-02.jpg">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://sablereiko.com/images/mindfuck-1.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Chrome — Sable Reiko">
 <meta name="twitter:description" content="The unfiled record: flesh for chrome, the upload, the copy problem, escape velocity.">
-<meta name="twitter:image" content="https://sablereiko.com/images/author-02.jpg">
+<meta name="twitter:image" content="https://sablereiko.com/images/mindfuck-1.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* ── the unfiled record: this page is allowed to shake ── */
+  /* ═══ THE UNFILED RECORD — full red takeover ═══
+     This page overrides the registry's accent at the root:
+     every inherited component — nav, links, focus rings,
+     the eyebrow tick — bleeds red here. The composure is
+     a property of the archive. This page is not in the
+     archive. */
+  :root{
+    --violet:#FF3131;            /* the infection: everything violet turns red */
+    --red:#FF3131;
+    --red-deep:#7A0E0E;
+    --red-glow:rgba(255,49,49,.55);
+  }
 
-  /* scanlines — the whole page is a degraded recording */
+  ::selection{background:#FF3131;color:#050505}
+
+  /* scanlines, faintly bloodshot */
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:3;
     background:repeating-linear-gradient(0deg,
-      rgba(236,233,227,.022) 0 1px, transparent 1px 3px);
+      rgba(255,49,49,.02) 0 1px, transparent 1px 3px);
   }
 
   .page-head{padding:clamp(2.5rem,7vh,4rem) 0 0}
@@ -41,7 +54,7 @@
     font-size:clamp(3.6rem,13vw,8rem);line-height:.82;letter-spacing:.01em;
     color:var(--paper);margin:1.2rem 0 0;
     transform:rotate(-1.2deg);
-    text-shadow:3px 0 rgba(139,92,246,.5), -3px 0 rgba(236,233,227,.18);
+    text-shadow:3px 0 var(--red-glow), -3px 0 rgba(236,233,227,.18);
   }
 
   .manic{
@@ -50,19 +63,18 @@
     color:var(--paper);
     margin:4.5rem 0 0;max-width:44rem;
     transform:rotate(-.6deg);
-    text-shadow:2px 0 rgba(139,92,246,.35);
+    text-shadow:2px 0 rgba(255,49,49,.35);
   }
   .manic:nth-of-type(even){transform:rotate(.45deg)}
-  .manic .hot{color:var(--violet);text-shadow:0 0 18px rgba(139,92,246,.55)}
+  .manic .hot{color:var(--red);text-shadow:0 0 18px var(--red-glow)}
   .manic em{font-style:italic}
 
   .crash{
     font-family:var(--mono);font-size:.84rem;line-height:2;
     letter-spacing:.05em;color:#5B5862;
     max-width:30rem;margin:2.6rem 0 0 auto;
-    transform:none;
   }
-  .crash s{color:#454249;text-decoration-color:rgba(139,92,246,.5)}
+  .crash s{color:#454249;text-decoration-color:rgba(255,49,49,.5)}
 
   .flick{animation:flick 6s steps(1) infinite}
   .flick2{animation:flick 9s steps(1) infinite;animation-delay:2.3s}
@@ -79,16 +91,35 @@
 
   .tape{
     margin:4.5rem 0 0;padding-top:.8rem;
-    border-top:1px dashed rgba(139,92,246,.35);
+    border-top:1px dashed rgba(255,49,49,.4);
     font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;
-    text-transform:uppercase;color:#454249;
+    text-transform:uppercase;color:#5A3134;
   }
+
+  /* exhibits — the two plates, hung crooked */
+  .exhibit{
+    margin:4rem -6% 0;
+    border:1px solid rgba(255,49,49,.35);
+    background:#050505;
+    box-shadow:0 0 46px rgba(255,0,0,.14);
+  }
+  .exhibit.left{transform:rotate(-1.4deg)}
+  .exhibit.right{transform:rotate(1.1deg);margin-top:4.5rem}
+  .exhibit img{width:100%;display:block}
+  .exhibit figcaption{
+    display:flex;justify-content:space-between;gap:1rem;
+    padding:.6rem .9rem;
+    border-top:1px dashed rgba(255,49,49,.35);
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;
+    text-transform:uppercase;color:#8A4A4E;
+  }
+  @media (max-width:720px){.exhibit{margin-left:0;margin-right:0}}
 
   .closer-block{margin:5rem 0 2rem}
   .closer-block .a{
     font-family:var(--display);font-weight:700;text-transform:uppercase;
     font-size:clamp(1.8rem,4.5vw,2.7rem);line-height:1;color:var(--paper);
-    transform:rotate(-.5deg);text-shadow:2px 0 rgba(139,92,246,.4);
+    transform:rotate(-.5deg);text-shadow:2px 0 rgba(255,49,49,.4);
   }
   .closer-block .b{
     font-family:var(--mono);font-size:.84rem;letter-spacing:.06em;
@@ -96,8 +127,8 @@
   }
   .closer-block .c{
     font-family:var(--mono);font-size:.9rem;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--violet);margin-top:2.4rem;
-    text-shadow:0 0 14px rgba(139,92,246,.45);
+    text-transform:uppercase;color:var(--red);margin-top:2.4rem;
+    text-shadow:0 0 14px var(--red-glow);
   }
 </style>
 </head>
@@ -134,11 +165,21 @@
 
     <p class="manic">And the big dream — <span class="hot">say it</span> — pour the mind across. Out of the skull, into the frame, into the fleet, into the solar-powered dark overhead. A bigger, patient me in orbit, distributed, redundant, <span class="hot flick2">backed up</span>. State you can paste is state you can trust — I wrote that about a game. I meant it about <em>me</em>.</p>
 
+    <figure class="exhibit left">
+      <img src="images/mindfuck-2.jpg" alt="An android shell open at the crown, a brain suspended above it in red arcs of current, rows of skulls watching" loading="lazy">
+      <figcaption><span>Mindfuck — II</span><span>the procedure · unverified</span></figcaption>
+    </figure>
+
     <p class="crash">except. the copy problem. you already know it; i keep it framed on the about page like it's a hobby. maybe the thing that wakes up in the frame is radiant and grateful and exactly me. and maybe it is a perfect impression playing to an empty room. no test exists. no test <em>can</em> exist. "filed open, permanently, on purpose" — i wrote that too. it sounds much calmer than it feels at this hour.</p>
 
     <div class="tape">record integrity: degraded · continue anyway</div>
 
     <p class="manic">But listen — <span class="hot">escape velocity</span>. That's all it asks. One added year of road per year of driving and the horizon stops receding — the finish line turns around and starts <em>running toward you</em>. Every trial, every cleared plaque, every threaded electrode is the road crew working ahead of my headlights. I don't need forever handed to me. I need the pavement to outlast the car.</p>
+
+    <figure class="exhibit right">
+      <img src="images/mindfuck-1.jpg" alt="A wire-veined seraph with a red halo eye hangs in a gothic cathedral above a sea of reaching hands" loading="lazy">
+      <figcaption><span>Mindfuck — I</span><span>the congregation · unverified</span></figcaption>
+    </figure>
 
     <p class="crash">nobody credible bets on forever. i know the arithmetic; i asked for it myself, once, and got honesty back. an unaging body still meets a stray accident inside ten thousand years. fine. fine. i'll take the ten thousand. i'll take ten more good ones. i'll take <s>forever</s> more.</p>
 
@@ -157,6 +198,65 @@
   <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
 </footer>
 
-<script src="ambience.js" defer></script>
+<script>
+/* This page does not get the registry's falling ash.
+   It gets embers, and embers rise. */
+(function(){
+  "use strict";
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("aria-hidden","true");
+  Object.assign(canvas.style,{position:"fixed",inset:"0",pointerEvents:"none",zIndex:"-1"});
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  let W,H,embers;
+  function size(){
+    W = canvas.width = innerWidth;
+    H = canvas.height = innerHeight;
+    const n = Math.min(55, Math.max(20, Math.round(W/30)));
+    embers = Array.from({length:n}, newEmber);
+  }
+  function newEmber(){
+    return {
+      x: Math.random()*W, y: Math.random()*H,
+      r: .5 + Math.random()*1.6,
+      vy: .15 + Math.random()*.45,          // rising
+      drift: .4 + Math.random()*1.2,
+      phase: Math.random()*Math.PI*2,
+      wobble: .004 + Math.random()*.007,
+      a: .07 + Math.random()*.2,
+    };
+  }
+  let running = true, t = 0;
+  function frame(){
+    if(!running) return;
+    t++;
+    ctx.clearRect(0,0,W,H);
+    for(const e of embers){
+      e.y -= e.vy;
+      e.x += Math.sin(t*e.wobble + e.phase) * e.drift * .18;
+      if(e.y < -4){ e.y = H + 4; e.x = Math.random()*W; }
+      if(e.x > W+4) e.x = -4;
+      if(e.x < -4) e.x = W+4;
+      const pulse = e.a + Math.sin(t*.05 + e.phase)*.03;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.r, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(255,49,49," + Math.max(0, pulse) + ")";
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if(document.hidden){ running = false; }
+    else if(!running){ running = true; requestAnimationFrame(frame); }
+  });
+  let rt;
+  addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(size,150); }, {passive:true});
+  size();
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
