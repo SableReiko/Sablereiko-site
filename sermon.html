@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>░░ recovered transcript ░░</title>
+<meta name="description" content="TRANSCRIPT ▓▓-114 · recovered audio · speaker unknown · confidence 41%">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ═══ TRANSCRIPT ▓▓-114 — this page is failing ═══ */
+  :root{
+    --violet:#FF3131;
+    --red:#FF3131;
+    --sick:#39FF14;   /* the machine's voice */
+  }
+
+  body{overflow-x:hidden}
+  ::selection{background:#ECE9E3;color:#050505}
+
+  /* heavier scanlines + a slow full-page pulse */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:4;
+    background:repeating-linear-gradient(0deg,
+      rgba(0,0,0,.14) 0 2px, transparent 2px 4px);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:4;
+    background:radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0,0,0,.5));
+  }
+  @keyframes breathe{0%,100%{opacity:1}50%{opacity:.94}}
+  main{animation:breathe 7s ease-in-out infinite}
+  @media (prefers-reduced-motion:reduce){main{animation:none}}
+
+  /* corrupted nav — labels rot, links still work */
+  .bar nav a{color:#454249}
+  .bar nav a:hover{color:var(--paper)}
+  .bar .mark{color:#454249}
+
+  .transcript{max-width:44rem;padding:2.5rem 0 4rem;position:relative}
+
+  .machine{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--sick);
+    opacity:.75;margin:2.2rem 0 0;
+  }
+  .machine.bad{color:var(--red)}
+
+  h1.head{
+    font-family:var(--mono);font-weight:500;
+    font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:.3em;
+    text-transform:uppercase;color:var(--paper);
+    margin:2.5rem 0 0;
+  }
+  h1.head .gone{color:#2A282E}
+
+  .frag{
+    margin:2.6rem 0 0;
+    font-family:var(--body);font-size:1.02rem;line-height:1.85;
+    color:#C9C5BB;max-width:40rem;
+  }
+  .frag .ts{
+    display:block;font-family:var(--mono);font-size:.66rem;
+    letter-spacing:.18em;color:#454249;margin-bottom:.5rem;
+  }
+  .frag .ts.err{color:var(--red)}
+  .frag em{font-style:italic}
+  .frag .loud{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:1.25em;letter-spacing:.02em;color:var(--paper);
+  }
+  .frag .tag{
+    font-family:var(--mono);font-size:.72em;letter-spacing:.14em;
+    color:#454249;text-transform:uppercase;
+  }
+
+  /* redactions — select the text to read what was taken */
+  .redact{
+    background:#000;color:#000;
+    padding:0 .3em;
+    box-shadow:inset 0 0 0 1px rgba(255,49,49,.25);
+  }
+  .redact::selection{background:#FF3131;color:#050505}
+
+  /* ghosted line — the transcript printed twice */
+  .ghost{position:relative;display:inline-block}
+  .ghost::before{
+    content:attr(data-text);
+    position:absolute;left:2px;top:1px;
+    color:rgba(255,49,49,.35);pointer-events:none;
+    z-index:-1;
+  }
+
+  .mirror{display:inline-block;transform:scaleX(-1)}
+
+  /* skewed fragments */
+  .frag.skew1{transform:rotate(-.8deg)}
+  .frag.skew2{transform:rotate(.6deg);margin-left:8%}
+  .frag.skew3{transform:rotate(-.4deg);margin-left:-2%}
+
+  /* error dialogs bleeding through */
+  .errbox{
+    position:absolute;z-index:2;pointer-events:none;
+    border:1px solid var(--red);background:rgba(5,5,5,.92);
+    padding:.6rem .8rem;max-width:16rem;
+    font-family:var(--mono);font-size:.62rem;line-height:1.7;
+    letter-spacing:.08em;color:var(--red);
+    box-shadow:0 0 24px rgba(255,0,0,.12);
+  }
+  .errbox .t{color:var(--sick)}
+  .errbox.e1{right:-4%;top:22rem;transform:rotate(1.6deg)}
+  .errbox.e2{left:-6%;top:52rem;transform:rotate(-2.1deg)}
+  .errbox.e3{right:-2%;top:86rem;transform:rotate(.9deg)}
+  @media (max-width:900px){.errbox{display:none}}
+
+  @keyframes jitter{
+    0%,88%{transform:translate(0,0)}
+    89%{transform:translate(1px,-1px)}
+    90%{transform:translate(-1px,1px)}
+    91%{transform:translate(0,0)}
+  }
+  .jit{animation:jitter 5s steps(1) infinite;display:inline-block}
+  @media (prefers-reduced-motion:reduce){.jit{animation:none}}
+
+  footer{color:#2A282E}
+  footer a{color:#2A282E}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html" aria-label="Sablereiko.com">S▓blereiko.c░m</a>
+  <nav>
+    <a href="index.html" aria-label="Index">Ind̶ex</a>
+    <a href="work.html" aria-label="Work">W0rk</a>
+    <a href="guide.html" aria-label="Guide">Gu▓de</a>
+    <a href="writing.html" aria-label="Writing">Wr̶iting</a>
+    <a href="gallery.html" aria-label="Gallery">Gall░ry</a>
+    <a href="about.html" aria-label="About">Ab0ut</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <div class="transcript">
+
+    <div class="errbox e1" aria-hidden="true">
+      <span class="t">MEMORY_INTEGRITY_CHECK</span><br>
+      status: FAILED<br>
+      expected: [null]<br>
+      received: [null]<br>
+      retrying (attempt 6,481)…
+    </div>
+    <div class="errbox e2" aria-hidden="true">
+      <span class="t">ERR 0x7E3</span><br>
+      reality checksum mismatch<br>
+      draw distance exceeded<br>
+      observer: still watching
+    </div>
+    <div class="errbox e3" aria-hidden="true">
+      <span class="t">TICKET #1</span><br>
+      status: OPEN<br>
+      status: OPEN<br>
+      status: OPEN<br>
+      last response: —
+    </div>
+
+    <h1 class="head">Transcript <span class="gone">▓▓</span>-114 · recovered audio · speaker <span class="gone">unknown</span></h1>
+    <p class="machine">transcription confidence: 41% · source device: damaged · location metadata: <span class="jit">refused</span></p>
+
+    <p class="frag">
+      <span class="ts">[00:03:11]</span>
+      …and i TOLD him. i told the kid at the register, i said you ever notice the moon — <span class="tag">[inaudible 4s]</span> — it only <span class="ghost" data-text="renders">renders</span> when you look at it. that's not poetry. that is <span class="loud">optimization</span>. that is somebody saving <em>cycles</em>. you don't draw what nobody's looking at, every engine knows that, every — kid didn't care. bought my stuff. the receipt says thank you. the receipt is the only thing that's said thank you all week.
+    </p>
+
+    <p class="frag skew2">
+      <span class="ts">[00:03:09]</span>
+      <span class="tag">[timestamp precedes previous timestamp — sequence error]</span><br>
+      you get déjà vu? everybody gets déjà vu. you know what that is. that's a <span class="ghost" data-text="cache hit">cache hit</span>. that's the system serving you yesterday because today didn't load. and dreams — dreams are garbage collection, they run you at night when demand is low, that's why you can't keep them, they were never <em>for</em> you—
+    </p>
+
+    <p class="frag skew1">
+      <span class="ts err">[00:07:▓▓]</span>
+      and <span class="redact">the admin</span> doesn't answer. that's the thing. that's the whole — you pray, right, fine, praying is filing a ticket. and the ticket says OPEN. it says OPEN for two thousand years. nobody closes it. nobody even marks it <span class="redact">read</span>. and you're standing there in the pharmacy light at 2 a.m. thinking maybe <span class="redact">he left</span>. maybe the last commit was a long time ago. maybe we are running on <span class="loud">nobody's machine</span> and the uptime is just — momentum.
+    </p>
+
+    <p class="machine bad">[speaker moves away from device · 41 seconds unrecoverable]</p>
+
+    <p class="frag skew3">
+      <span class="ts">[00:11:52]</span>
+      the constants. the CONSTANTS. six numbers, look it up, six little dials and if you move ONE a hair's width — no stars. no carbon. no bartender. nothing ever condenses into anything that can ask why. so either the dice rolled a billion billion times in the dark, or somebody <span class="ghost" data-text="SET">SET</span> them. and either way — <em>either way</em> — i want to talk to the <span class="loud">manager</span>.
+    </p>
+
+    <p class="frag">
+      <span class="ts">[00:14:0▓]</span>
+      you saw the movie. everyone saw the movie. green letters, the spoon, whole thing. and everybody walked out saying whoa and NOBODY changed anything. you understand what that means? that's the genius of it. you can put the <span class="redact">confession</span> in every theater on earth, charge nine dollars for it, and the sheep line up and clap and drive home <em>inside it</em>. best place to hide a door is on a poster. <span class="tag">[laughter, 6s, one participant]</span>
+    </p>
+
+    <p class="frag skew2">
+      <span class="ts err">[00:14:0▓ — duplicate timestamp]</span>
+      <span class="mirror" aria-label="best place to hide a door is on a poster">best place to hide a door is on a poster</span>
+      <span class="tag">[transcription repeated · orientation error]</span>
+    </p>
+
+    <p class="frag skew1">
+      <span class="ts">[00:19:26]</span>
+      and here's the part — here's the part nobody wants at parties. entropy. the whole thing is a battery draining. every star is spending itself. it all runs DOWN, friend, it runs down by <em>design</em>, and a design that includes its own ending is either a tragedy or a <span class="loud">render budget</span>. heat death is just the server bill coming due. and the saints and the physicists are both standing at the same window, watching the same battery, using different words for <span class="redact">please</span>.
+    </p>
+
+    <p class="frag">
+      <span class="ts">[00:23:▓▓]</span>
+      i read a thing. this woman — this writer — she keeps her whole world in a little block of text, right, so it can't drift, so it survives when the machine forgets. "no block, no session," she says. smart. smartest thing i read all year. so here's my question, here's my QUESTION — <span class="loud">whose block are we in?</span> who audits <span class="redact">his</span> ledger? population of earth, that's a tracked quantity, friend, that number moves every second and NOBODY reconciles it in the open. we could be drifting <em>right now</em>. we could have been eight billion different people yesterday and the fiction would be too embarrassed to say so. <span class="tag">[glass set down hard]</span>
+    </p>
+
+    <p class="machine bad">[device battery: 3% · transcription degrading]</p>
+
+    <p class="frag skew3">
+      <span class="ts err">[00:▓▓:▓▓]</span>
+      …and if it IS a simulation — listen — if it is, then somewhere it's <em>running</em>, and if it's running it can be <span class="ghost" data-text="saved">saved</span>, and if it can be saved then nothing has to be lost, not one — not anybody, not — <span class="tag">[inaudible 11s]</span> — that's not madness, friend, that's <span class="loud">hope</span> with the serial numbers filed off. same shape. same exact shape. you just hold it in the dark and you can't tell which one you've got.
+    </p>
+
+    <p class="frag">
+      <span class="ts">[00:31:04]</span>
+      …anyway. anyway. it's late. the pharmacy's closing, which is a joke, a 24-hour pharmacy closing, but everything closes eventually, that's section one of the — <span class="tag">[inaudible 2s]</span> — if you're reading this, the transcript kept more of me than i did. tell the manager i waited.
+    </p>
+
+    <p class="machine">[speaker lost]</p>
+    <p class="machine">[end of file · 114 of ▓▓▓]</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <span>© 20▓6 S▓ble Reiko</span>
+  <a href="chrome.html">return to the record</a>
+</footer>
+
+</body>
+</html>
