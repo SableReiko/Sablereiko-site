@@ -110,6 +110,13 @@
     font-family:var(--mono);font-size:.85rem;
     color:var(--smoke);text-align:center;
   }
+
+  /* trapdoor: the word disappears under the cursor — you click where a word was.
+     keyboard focus keeps the word visible with an outline. */
+  a.trap-void{color:inherit;border-bottom:none;transition:color .45s ease}
+  a.trap-void:hover{color:#08080A}
+  a.trap-void:focus-visible{outline:2px solid var(--violet);outline-offset:3px;color:inherit}
+  @media (prefers-reduced-motion:reduce){a.trap-void{transition:none}}
 </style>
 </head>
 <body>
@@ -177,7 +184,7 @@
 
       <h3>The door</h3>
 
-      <p>Which brings the record to this place — the registry you are standing in. I built worlds alone for a long time. Then I hung a door on them: the framework, the essays, the plates, this page. None of it has carried me to people yet. <em>Yet</em> is the operative word, and I chose it with both hands. This site is me reaching out of my void — reaching, mind you, not redecorating it.</p>
+      <p>Which brings the record to this place — the registry you are standing in. I built worlds alone for a long time. Then I hung a door on them: the framework, the essays, the plates, this page. None of it has carried me to people yet. <em>Yet</em> is the operative word, and I chose it with both hands. This site is me reaching out of my <a class="trap-void" href="void.html">void</a> — reaching, mind you, not redecorating it.</p>
 
       <p>So, the finding, filed open — for me, and for whoever fell this deep into a stranger's registry because the title of this essay named something you carry: the worlds are the raft, not the shore. Build the raft. Build it beautifully; beauty is not wasted on survival. Let it hold you through the crossings it can hold you through. But do not mistake it for land, and leave a door in it, the way I have left one here. The correspondence channels are on the About page. The door works from both sides.</p>
     </div>
