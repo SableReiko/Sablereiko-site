@@ -11,141 +11,188 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-  /* ═══ THE VOID — two poles, same words ═══
-     Concentric rings pull toward the center. Everything written
-     here is rendered in difference: white on the black,
-     black on the white. The text never changes. The ground
-     under it falls. */
   *{box-sizing:border-box;margin:0;padding:0}
-  html{background:#000}
+  html,body{background:#050505;min-height:100vh}
   body{
-    background:#000;
-    min-height:100vh;
     font-family:"Source Serif 4",Georgia,serif;
+    color:#e8e4dc;
     overflow-x:hidden;
   }
 
-  /* the spiral field — falling into the center */
-  .field{
-    position:fixed;inset:0;
+  /* subtle living grain — the void is not perfectly still */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
     pointer-events:none;
-    overflow:hidden;
-    background:#000;
-  }
-  .spiral{
-    position:absolute;
-    top:50%;left:50%;
-    width:300vmax;height:300vmax;
-    margin:-150vmax 0 0 -150vmax;
-    background:
-      repeating-radial-gradient(
-        circle at center,
-        #000 0,
-        #000 1.1%,
-        #fff 1.1%,
-        #fff 2.2%
-      );
-    animation: fall-in 28s linear infinite;
-    will-change: transform;
-    opacity:.92;
-  }
-  @keyframes fall-in{
-    0%   { transform: scale(0.55) rotate(0deg); }
-    100% { transform: scale(1.45) rotate(360deg); }
-  }
-  @media (prefers-reduced-motion:reduce){
-    .spiral{animation:none;transform:scale(0.9) rotate(0deg);opacity:.7}
+    opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index:0;
   }
 
-  /* everything written lives in difference */
+  /* soft vignette so the edges fall away */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 40%, #000 100%);
+    z-index:0;
+  }
+
   .ink{
     position:relative;
-    mix-blend-mode:difference;
-    color:#fff;
-    max-width:34rem;margin:0 auto;
-    padding:clamp(4rem,12vh,7rem) 1.4rem 4rem;
+    z-index:1;
+    max-width:34rem;
+    margin:0 auto;
+    padding:clamp(4rem,12vh,7rem) 1.4rem 5rem;
   }
 
   .eyebrow{
-    font-family:"JetBrains Mono",monospace;font-size:.64rem;
-    letter-spacing:.26em;text-transform:uppercase;
-    margin-bottom:3.5rem;opacity:.75;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.64rem;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    margin-bottom:3.5rem;
+    opacity:.45;
+    color:#9a958c;
   }
 
-  .ink p{font-size:1.02rem;line-height:2;margin-bottom:1.7rem}
-  .ink em{font-style:italic}
+  .ink p{
+    font-size:1.05rem;
+    line-height:1.95;
+    margin-bottom:1.75rem;
+    color:#d8d3c9;
+  }
+  .ink em{font-style:italic;color:#f0ebe3}
 
   .refusal{
-    font-family:"Barlow Condensed",sans-serif;font-weight:700;
+    font-family:"Barlow Condensed",sans-serif;
+    font-weight:700;
     text-transform:uppercase;
-    font-size:clamp(2.7rem,10vw,5.4rem);line-height:.95;letter-spacing:.01em;
-    margin:3rem 0;
+    font-size:clamp(2.8rem,11vw,5.6rem);
+    line-height:.92;
+    letter-spacing:.01em;
+    margin:3.2rem 0;
+    color:#f4f0e8;
   }
 
-  .closer{font-style:italic;font-size:1.12rem}
+  .closer{
+    font-style:italic;
+    font-size:1.15rem;
+    color:#c8c2b6;
+  }
 
-  /* the walk-in window */
-  .walkin{margin-top:5.5rem}
+  /* the scream box — the only real action */
+  .walkin{
+    margin-top:6rem;
+    padding-top:2.5rem;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
   .walkin .label{
-    font-family:"JetBrains Mono",monospace;font-size:.66rem;
-    letter-spacing:.22em;text-transform:uppercase;
-    margin-bottom:.9rem;opacity:.8;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.66rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    margin-bottom:1.1rem;
+    color:#8a857c;
   }
   .walkin textarea{
-    width:100%;min-height:7rem;resize:vertical;
-    background:transparent;color:#fff;
-    border:1px solid #fff;border-radius:0;
-    font-family:"Source Serif 4",Georgia,serif;font-size:1rem;line-height:1.8;
-    padding:.9rem 1rem;
-    transition:opacity 1.6s ease,letter-spacing 1.6s ease,filter 1.6s ease;
+    width:100%;
+    min-height:8.5rem;
+    resize:vertical;
+    background:rgba(0,0,0,0.4);
+    color:#f0ebe3;
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:0;
+    font-family:"Source Serif 4",Georgia,serif;
+    font-size:1.05rem;
+    line-height:1.85;
+    padding:1.1rem 1.15rem;
+    transition:border-color .3s ease, background .3s ease;
   }
-  .walkin textarea:focus{outline:2px solid #fff;outline-offset:2px}
+  .walkin textarea:focus{
+    outline:none;
+    border-color:rgba(255,255,255,0.28);
+    background:rgba(0,0,0,0.55);
+  }
   .walkin textarea.releasing{
-    opacity:0;letter-spacing:.6em;filter:blur(3px);
+    opacity:0;
+    letter-spacing:.5em;
+    filter:blur(4px);
+    transition:opacity 1.8s ease, letter-spacing 1.8s ease, filter 1.8s ease;
   }
   @media (prefers-reduced-motion:reduce){
-    .walkin textarea{transition:none}
+    .walkin textarea.releasing{transition:none}
   }
+
   .walkin button{
-    margin-top:.9rem;
-    font-family:"JetBrains Mono",monospace;font-size:.7rem;
-    letter-spacing:.24em;text-transform:uppercase;
-    background:none;color:#fff;border:1px solid #fff;
-    padding:.6rem 1.4rem;cursor:pointer;
+    margin-top:1.1rem;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.7rem;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    background:none;
+    color:#b0aaa0;
+    border:1px solid rgba(255,255,255,0.18);
+    padding:.7rem 1.6rem;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
   }
-  .walkin button:hover{background:#fff;color:#000}
-  .walkin button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .walkin button:hover{
+    background:#f0ebe3;
+    color:#111;
+    border-color:#f0ebe3;
+  }
+  .walkin button:focus-visible{
+    outline:2px solid #f0ebe3;
+    outline-offset:3px;
+  }
+
   .walkin .note{
-    margin-top:.9rem;
-    font-family:"JetBrains Mono",monospace;font-size:.62rem;
-    letter-spacing:.14em;line-height:1.9;opacity:.65;
+    margin-top:1.1rem;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.62rem;
+    letter-spacing:.14em;
+    line-height:1.9;
+    color:#6a655c;
   }
 
   .whisper{
-    display:block;margin-top:5rem;
-    font-family:"JetBrains Mono",monospace;font-size:.6rem;
-    letter-spacing:.12em;line-height:2;
-    color:#fff;opacity:.4;text-decoration:none;
+    display:block;
+    margin-top:5.5rem;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.6rem;
+    letter-spacing:.12em;
+    line-height:2;
+    color:#6a655c;
+    text-decoration:none;
+    transition:color .2s ease;
   }
-  .whisper:hover{opacity:.9}
-  .whisper:focus-visible{outline:1px solid #fff;outline-offset:3px;opacity:.9}
+  .whisper:hover{color:#b0aaa0}
+  .whisper:focus-visible{outline:1px solid #b0aaa0;outline-offset:3px}
 
   .exit{
-    display:inline-block;margin-top:3rem;
-    font-family:"JetBrains Mono",monospace;font-size:.64rem;
-    letter-spacing:.22em;text-transform:uppercase;
-    color:#fff;text-decoration:none;border-bottom:1px solid #fff;
-    padding-bottom:.1rem;opacity:.8;
+    display:inline-block;
+    margin-top:2.8rem;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.64rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:#8a857c;
+    text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    padding-bottom:.15rem;
+    transition:color .2s ease, border-color .2s ease;
   }
-  .exit:hover{opacity:1}
-  .exit:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .exit:hover{
+    color:#d8d3c9;
+    border-color:rgba(255,255,255,0.35);
+  }
+  .exit:focus-visible{outline:2px solid #d8d3c9;outline-offset:3px}
 </style>
 </head>
 <body>
-
-<div class="field" aria-hidden="true">
-  <div class="spiral"></div>
-</div>
 
 <main class="ink">
 
@@ -175,7 +222,7 @@
 
   <div class="walkin">
     <p class="label">your turn — the void takes walk-ins</p>
-    <textarea id="scream" aria-label="Type your scream. Nothing you write is kept or sent."></textarea>
+    <textarea id="scream" aria-label="Type your scream. Nothing you write is kept or sent." placeholder="say it here. it disappears."></textarea>
     <button type="button" id="release">release</button>
     <p class="note">nothing you type is kept or transmitted. that is the point.<br>the void accepts all submissions. the void does not reply.</p>
   </div>
@@ -188,18 +235,17 @@
 </main>
 
 <script>
-// the release: the scream dissolves. nothing is stored. nothing is sent.
 const box = document.getElementById("scream");
 const btn = document.getElementById("release");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 btn.addEventListener("click", () => {
-  if (!box.value) return;
+  if (!box.value.trim()) return;
   if (reduce){ box.value = ""; return; }
   box.classList.add("releasing");
   setTimeout(() => {
     box.value = "";
     box.classList.remove("releasing");
-  }, 1600);
+  }, 1800);
 });
 </script>
 
