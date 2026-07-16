@@ -12,10 +12,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   /* ═══ THE VOID — two poles, same words ═══
-     White circles drift through black. Everything written
+     Concentric rings pull toward the center. Everything written
      here is rendered in difference: white on the black,
      black on the white. The text never changes. The ground
-     under it does. */
+     under it falls. */
   *{box-sizing:border-box;margin:0;padding:0}
   html{background:#000}
   body{
@@ -25,21 +25,37 @@
     overflow-x:hidden;
   }
 
-  /* the circles */
-  .field{position:fixed;inset:0;pointer-events:none}
-  .c{
-    position:absolute;border-radius:50%;background:#fff;
+  /* the spiral field — falling into the center */
+  .field{
+    position:fixed;inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    background:#000;
   }
-  .c1{width:44rem;height:44rem;left:-14rem;top:-10rem;animation:drift1 90s ease-in-out infinite alternate}
-  .c2{width:22rem;height:22rem;right:-6rem;top:24rem;animation:drift2 70s ease-in-out infinite alternate}
-  .c3{width:30rem;height:30rem;left:30%;top:64rem;animation:drift3 110s ease-in-out infinite alternate}
-  .c4{width:12rem;height:12rem;right:22%;top:100rem;animation:drift1 80s ease-in-out infinite alternate-reverse}
-  .c5{width:38rem;height:38rem;left:-10rem;top:130rem;animation:drift2 100s ease-in-out infinite alternate}
-  .c6{width:16rem;height:16rem;right:-4rem;bottom:6rem;animation:drift3 75s ease-in-out infinite alternate-reverse}
-  @keyframes drift1{from{transform:translate(0,0)}to{transform:translate(6rem,3rem)}}
-  @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(-5rem,4rem)}}
-  @keyframes drift3{from{transform:translate(0,0)}to{transform:translate(4rem,-5rem)}}
-  @media (prefers-reduced-motion:reduce){.c{animation:none}}
+  .spiral{
+    position:absolute;
+    top:50%;left:50%;
+    width:300vmax;height:300vmax;
+    margin:-150vmax 0 0 -150vmax;
+    background:
+      repeating-radial-gradient(
+        circle at center,
+        #000 0,
+        #000 1.1%,
+        #fff 1.1%,
+        #fff 2.2%
+      );
+    animation: fall-in 28s linear infinite;
+    will-change: transform;
+    opacity:.92;
+  }
+  @keyframes fall-in{
+    0%   { transform: scale(0.55) rotate(0deg); }
+    100% { transform: scale(1.45) rotate(360deg); }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .spiral{animation:none;transform:scale(0.9) rotate(0deg);opacity:.7}
+  }
 
   /* everything written lives in difference */
   .ink{
@@ -128,12 +144,7 @@
 <body>
 
 <div class="field" aria-hidden="true">
-  <div class="c c1"></div>
-  <div class="c c2"></div>
-  <div class="c c3"></div>
-  <div class="c c4"></div>
-  <div class="c c5"></div>
-  <div class="c c6"></div>
+  <div class="spiral"></div>
 </div>
 
 <main class="ink">
