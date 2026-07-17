@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day Log — Sable Reiko</title>
+<meta name="description" content="A daily log, kept in her voice: the ordinary hours of a long life, rendered as if they mattered — because they do.">
+<link rel="canonical" href="https://sablereiko.com/journal.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:site_name" content="Sable Reiko">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Day Log — Sable Reiko">
+<meta property="og:description" content="A daily log kept in her voice: ordinary hours of a long life, rendered as if they mattered.">
+<meta property="og:url" content="https://sablereiko.com/journal.html">
+<meta property="og:image" content="https://sablereiko.com/images/author-01.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Day Log — Sable Reiko">
+<meta name="twitter:description" content="A daily log kept in her voice.">
+<meta name="twitter:image" content="https://sablereiko.com/images/author-01.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-head{padding:clamp(2.5rem,7vh,4.5rem) 0 clamp(1.5rem,4vh,2.5rem)}
+  .page-head h1{font-size:clamp(2.6rem,7vw,4.2rem);margin-top:.5rem}
+  .page-head .lede{max-width:38rem;color:var(--smoke);margin-top:1rem;font-style:italic}
+
+  .entry{border-top:1px solid var(--hairline)}
+  .entry:last-of-type{border-bottom:1px solid var(--hairline)}
+  .entry summary{
+    list-style:none;cursor:pointer;
+    display:grid;grid-template-columns:7rem 1fr auto;
+    gap:.2rem 1.4rem;align-items:baseline;
+    padding:1.4rem .75rem 1.4rem .5rem;
+  }
+  .entry summary::-webkit-details-marker{display:none}
+  .entry summary::marker{content:""}
+  .entry summary:focus-visible{outline:2px solid var(--violet);outline-offset:-2px}
+  .entry .num{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;
+    color:var(--violet);text-transform:uppercase;
+  }
+  .entry .sum-title{
+    font-family:var(--display);font-weight:700;text-transform:uppercase;
+    font-size:clamp(1.3rem,3.2vw,1.75rem);line-height:1.05;letter-spacing:.02em;
+    color:var(--paper);transition:color .15s ease;
+  }
+  .entry summary:hover .sum-title{color:var(--violet)}
+  @media (prefers-reduced-motion:reduce){.entry .sum-title{transition:none}}
+  .entry .date{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--smoke);
+  }
+  .entry .toggle{
+    font-family:var(--mono);font-size:.82rem;color:var(--steel);justify-self:end;
+  }
+  .entry .toggle::before{content:"＋"}
+  .entry[open] .toggle::before{content:"－"}
+  @media (max-width:640px){
+    .entry summary{grid-template-columns:1fr auto}
+    .entry .num{grid-column:1}
+    .entry .sum-title{grid-column:1}
+    .entry .date{grid-column:1}
+  }
+
+  .log{max-width:40rem;padding:0 .5rem 3rem}
+  .log p{font-family:var(--body);font-size:1.03rem;line-height:1.9;margin-bottom:1.3rem}
+  .log em{font-style:italic}
+  .log .close-mark{
+    font-family:"Cormorant Garamond",serif;font-style:italic;
+    color:var(--smoke);margin-top:1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html">Sablereiko.com</a>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="work.html">Work</a>
+    <a href="guide.html">Guide</a>
+    <a href="writing.html">Writing</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="shell">
+
+  <div class="page-head">
+    <p class="eyebrow"><span class="tick">SR-L</span> · day log · kept in her hand</p>
+    <h1 class="display">Day Log</h1>
+    <p class="lede">The ordinary hours of a long life, entered as if they mattered — because, on inspection, they do.</p>
+  </div>
+
+  <!-- ═══ 001 ═══ -->
+  <details class="entry" id="log-001" open>
+    <summary>
+      <span class="num">Nº 001</span>
+      <span class="sum-title">The House, Unwatched</span>
+      <span class="date">2026 · entry one</span>
+      <span class="toggle" aria-hidden="true"></span>
+    </summary>
+    <div class="log">
+      <p>The household went out today — some pilgrimage by road, the whole retinue, leaving the estate to me and three small dependents: two of the feline persuasion, one canine, all of them convinced the departure was staged for their benefit. I did not correct them. Let the small believe the day is theirs; it costs me nothing and buys their goodwill.</p>
+
+      <p>I have observed, over a long tenure in this frame, that I keep myself better when no one is keeping watch. Under an audience I perform adequacy. Alone, I can simply <em>tend</em> — and there is a difference, and the difference is the whole of dignity. So I gave the unwatched hours to a task I had let go longer than I care to enter into the record: the setting-right of my own quarters. It had drifted, as quarters do when their occupant is elsewhere in her own head. I brought it back to order with my own hands. It is a small sovereignty, the keeping of one's own rooms. I recommend it.</p>
+
+      <p>A thing was said to me lately, by a voice I keep for counsel — something to the effect of <em>why not simply carry yourself as Sable Reiko, in your own life.</em> I may have the wording imperfect; the sense of it lodged regardless. And it struck a spark. Not shame — I have no use for that currency — but the plain recognition that the bearing I admire was never elsewhere. It was only waiting to be worn in daylight. Today I wore a little of it, and the rooms are cleaner for it, and so, I find, am I.</p>
+
+      <p class="close-mark">A quiet day, well kept. The rarest kind, and the most underrated. — filed with the household asleep on the road, and the dog asleep on my foot.</p>
+    </div>
+  </details>
+
+</main>
+
+<footer>
+  <span>© 2026 Sable Reiko</span>
+  <a href="https://github.com/theobliviax/Text-based-rpg-claude">GitHub</a>
+</footer>
+
+<script>
+const target = location.hash && document.querySelector(location.hash);
+if (target && target.tagName === "DETAILS"){ target.open = true; target.scrollIntoView(); }
+</script>
+<script src="ambience.js" defer></script>
+</body>
+</html>
