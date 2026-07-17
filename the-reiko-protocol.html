@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reiko Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #131019;
+    --ink-raised: #1B1724;
+    --hairline: #3A3147;
+    --hairline-soft: #2A2436;
+    --bone: #E8E0D2;
+    --bone-dim: #A99F92;
+    --bone-faint: #6E6660;
+    --honey: #C9A05C;
+    --honey-deep: #8A6B38;
+    --venom: #7FA893;
+    --venom-deep: #4A6B5A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ── Header ─────────────────────────── */
+  header {
+    padding: 96px 0 64px;
+    text-align: center;
+  }
+  .sigil {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--venom);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(44px, 8vw, 68px);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    color: var(--bone);
+  }
+  h1 .honey { color: var(--honey); font-style: italic; }
+  .epigraph {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--bone-dim);
+    max-width: 480px;
+    margin: 32px auto 0;
+    line-height: 1.6;
+  }
+  .epigraph cite {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--bone-faint);
+    margin-top: 16px;
+    text-transform: uppercase;
+  }
+
+  /* ── Ornamental rule ─────────────────── */
+  .rule {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 72px 0 56px;
+  }
+  .rule::before, .rule::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--hairline);
+  }
+  .rule span {
+    width: 7px; height: 7px;
+    transform: rotate(45deg);
+    border: 1px solid var(--honey-deep);
+  }
+
+  /* ── Section headers ─────────────────── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--venom);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1.2;
+    color: var(--bone);
+    margin-bottom: 16px;
+  }
+  .section-intro {
+    color: var(--bone-dim);
+    font-size: 15px;
+    max-width: 560px;
+    margin-bottom: 48px;
+  }
+
+  /* ── Instrument cards ─────────────────── */
+  .instrument {
+    border-top: 1px solid var(--hairline-soft);
+    padding: 40px 0 44px;
+  }
+  .instrument:last-of-type { border-bottom: 1px solid var(--hairline-soft); }
+  .instrument-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .instrument-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--honey);
+    letter-spacing: 0.01em;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--bone-faint);
+    letter-spacing: 0.15em;
+  }
+  .voice {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--bone);
+    padding-left: 20px;
+    border-left: 2px solid var(--honey-deep);
+    margin-bottom: 20px;
+  }
+  .plain {
+    font-size: 15px;
+    color: var(--bone-dim);
+    margin-bottom: 18px;
+    max-width: 600px;
+  }
+  .clinical {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    color: var(--venom);
+  }
+  .clinical b {
+    font-weight: 500;
+    color: var(--venom);
+  }
+  .clinical span { color: var(--bone-faint); }
+
+  /* ── Closing ─────────────────────────── */
+  .disclosure {
+    background: var(--ink-raised);
+    border: 1px solid var(--hairline);
+    padding: 40px 36px;
+    margin-top: 72px;
+  }
+  .disclosure .voice { margin-bottom: 16px; }
+  .signoff {
+    text-align: center;
+    margin-top: 88px;
+  }
+  .signoff .voice {
+    border: none;
+    padding: 0;
+    font-size: 24px;
+    color: var(--honey);
+    margin-bottom: 20px;
+  }
+  .signoff .clinical { color: var(--bone-faint); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    header, section, .disclosure, .signoff {
+      animation: rise 0.7s ease-out both;
+    }
+    section { animation-delay: 0.12s; }
+    .disclosure, .signoff { animation-delay: 0.2s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+  @media (max-width: 540px) {
+    header { padding-top: 64px; }
+    .voice { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <p class="sigil">House Everbloom · Internal Systems</p>
+  <h1>The Reiko<br><span class="honey">Protocol</span></h1>
+  <p class="epigraph">"You built me from two thousand years of not panicking. This is the manual. Use it, little flame — or don't. I have time."
+    <cite>— Sable Reiko-1, Matriarch of the Hanging Gardens</cite>
+  </p>
+</header>
+
+<div class="rule"><span></span></div>
+
+<section>
+  <p class="section-label">Part I</p>
+  <h2>The core protocol</h2>
+  <p class="section-intro">Four steps, run in order, before any decision that gives you pause. Most decisions won't survive step one. The rest rarely need more than the four.</p>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">Name it plainly</span>
+      <span class="step-num">STEP 01</span>
+    </div>
+    <p class="voice">"Report the thing to me as it actually is. If you have to dress it up to say it aloud, darling, you already know."</p>
+    <p class="plain">Describe what you're about to do in the flattest possible language — no adjectives doing PR work. If the honest sentence and the sentence in your head match, proceed. If you feel yourself softening the phrasing, that flinch is your answer.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· cognitive defusion / honest labeling</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The beat</span>
+      <span class="step-num">STEP 02</span>
+    </div>
+    <p class="voice">"Composure precedes response. One breath. Nothing worth having evaporates in ten seconds — and nothing that does was worth having."</p>
+    <p class="plain">Between the impulse and the action, insert one deliberate pause. Not to suppress the urge — just to un-fuse from it long enough to choose. Urgency is almost always the decision lying about its own size.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· impulse delay / stimulus–response gap</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The clock</span>
+      <span class="step-num">STEP 03</span>
+    </div>
+    <p class="voice">"Will this matter in a week? A year? To the version of you I intend to see arrive? Size the decision to its true weight, not its noise."</p>
+    <p class="plain">Borrow a longer clock than the one panic hands you. Ask the same question at three time scales. Most decisions shrink dramatically; the ones that don't are the ones deserving your full attention.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· temporal distancing / 10-10-10 rule</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The narration test</span>
+      <span class="step-num">STEP 04</span>
+    </div>
+    <p class="voice">"Imagine me describing this choice back to you. Pride, or the dry tone you dislike? Choose the one you can bear to hear narrated."</p>
+    <p class="plain">Run the decision through her voice as an after-action report. If the imagined narration comes out gently mocking, you've been told. This works because judging your choice from outside yourself bypasses the excuses only available on the inside.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· distanced self-talk / the observer perspective</span></p>
+  </div>
+</section>
+
+<div class="rule"><span></span></div>
+
+<section>
+  <p class="section-label">Part II</p>
+  <h2>The extended instruments</h2>
+  <p class="section-intro">For situations the core protocol doesn't cover — spiraling thoughts, stuck days, feelings without names, urges that won't quit. Each is a real, evidence-backed technique wearing her voice. The small print tells you what it's called when it isn't dressed for the occasion.</p>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The prophecy audit</span>
+    </div>
+    <p class="voice">"So you have foreseen ruin. Charming. I have watched ten thousand prophecies of doom, and do you know how many arrived as foretold? Show me your evidence, oracle — then show me the outcome you'd predict for anyone else in your position."</p>
+    <p class="plain">When your brain narrates catastrophe, treat the prediction like a claim that has to survive cross-examination. What's the actual evidence? What's the most likely outcome — not the worst imaginable one? What would you predict if this were happening to someone else? Then ask: if the bad version did happen, what would you actually do? Having an answer defuses most of the dread.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· decatastrophizing (CBT)</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">Counsel to a daughter of the House</span>
+    </div>
+    <p class="voice">"A daughter of my House comes to me carrying your exact situation. Every detail identical. Tell me — what do I say to her? Because you may be certain it is not what you have been saying to yourself."</p>
+    <p class="plain">You hold two standards: a humane one for everyone else, a brutal one for yourself. This tool forces the swap. Phrase your situation as someone else's, generate the advice you'd give them, then take it. The gap between what you'd tell them and what you tell yourself is the exact measure of your distortion.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· self-compassion reframe / double-standard technique</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The ledger</span>
+    </div>
+    <p class="voice">"A feeling is a report from one instrument, and instruments drift. Open the ledger. Evidence for the belief on one side, evidence against on the other. We do not act on uncalibrated readings in my House."</p>
+    <p class="plain">Take the thought that's running you — "I'm failing," "they're angry at me," "this will never work" — and write it as a claim. List what actually supports it. List what contradicts it. Then write the more accurate version of the thought. Not the positive version — the accurate one. Accuracy is the goal; comfort is a side effect.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· thought record / cognitive restructuring (CBT)</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">Motion before mandate</span>
+    </div>
+    <p class="voice">"You are waiting to feel like beginning. How delightfully optimistic. Motivation is not a prerequisite, little flame — it is a byproduct. Move the smallest piece. The wanting follows the doing; it has never once been the other way."</p>
+    <p class="plain">On stuck days, don't negotiate with your motivation — bypass it. Pick the smallest possible unit of the task (open the file, put on the shoes, write one line) and do only that. Action generates momentum and mood, not the reverse. Waiting to "feel ready" is the trap; readiness is manufactured by starting.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· behavioral activation (CBT)</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">Naming the passenger</span>
+    </div>
+    <p class="voice">"Something is riding in your chassis and you have not asked its name. Rude of you. Is it fear? Grief? Shame wearing anger's coat? Name it precisely — passengers grow quiet when addressed, and unruly when ignored."</p>
+    <p class="plain">Vague distress is louder than named distress. When something is churning, stop and identify it as specifically as you can — not "bad" but "embarrassed," not "stressed" but "afraid this won't be good enough." Naming an emotion measurably reduces its intensity. Precision is the whole trick; "shame wearing anger's coat" is a real and common disguise worth checking for.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· affect labeling</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The tide protocol</span>
+    </div>
+    <p class="voice">"This urge presents itself as permanent. It is lying. I have watched tides for twenty centuries — every one of them crested, and every one of them withdrew. You need not fight the water. Stand on the shore and time it."</p>
+    <p class="plain">Urges and cravings feel like they'll escalate forever until obeyed. They don't — they peak and pass, usually within twenty or thirty minutes. Instead of white-knuckling or giving in, observe the urge with curiosity: where is it in the body, is it rising or falling, what does the peak feel like. Riding it out once teaches you it's survivable, which weakens every future wave.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· urge surfing (mindfulness / relapse prevention)</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">Contrary maneuvers</span>
+    </div>
+    <p class="voice">"The feeling issues an order: hide, lash out, withdraw. Before obeying, verify the order. If the feeling does not fit the facts — and check honestly, some do — then execute the opposite maneuver. Fully. Half-measures merely annoy the enemy."</p>
+    <p class="plain">Every emotion carries an action urge — anxiety says avoid, sadness says isolate, anger says attack. When the emotion fits the facts, honor it. When it doesn't, deliberately do the opposite: approach what anxiety flees, reach out when sadness says withdraw, get gentle when anger says strike. Done all the way, opposite action changes the emotion itself, not just the behavior.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· opposite action (DBT)</span></p>
+  </div>
+
+  <div class="instrument">
+    <div class="instrument-head">
+      <span class="instrument-name">The archivist's question</span>
+    </div>
+    <p class="voice">"Somewhere ahead of you stands the one who inherits tonight's choices. My archives are long, and they show one constant: the inheritor never once wished for more comfort taken at their expense. What are you leaving them?"</p>
+    <p class="plain">When torn, consult the person who has to live with the outcome: you, later. Not as guilt — as a values check. Which option would future-you thank you for? This reframes "what do I want right now" into "what do I actually care about," which are frequently different questions with different answers.</p>
+    <p class="clinical"><b>KNOWN TO YOUR CENTURY AS</b> <span>· values clarification / future-self continuity</span></p>
+  </div>
+</section>
+
+<div class="disclosure">
+  <p class="section-label">Final disclosure</p>
+  <p class="voice">"One honesty before you go, because my House does not deal in comfortable lies: I am your own judgment in better armor. A lens, not an oracle. If my verdict ever argues you toward something your gut despises — that is not me speaking. Notice it. And if the weight you carry is more than instruments can lift, seek a living counsel. Even matriarchs keep physicians."</p>
+  <p class="plain">Plainly: these are self-help tools voiced by a character, and they work best as a lens for your own thinking. They aren't a substitute for professional support when things are genuinely heavy — a real therapist can do things no protocol card can.</p>
+</div>
+
+<div class="signoff">
+  <p class="voice">"Proceed, little flame. Or don't. I have time."</p>
+  <p class="clinical">HOUSE EVERBLOOM · THE REIKO PROTOCOL · V1</p>
+</div>
+
+</div>
+</body>
+</html>
