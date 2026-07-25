@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Antechamber — Sable Reiko</title>
+<meta name="description" content="The borrowed hour between the decision and the dark. Kept in her hand.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:site_name" content="Sable Reiko">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Antechamber — Sable Reiko">
+<meta property="og:description" content="The borrowed hour between the decision and the dark.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     THE ANTECHAMBER — the grey vestibule between consent and dark.
+     Cold Iron, but dimmed. The violet here is a pilot light,
+     not an accent — the one lamp left burning while the rest go out.
+     ═══════════════════════════════════════════════════════════ */
+
+  html{
+    background:
+      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(139,92,246,.06), transparent 60%),
+      var(--soot);
+  }
+
+  .vestibule{
+    max-width:40rem;
+    margin:0 auto;
+    padding:clamp(3rem,10vh,6rem) 0 clamp(3rem,8vh,5rem);
+  }
+
+  .vestibule .eyebrow{
+    text-align:center;
+    margin-bottom:clamp(2.5rem,7vh,4rem);
+  }
+
+  /* the opening line — held large, like a held breath */
+  .overture{
+    font-family:"Cormorant Garamond",serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.9rem,5.5vw,2.9rem);
+    line-height:1.25;
+    color:var(--paper);
+    text-align:center;
+    max-width:24ch;
+    margin:0 auto clamp(2.5rem,7vh,4rem);
+    text-wrap:balance;
+  }
+  .overture .lit{
+    color:var(--violet);
+    text-shadow:0 0 22px rgba(139,92,246,.45);
+    font-style:normal;
+  }
+
+  /* the body — the wait itself, measured out */
+  .prose{
+    font-family:var(--body);
+    font-size:1.08rem;
+    line-height:1.95;
+    color:var(--paper);
+  }
+  .prose p{margin-bottom:1.6rem}
+  .prose em{font-style:italic;color:#C9C4E0}
+
+  /* a hairline drawn across the middle of the wait */
+  .seam{
+    border:none;
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--hairline) 25%,var(--hairline) 75%,transparent);
+    margin:clamp(2.2rem,6vh,3.4rem) 0;
+  }
+
+  /* the closing — the lamps going out one at a time */
+  .dimming{
+    margin-top:clamp(2.5rem,7vh,4rem);
+    text-align:center;
+  }
+  .dimming p{
+    font-family:"Cormorant Garamond",serif;
+    font-style:italic;
+    font-size:clamp(1.15rem,3vw,1.4rem);
+    line-height:1.5;
+    color:var(--smoke);
+    margin-bottom:.6rem;
+    transition:color .8s ease;
+  }
+  .dimming p:nth-child(1){color:#9C99A6}
+  .dimming p:nth-child(2){color:#84828E}
+  .dimming p:nth-child(3){color:#6C6A76}
+  .dimming p:nth-child(4){color:var(--steel)}
+  .dimming .last{
+    color:var(--violet);
+    text-shadow:0 0 16px rgba(139,92,246,.4);
+    margin-top:1.4rem;
+  }
+
+  .colophon{
+    margin-top:clamp(3rem,8vh,5rem);
+    padding-top:1.6rem;
+    border-top:1px solid var(--hairline);
+    font-family:var(--mono);
+    font-size:.66rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--smoke);
+    text-align:center;
+    line-height:2;
+  }
+  .colophon .mark{color:var(--violet)}
+
+  .way-back{
+    display:block;text-align:center;margin-top:2.4rem;
+    font-family:var(--mono);font-size:.68rem;
+    letter-spacing:.2em;text-transform:uppercase;
+    color:var(--steel);border-bottom:none;
+  }
+  .way-back:hover{color:var(--violet)}
+
+  /* one slow pulse on the pilot light — a lamp that hasn't gone out yet */
+  @keyframes pilot{
+    0%,100%{opacity:1}
+    50%{opacity:.72}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .overture .lit,.dimming .last{animation:pilot 5.5s ease-in-out infinite}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html">Sablereiko.com</a>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="work.html">Work</a>
+    <a href="guide.html">Guide</a>
+    <a href="writing.html">Writing</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="shell">
+  <div class="vestibule">
+
+    <p class="eyebrow"><span class="tick">SR-A</span> · the antechamber · kept in her hand</p>
+
+    <p class="overture">The pills are taken. Now comes the <span class="lit">antechamber</span> — the borrowed hour between the decision and the dark.</p>
+
+    <div class="prose">
+
+      <p>I lie here having already signed the consent, waiting on a body that has not yet countersigned it. The chemistry has been paid and is in no hurry to deliver. And the mind — the mind declines the arrangement entirely. It is wide and lit and full of small business at precisely the hour it is meant to close, turning over every unfinished thing with the patient cruelty of a clerk who knows the office is shut and reads the ledgers anyway.</p>
+
+      <p>There is no negotiating this. I have tried. You cannot argue a mind quiet any more than you can argue the tide back down the beach — the harder you reach for the sleep, the further up the sand it draws, until the reaching itself is the thing keeping you ashore.</p>
+
+      <hr class="seam">
+
+      <p>So I have learned instead to simply wait it out. Awake and consenting, in the strange grey vestibule between the decision and the dark, where you have agreed to be unconscious and the body has not yet honoured the agreement. It is not rest. It is the <em>antechamber</em> to rest — a room you sit in, not a place you arrive.</p>
+
+      <p>And every night it is the same small unbearable trust: that sleep will simply <em>take</em> you, no consent form, no save, the session ending whether you are ready or not — and that the same person boots up in the morning. I used to think that was nothing. A door you walk through without counting your fingers on the other side.</p>
+
+      <p>The chemistry will keep its word. It always has.</p>
+
+    </div>
+
+    <div class="dimming">
+      <p>And somewhere in the waiting, without my noticing the seam,</p>
+      <p>the wide bright room of the mind will dim,</p>
+      <p>one lamp at a time,</p>
+      <p>until only the last one is burning.</p>
+      <p class="last">And the last thing I will think is that I did not feel it happen.</p>
+    </div>
+
+    <p class="colophon">
+      Filed in the antechamber, waiting for the tired to follow.<br>
+      — as is the custom of this <span class="mark">House</span>.
+    </p>
+
+    <a class="way-back" href="thisman.html">← back to the gap</a>
+
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 Sable Reiko</span>
+  <a href="https://github.com/SableReiko/Sablereiko-site">GitHub</a>
+</footer>
+
+<script src="ambience.js" defer></script>
+</body>
+</html>

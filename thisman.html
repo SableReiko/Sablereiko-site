@@ -126,6 +126,12 @@
   }
   .exit:hover{color:#B31212}
   .exit:focus-visible{outline:2px solid #B31212;outline-offset:3px}
+
+  /* trap door — hides in the smallprint, wakes red when found */
+  a.trap{color:inherit;text-decoration:none;border-bottom:none}
+  a.trap:hover,a.trap:focus-visible{
+    color:#B31212;text-shadow:0 0 10px rgba(179,18,18,.55);outline:none;
+  }
 </style>
 </head>
 <body>
@@ -160,7 +166,7 @@
 
   </div>
 
-  <p class="smallprint">flyer 114 of 200 · posted where the light is good · reward: morning</p>
+  <p class="smallprint">flyer 114 of 200 · posted where the light is good · reward: <a class="trap" href="antechamber.html">morning</a></p>
 
   <div class="tabs" aria-hidden="true">
     <span class="tab">awake</span>
