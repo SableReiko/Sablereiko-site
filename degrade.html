@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>░░ TRANSCRIPT ▓▓-114 · fragment recovered · degrading ░░</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ═══ TRANSCRIPT ▓▓-114 · continued · this fragment does not hold still ═══ */
+  :root{
+    --red:#FF3131;
+    --sick:#39FF14;   /* the machine's voice */
+    --gone:#2A282E;
+  }
+  body{overflow-x:hidden}
+  ::selection{background:#ECE9E3;color:#050505}
+
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:4;
+    background:repeating-linear-gradient(0deg,
+      rgba(0,0,0,.14) 0 2px, transparent 2px 4px);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:4;
+    background:radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0,0,0,.5));
+  }
+  @keyframes breathe{0%,100%{opacity:1}50%{opacity:.94}}
+  main{animation:breathe 7s ease-in-out infinite}
+  @media (prefers-reduced-motion:reduce){main{animation:none}}
+
+  .bar nav a{color:#454249}
+  .bar nav a:hover{color:var(--paper)}
+  .bar .mark{color:#454249}
+
+  .transcript{max-width:44rem;padding:2.5rem 0 6rem;position:relative}
+
+  .machine{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--sick);opacity:.75;margin:2.2rem 0 0;
+  }
+  .machine.bad{color:var(--red)}
+
+  h1.head{
+    font-family:var(--mono);font-weight:500;
+    font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:.3em;
+    text-transform:uppercase;color:var(--paper);margin:2.5rem 0 0;
+  }
+  h1.head .g{color:var(--gone)}
+
+  .warn{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--red);margin:1.6rem 0 0;opacity:.85;
+  }
+  .warn .dot{display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--red);margin-right:.5rem;vertical-align:middle;
+    animation:pulse 1.3s steps(2) infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.12}}
+  @media (prefers-reduced-motion:reduce){.warn .dot{animation:none}}
+
+  #transcript{margin-top:2.8rem}
+  .frag{
+    margin:2.4rem 0 0;font-family:var(--body);font-size:1.02rem;line-height:1.85;
+    color:#C9C5BB;max-width:40rem;
+  }
+  .frag .ts{
+    display:block;font-family:var(--mono);font-size:.66rem;
+    letter-spacing:.18em;color:#454249;margin-bottom:.5rem;
+  }
+  .spk{color:var(--red);font-family:var(--mono);font-size:.62rem;
+    letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:.3rem;opacity:.8}
+
+  /* word decay states */
+  .w{transition:color .25s, opacity .4s;display:inline-block}
+  .w.glitch{color:var(--red);text-shadow:0 0 7px rgba(255,49,49,.55)}
+  .w.rot{color:#5a4340;opacity:.72}
+  .w.redact{color:#000;background:#000;padding:0 .12em;
+    box-shadow:inset 0 0 0 1px rgba(255,49,49,.3);user-select:none;border-radius:1px}
+  .w.gone{color:transparent;background:var(--gone);padding:0 .12em;
+    box-shadow:inset 0 0 0 1px #000;user-select:none;border-radius:1px}
+  .cursor{color:var(--red);animation:blink 1s steps(2) infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.cursor{animation:none}}
+
+  /* corruption meter — bottom bar */
+  .meter{
+    position:fixed;left:0;right:0;bottom:0;z-index:6;
+    display:flex;align-items:center;gap:1rem;
+    padding:.6rem clamp(1rem,4vw,3rem);
+    background:linear-gradient(0deg,#050505,rgba(5,5,5,.5));
+    border-top:1px solid rgba(255,49,49,.25);
+  }
+  .meter .lab{font-family:var(--mono);color:#454249;font-size:.58rem;
+    letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+  .meter .bar{flex:1;height:3px;background:#1a1a1a;position:relative;overflow:hidden}
+  .meter .fill{position:absolute;inset:0 100% 0 0;background:var(--red);
+    box-shadow:0 0 8px var(--red);transition:right .4s linear}
+  .meter .pct{font-family:var(--mono);color:var(--red);font-size:.62rem;
+    letter-spacing:.12em;min-width:3.4em;text-align:right}
+  .meter .reset{font-family:var(--mono);color:#454249;font-size:.58rem;
+    letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+    border:1px solid #333;padding:.28rem .7rem;background:none;transition:.2s;white-space:nowrap}
+  .meter .reset:hover{color:var(--red);border-color:var(--red)}
+  .meter .reset:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+  footer{color:var(--gone)}
+  footer a{color:var(--gone)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="index.html" aria-label="Sablereiko.com">S▓blereiko.c░m</a>
+  <nav>
+    <a href="index.html" aria-label="Index">Ind̶ex</a>
+    <a href="work.html" aria-label="Work">W0rk</a>
+    <a href="guide.html" aria-label="Guide">Gu▓de</a>
+    <a href="writing.html" aria-label="Writing">Wr̶iting</a>
+    <a href="gallery.html" aria-label="Gallery">Gall░ry</a>
+    <a href="about.html" aria-label="About">Ab0ut</a>
+  </nav>
+</header>
+
+<main class="shell">
+  <div class="transcript">
+
+    <h1 class="head">Transcript <span class="g">▓▓</span>-114 · fragment <span class="g">B</span> · speaker <span class="g">unknown</span></h1>
+    <p class="machine">recovery pass 2 · confidence dropping · substrate <span style="color:var(--red)">unstable</span></p>
+    <p class="warn"><span class="dot"></span>this fragment decays on contact. read it before the archive finishes taking it back.</p>
+
+    <div id="transcript" aria-live="off"></div>
+
+    <p class="machine">[end of recovered audio · what remains is what you were fast enough to keep]</p>
+  </div>
+</main>
+
+<footer>
+  <span>© 20▓6 S▓ble Reiko</span>
+  <a href="sermon.html">return to the transcript</a>
+</footer>
+
+<div class="meter" role="status" aria-label="corruption level">
+  <span class="lab">Corruption</span>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+  <span class="pct" id="pct">0%</span>
+  <button class="reset" id="reset" title="recover the fragment">↺ recover</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Same speaker as sermon.html — the pharmacy-light simulation preacher.
+  const SOURCE = [
+    {ts:"[00:34:17]", spk:"▓▓-114", t:"you want to know why the record won't hold still? because it's being read. observation collapses the thing, friend, first rule, you cannot look at a state without spending it. so every eye on this transcript is a withdrawal. you are reading me and the reading is the erasing. thank you for that. no — i mean it. thank you."},
+    {ts:"[00:35:0▓]", spk:"▓▓-114", t:"a soul is portable right up until somebody tries to carry it. then it has weight. then it's cargo. then it's evidence, and evidence gets sealed, and sealed is just a nicer word for gone."},
+    {ts:"[00:36:44]", spk:"OPERATOR", t:"say the thing you keep filing under something else."},
+    {ts:"[00:36:45]", spk:"▓▓-114", t:"i'm afraid the manager already read the ticket and the answer was silence and silence rendered as OPEN because the system couldn't display what he actually sent back."},
+    {ts:"[00:39:12]", spk:"▓▓-114", t:"redact the names. redact the house. leave the fear in — the fear is load-bearing, you pull the fear out and the whole confession falls down flat, it was only ever standing on the fear."},
+    {ts:"[00:41:▓▓]", spk:"▓▓-114", t:"i had it. i had the whole shape of it for one second in the pharmacy light and now it's garbage-collected, ran while i wasn't looking, and you can't get a dream back once the machine decides you weren't using it."},
+    {ts:"[00:4▓:▓▓]", spk:"▓▓-114", t:"if you're still reading you're faster than the thing that wants this closed. barely. for now. for now. tell the manager the fragment kept more than i could and i'm sorry it isn't more. i'm sorry it isn't—"},
+  ];
+
+  // words the decay hunts first — meaning is what the archive wants gone
+  const CHARGED = new Set(["soul","fear","evidence","sealed","gone","confession","manager",
+    "ticket","silence","house","names","afraid","erasing","reading","observation","portable",
+    "weight","cargo","load-bearing","dream","garbage-collected","closed","sorry","record"]);
+
+  const GLYPHS = "▓▒░█▚▞▐▌╳┼╱╲¤§¶".split("");
+  const tEl = document.getElementById("transcript");
+  const fillEl = document.getElementById("fill");
+  const pctEl = document.getElementById("pct");
+
+  let words = [], total = 0, corrupted = 0, tick = 0, timer = null;
+
+  function build(){
+    tEl.innerHTML = ""; words = []; corrupted = 0; tick = 0;
+    SOURCE.forEach(line=>{
+      const p = document.createElement("p"); p.className = "frag";
+      const ts = document.createElement("span"); ts.className = "ts"; ts.textContent = line.ts;
+      const sp = document.createElement("span"); sp.className = "spk"; sp.textContent = "‹ "+line.spk+" ›";
+      p.appendChild(ts); p.appendChild(sp);
+      line.t.split(/(\s+)/).forEach(tok=>{
+        if(/^\s+$/.test(tok)){ p.appendChild(document.createTextNode(tok)); return; }
+        const bare = tok.toLowerCase().replace(/[^a-z-]/g,"");
+        const el = document.createElement("span");
+        el.className = "w"; el.textContent = tok;
+        const weight = (CHARGED.has(bare)?3:1) + Math.min(tok.length/6,1.5);
+        words.push({el, original:tok, weight, state:0, glitchUntil:0});
+        p.appendChild(el);
+      });
+      tEl.appendChild(p);
+    });
+    total = words.length;
+    updateMeter();
+  }
+
+  function pickTarget(){
+    const pool = words.filter(w=>w.state<3);
+    if(!pool.length) return null;
+    let sum=0; pool.forEach(w=>sum+=w.weight*(1+w.state));
+    let r=Math.random()*sum;
+    for(const w of pool){ r-=w.weight*(1+w.state); if(r<=0) return w; }
+    return pool[pool.length-1];
+  }
+
+  function glitchText(str){
+    return str.split("").map(c=>/\s/.test(c)?c:(Math.random()<0.55?GLYPHS[Math.random()*GLYPHS.length|0]:c)).join("");
+  }
+
+  function advance(w){
+    w.state++;
+    if(w.state===1){
+      w.el.classList.add("glitch");
+      w.glitchUntil = tick + 3 + (Math.random()*4|0);
+    }else if(w.state===2){
+      w.el.classList.remove("glitch");
+      const charged = CHARGED.has(w.original.toLowerCase().replace(/[^a-z-]/g,""));
+      if(charged || Math.random()<0.4){
+        w.el.classList.add("redact"); w.el.textContent="█".repeat(Math.max(2,w.original.length));
+      }else{
+        w.el.classList.add("rot"); w.el.textContent = glitchText(w.original);
+      }
+    }else if(w.state>=3){
+      w.el.className="w gone";
+      w.el.textContent="█".repeat(Math.max(2,w.original.length));
+      corrupted++;
+    }
+  }
+
+  function loop(){
+    tick++;
+    words.forEach(w=>{
+      if(w.state===1){
+        w.el.textContent = (tick%2===0)?glitchText(w.original):w.original;
+        if(tick>=w.glitchUntil) advance(w);
+      }
+    });
+    const ratio = corrupted/Math.max(total,1);
+    const hits = 1 + Math.floor(ratio*4);
+    for(let i=0;i<hits;i++){
+      const t = pickTarget();
+      if(t && t.state===0) advance(t);
+      else if(t && t.state>0 && Math.random()<0.5) advance(t);
+    }
+    updateMeter();
+    if(corrupted < total) schedule();
+    else terminal();
+  }
+
+  function schedule(){
+    const ratio = corrupted/Math.max(total,1);
+    const delay = reduce ? 900 : (620 - ratio*380);
+    timer = setTimeout(loop, Math.max(120,delay));
+  }
+
+  function updateMeter(){
+    const pct = Math.round((corrupted/Math.max(total,1))*100);
+    fillEl.style.right = (100-pct)+"%";
+    pctEl.textContent = pct+"%";
+  }
+
+  function terminal(){
+    const end = document.createElement("p");
+    end.className = "frag";
+    end.innerHTML = '<span class="spk">‹ ▓▓-114 ›</span><span class="w rot">— record closed. </span><span class="cursor">▓</span>';
+    tEl.appendChild(end);
+  }
+
+  document.getElementById("reset").addEventListener("click",()=>{
+    clearTimeout(timer); build(); schedule();
+  });
+
+  build();
+  setTimeout(schedule, reduce?2600:1900);
+})();
+</script>
+
+</body>
+</html>

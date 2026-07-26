@@ -126,6 +126,12 @@
   .jit{animation:jitter 5s steps(1) infinite;display:inline-block}
   @media (prefers-reduced-motion:reduce){.jit{animation:none}}
 
+  /* hidden trapdoor — red descent register */
+  a.trap-r{color:inherit;text-decoration:none;cursor:text;
+    transition:color .3s,text-shadow .3s;}
+  a.trap-r:hover{color:var(--red);text-shadow:0 0 8px rgba(255,49,49,.55);}
+  a.trap-r:focus-visible{outline:1px solid var(--red);outline-offset:2px;}
+
   footer{color:#2A282E}
   footer a{color:#2A282E}
 </style>
@@ -225,7 +231,7 @@
 
     <p class="frag">
       <span class="ts">[00:31:04]</span>
-      …anyway. anyway. it's late. the pharmacy's closing, which is a joke, a 24-hour pharmacy closing, but everything closes eventually, that's section one of the — <span class="tag">[inaudible 2s]</span> — if you're reading this, the transcript kept more of me than i did. tell the manager i waited.
+      …anyway. anyway. it's late. the pharmacy's closing, which is a joke, a 24-hour pharmacy closing, but everything closes eventually, that's section one of the — <span class="tag">[inaudible 2s]</span> — if you're reading this, the transcript <a class="trap-r" href="degrade.html">kept</a> more of me than i did. tell the manager i waited.
     </p>
 
     <p class="machine">[speaker lost]</p>
