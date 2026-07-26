@@ -91,6 +91,53 @@
   }
   .plate.missing .name{color:var(--steel)}
   .plate.missing .meta{color:var(--steel)}
+
+  /* ── the seventh berth ──
+     Looks like every other lost record. Press and hold it. */
+  .plate.trap{
+    position:relative;overflow:hidden;cursor:default;
+    -webkit-user-select:none;user-select:none;
+    transition:border-color .3s ease;
+  }
+  .plate.trap:hover{border-color:var(--steel)}
+  .plate.trap:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+  .plate.trap::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:2px;width:0;
+    background:var(--violet);transition:width .2s ease-out;
+  }
+  .plate.trap.arming::after{width:100%;transition:width 1500ms linear}
+  .plate.trap.found{border-color:var(--violet);cursor:pointer}
+  .plate.trap.found::after{width:100%;transition:none}
+  .plate.trap.found .name{color:var(--paper)}
+  .plate.trap.found .meta{color:var(--violet)}
+
+  /* ── the bay ── */
+  body.bay-open{overflow:hidden}
+  #bay[hidden]{display:none}
+  #bay{
+    position:fixed;inset:0;z-index:90;
+    display:flex;flex-direction:column;background:#05080b;
+  }
+  #bay .bay-bar{
+    flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;
+    gap:1rem;padding:.55rem .9rem;border-bottom:1px solid var(--hairline);
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--smoke);
+  }
+  #bay .bay-bar .id{color:var(--violet)}
+  #bay .bay-bar .note{display:none}
+  @media (min-width:720px){#bay .bay-bar .note{display:inline}}
+  #bay .bay-close{
+    font:inherit;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+    color:var(--paper);background:transparent;
+    border:1px solid var(--hairline);padding:.42rem .75rem;
+  }
+  #bay .bay-close:hover{border-color:var(--violet);color:var(--violet)}
+  #bay .bay-close:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+  #bay iframe{flex:1 1 auto;width:100%;border:0;display:block;background:#05080b}
+  @media (prefers-reduced-motion:reduce){
+    .plate.trap.arming::after{transition:width 1500ms linear}
+  }
 </style>
 </head>
 <body>
@@ -127,6 +174,15 @@
   <div id="personnel"></div>
 
 </main>
+
+<div id="bay" hidden role="dialog" aria-modal="true" aria-label="SR-G-07, Kestrel A-2">
+  <div class="bay-bar">
+    <span><span class="id">SR-G-07</span> · Kestrel A-2 <span class="note">· recovered from the seventh berth</span></span>
+    <button type="button" class="bay-close" id="bay-close">Close berth</button>
+  </div>
+  <iframe id="bay-frame" title="Kestrel A-2 — flight record"
+          allow="pointer-lock; fullscreen; autoplay"></iframe>
+</div>
 
 <footer>
   <span>© 2026 Sable Reiko</span>
@@ -169,7 +225,7 @@ const HULL_TIERS = [
     { file:"unclassified-4-the-coral-hull.jpg",     name:"№4 — The Coral Hull",meta:"Origin: unknown · grown, not built" },
     { file:"unclassified-5-the-crystalline.jpg",    name:"№5 — The Crystalline",meta:"Origin: unknown · refracts" },
     { file:"unclassified-6-the-drowned.jpg",        name:"№6 — The Drowned",   meta:"Origin: unknown · recovered" },
-    { missing:true,                                  name:"№7 —",              meta:"Record missing" },
+    { missing:true, trap:true,                       name:"№7 —",              meta:"Record missing" },
     { file:"unclassified-8-the-ornamented-other.jpg",name:"№8 — The Ornamented Other", meta:"Origin: unknown · gilded" },
   ]},
 ];
@@ -209,7 +265,12 @@ const PERSONNEL_STRATA = [
 
 function plateCard(folder, p){
   if (p.missing){
-    return '<div class="plate missing"><div class="cap">'
+    const attrs = p.trap
+      ? ' id="sr-g-07" tabindex="0" role="button"'
+        + ' aria-label="Unrecovered record. Press and hold to attempt recovery."'
+      : '';
+    return '<div class="plate missing' + (p.trap ? ' trap' : '') + '"' + attrs + '>'
+      + '<div class="cap">'
       + '<span class="name">' + p.name + '</span>'
       + '<span class="meta">' + p.meta + '</span>'
       + '</div></div>';
@@ -241,6 +302,86 @@ function renderRegister(mountId, folder, tiers, gridClass){
 
 renderRegister("hulls", "hulls", HULL_TIERS, "grid-hulls");
 renderRegister("personnel", "personnel", PERSONNEL_STRATA, "grid-personnel");
+
+/* ═══ the seventh berth ════════════════════════════════════
+   №7 isn't missing. It's parked. Press and hold the plate.
+   HULL_FILE is the only line to change if you rename it.
+   ═══════════════════════════════════════════════════════ */
+
+const HULL_FILE = "flight-sim.html";
+const HOLD_MS   = 1500;
+
+(function seventhBerth(){
+  const plate = document.getElementById("sr-g-07");
+  const bay   = document.getElementById("bay");
+  const frame = document.getElementById("bay-frame");
+  const shut  = document.getElementById("bay-close");
+  if (!plate || !bay || !frame) return;
+
+  const nameEl = plate.querySelector(".name");
+  const metaEl = plate.querySelector(".meta");
+  let timer = null, found = false, loaded = false, returnTo = null;
+
+  function disarm(){
+    clearTimeout(timer); timer = null;
+    plate.classList.remove("arming");
+  }
+
+  function arm(ev){
+    if (found){ open(); return; }
+    if (timer) return;
+    ev.preventDefault();
+    plate.classList.add("arming");
+    timer = setTimeout(recover, HOLD_MS);
+  }
+
+  function recover(){
+    disarm();
+    found = true;
+    plate.classList.add("found");
+    nameEl.textContent = "№7 — Kestrel A-2";
+    metaEl.textContent = "Record recovered · airworthy";
+    plate.setAttribute("aria-label", "Record recovered: Kestrel A-2. Activate to open the berth.");
+    setTimeout(open, 650);
+  }
+
+  function open(){
+    returnTo = document.activeElement;
+    if (!loaded){ frame.src = HULL_FILE; loaded = true; }
+    bay.hidden = false;
+    document.body.classList.add("bay-open");
+    setTimeout(function(){ try{ frame.focus(); }catch(e){} }, 60);
+  }
+
+  function close(){
+    bay.hidden = true;
+    document.body.classList.remove("bay-open");
+    // unload so the sim stops burning frames and audio behind the page
+    frame.src = "about:blank"; loaded = false;
+    if (returnTo && returnTo.focus) returnTo.focus();
+  }
+
+  plate.addEventListener("pointerdown", arm);
+  plate.addEventListener("pointerup", disarm);
+  plate.addEventListener("pointerleave", disarm);
+  plate.addEventListener("pointercancel", disarm);
+  plate.addEventListener("contextmenu", function(e){ if(!found) e.preventDefault(); });
+
+  plate.addEventListener("keydown", function(ev){
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    if (ev.repeat) return;
+    arm(ev);
+  });
+  plate.addEventListener("keyup", function(ev){
+    if (ev.key === "Enter" || ev.key === " ") disarm();
+  });
+  plate.addEventListener("blur", disarm);
+
+  shut.addEventListener("click", close);
+  document.addEventListener("keydown", function(ev){
+    if (ev.key === "Escape" && !bay.hidden) close();
+  });
+})();
 </script>
 
 <script src="ambience.js" defer></script>
