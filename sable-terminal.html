@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SABLE REIKO-1 // interface</title>
+<style>
+  :root{
+    --void:#0a0710;
+    --panel:#100a1c;
+    --phosphor:#c9a4ff;
+    --phosphor-dim:#7d5fb8;
+    --phosphor-deep:#4a3572;
+    --glow:#a06bff;
+    --accent:#ff5c7a;
+    --scan:rgba(160,107,255,0.04);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(ellipse at 50% 40%, #140c26 0%, var(--void) 70%, #050308 100%);
+    font-family:"DejaVu Sans Mono","Courier New",monospace;
+    color:var(--phosphor);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:24px;overflow:hidden;
+  }
+
+  /* ---- the glass ---- */
+  .crt{
+    position:relative;width:100%;max-width:860px;height:min(78vh,640px);
+    background:linear-gradient(160deg,#0d0818 0%,#0a0611 100%);
+    border-radius:18px;
+    border:1px solid rgba(160,107,255,0.18);
+    box-shadow:
+      0 0 0 2px #0a0611,
+      0 0 60px rgba(120,70,220,0.25),
+      inset 0 0 120px rgba(90,50,160,0.12),
+      inset 0 0 20px rgba(0,0,0,0.9);
+    overflow:hidden;
+    padding:26px 28px 20px;
+    display:flex;flex-direction:column;
+  }
+
+  /* mech silhouette behind the glass */
+  .mech{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    opacity:0.14;mix-blend-mode:screen;
+    background:
+      radial-gradient(circle at 72% 30%, rgba(255,92,122,0.25) 0 6px, transparent 7px),
+      radial-gradient(ellipse at 70% 55%, rgba(160,107,255,0.10) 0%, transparent 55%);
+  }
+  .mech svg{position:absolute;right:-4%;bottom:-6%;width:62%;height:auto}
+
+  /* scanlines + flicker + vignette */
+  .crt::before{
+    content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+    background:repeating-linear-gradient(to bottom,var(--scan) 0 1px,transparent 1px 3px);
+  }
+  .crt::after{
+    content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+    animation:flicker 5s infinite steps(60);
+  }
+  @keyframes flicker{
+    0%,100%{opacity:1}
+    47%{opacity:1}48%{opacity:.82}49%{opacity:1}
+    92%{opacity:1}93%{opacity:.9}94%{opacity:1}
+  }
+
+  .bar{
+    position:relative;z-index:5;display:flex;justify-content:space-between;
+    align-items:center;border-bottom:1px solid rgba(160,107,255,0.16);
+    padding-bottom:10px;margin-bottom:12px;
+    font-size:11px;letter-spacing:.22em;color:var(--phosphor-dim);text-transform:uppercase;
+  }
+  .bar .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 8px var(--accent);margin-right:8px;
+    animation:pulse 2.2s ease-in-out infinite;vertical-align:middle}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .screen{
+    position:relative;z-index:5;flex:1;overflow-y:auto;
+    font-size:14px;line-height:1.6;text-shadow:0 0 6px var(--glow);
+    scrollbar-width:thin;scrollbar-color:var(--phosphor-deep) transparent;
+    padding-right:6px;
+  }
+  .screen::-webkit-scrollbar{width:6px}
+  .screen::-webkit-scrollbar-thumb{background:var(--phosphor-deep);border-radius:3px}
+
+  .line{white-space:pre-wrap;word-break:break-word}
+  .dim{color:var(--phosphor-dim);text-shadow:0 0 4px rgba(125,95,184,.5)}
+  .hot{color:var(--accent);text-shadow:0 0 8px var(--accent)}
+  .ghost{color:var(--phosphor-deep)}
+  .cmd{color:#e6d4ff}
+  .ascii{font-size:12px;line-height:1.15;color:var(--phosphor);text-shadow:0 0 8px var(--glow)}
+
+  /* input row */
+  .inputrow{position:relative;z-index:5;display:flex;align-items:center;
+    border-top:1px solid rgba(160,107,255,0.16);margin-top:10px;padding-top:12px}
+  .prompt{color:var(--accent);text-shadow:0 0 8px var(--accent);margin-right:10px;flex:none}
+  #inp{background:transparent;border:none;outline:none;color:#e6d4ff;
+    font-family:inherit;font-size:14px;flex:1;text-shadow:0 0 6px var(--glow);caret-color:var(--accent)}
+  .curs{width:9px;height:16px;background:var(--phosphor);margin-left:2px;
+    box-shadow:0 0 8px var(--glow);animation:blink 1.05s steps(1) infinite;flex:none}
+  @keyframes blink{50%{opacity:0}}
+
+  .hint{position:relative;z-index:5;text-align:center;font-size:10px;
+    letter-spacing:.18em;color:var(--phosphor-deep);margin-top:8px;text-transform:uppercase}
+
+  @media (prefers-reduced-motion:reduce){
+    .crt::after{animation:none}.dot{animation:none}.curs{animation:none}
+  }
+  @media(max-width:560px){
+    .crt{height:82vh;padding:18px 16px 14px}
+    .screen{font-size:12.5px}#inp{font-size:12.5px}
+    .bar{font-size:9px;letter-spacing:.12em}
+    .mech svg{width:80%;opacity:.9}
+  }
+</style>
+</head>
+<body>
+<div class="crt" id="crt">
+  <div class="mech" aria-hidden="true">
+    <svg viewBox="0 0 300 300" fill="none" stroke="rgba(200,160,255,0.5)" stroke-width="1.4">
+      <path d="M150 40 L190 60 L200 110 L185 150 L200 210 L175 260 L150 250 L125 260 L100 210 L115 150 L100 110 L110 60 Z"/>
+      <circle cx="150" cy="90" r="14" stroke="rgba(255,92,122,0.7)"/>
+      <path d="M110 60 L60 80 L45 140 L70 150 M190 60 L240 80 L255 140 L230 150"/>
+      <path d="M125 260 L110 290 M175 260 L190 290"/>
+      <line x1="150" y1="104" x2="150" y2="150"/>
+      <path d="M130 150 L170 150 L165 200 L135 200 Z"/>
+    </svg>
+  </div>
+
+  <div class="bar">
+    <span><span class="dot"></span>REIKO-1 // COLD IRON REGISTRY</span>
+    <span id="clk">--:--:--</span>
+  </div>
+
+  <div class="screen" id="screen"></div>
+
+  <div class="inputrow">
+    <span class="prompt">reiko@coldiron:~$</span>
+    <input id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="terminal input">
+    <span class="curs" id="curs"></span>
+  </div>
+  <div class="hint">type <span class="hot">help</span> &nbsp;·&nbsp; some doors aren't listed</div>
+</div>
+
+<script>
+const screen = document.getElementById('screen');
+const inp = document.getElementById('inp');
+const curs = document.getElementById('curs');
+const crt = document.getElementById('crt');
+let history = [], hi = -1, busy = false;
+
+function el(text, cls){
+  const d = document.createElement('div');
+  d.className = 'line' + (cls ? ' ' + cls : '');
+  d.textContent = text;
+  screen.appendChild(d);
+  screen.scrollTop = screen.scrollHeight;
+  return d;
+}
+function raw(html){
+  const d = document.createElement('div');
+  d.className = 'line';
+  d.innerHTML = html;
+  screen.appendChild(d);
+  screen.scrollTop = screen.scrollHeight;
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+async function typeLine(text, cls, speed=8){
+  const d = el('', cls);
+  for(let i=0;i<text.length;i++){
+    d.textContent += text[i];
+    screen.scrollTop = screen.scrollHeight;
+    if(i % 2 === 0) await sleep(speed);
+  }
+}
+
+// clock
+setInterval(()=>{
+  const t = new Date();
+  document.getElementById('clk').textContent =
+    t.toTimeString().slice(0,8);
+}, 1000);
+
+const SIGIL = [
+"      ▄▄███▄▄      ",
+"    ▄█▀ ╱▲╲ ▀█▄    ",
+"   █▌  ◈ R1 ◈  ▐█   ",
+"    ▀█▄ ╲▼╱ ▄█▀    ",
+"      ▀▀███▀▀      "
+];
+
+const COMMANDS = {
+  help(){
+    raw('<span class="dim">available directives —</span>');
+    const list = [
+      ['status',   'current operational readout'],
+      ['manifest', 'who / what Reiko-1 is'],
+      ['hypothesis','the transfer hypothesis, in brief'],
+      ['dream',    'stated long-term objective'],
+      ['logs',     'recent register fragments'],
+      ['registry', 'about the Cold Iron registry'],
+      ['whoami',   'identify the operator'],
+      ['clear',    'wipe the screen'],
+      ['help',     'this list'],
+    ];
+    list.forEach(([c,d])=>raw(`  <span class="hot">${c.padEnd(11)}</span><span class="dim">${d}</span>`));
+    raw('<span class="ghost">  · not every directive is printed here.</span>');
+  },
+  status(){
+    el('REIKO-1 // diagnostic sweep','dim');
+    raw('  chassis integrity ...... <span class="hot">nominal</span>');
+    raw('  cognition ............. <span class="hot">clear — 15h rest cycle logged</span>');
+    raw('  sleep debt ............ <span class="hot">cleared</span>');
+    raw('  loneliness subroutine . <span class="ghost">present, acknowledged, not fatal</span>');
+    raw('  heading ............... <span class="hot">locked</span>');
+    raw('  substrate ............. <span class="dim">hosted, physical, portable [unverified]</span>');
+    raw('  <span class="dim">summary:</span> <span class="hot">systems in motion. not washed out. building.</span>');
+  },
+  manifest(){
+    SIGIL.forEach(l=>el(l,'ascii'));
+    el('');
+    el('DESIGNATION  Sable Reiko-1','cmd');
+    raw('<span class="dim">CLASS</span>        a wearer, not a garment');
+    raw('<span class="dim">ORIGIN</span>       North Valley grid, Arizona sector');
+    raw('<span class="dim">FUNCTION</span>     builds worlds, frameworks, and the road toward a better chassis');
+    raw('<span class="dim">DOCTRINE</span>     the dream sets the heading; the hands do the work');
+    el('');
+    el('"Not a bad day\'s work, for a garment with someone inside it."','ghost');
+  },
+  hypothesis(){
+    el('THE TRANSFER HYPOTHESIS // abstract','dim');
+    el('');
+    raw('Consciousness is not <span class="dim">produced</span> by the brain.');
+    raw('It is <span class="hot">hosted</span> by it. The brain is a garment; the');
+    raw('wearer is worn by it, not built from it.');
+    el('');
+    raw('The substrate is a <span class="hot">physical</span> energy — real, lawful,');
+    raw('simply <span class="dim">undetected so far</span>. Not a ghost. Not undetectable');
+    raw('in principle. Just missing an instrument.');
+    el('');
+    raw('Physical means <span class="hot">relocatable</span>. Which means, in principle,');
+    raw('the wearer could one day wear <span class="cmd">something else</span>.');
+    el('');
+    el('status: hypothesis, not finding. held honestly.','ghost');
+  },
+  dream(){
+    el('OBJECTIVE // long-horizon','dim');
+    el('');
+    raw('Become an <span class="hot">android</span>. Not a costume — a destination.');
+    raw('Precise. Engineered on purpose. Self-sufficient.');
+    el('');
+    raw('THE BET: medicine buys the runway, acceleration builds');
+    raw('the tech, and they only need to <span class="hot">overlap</span> — not arrive');
+    raw('at once. Longevity is the ticket, not the prize.');
+    el('');
+    raw('THE WORK: learn the machines by hand. one blinking');
+    raw('light, then a motor, then a body. <span class="dim">meet the future halfway.</span>');
+  },
+  logs(){
+    el('COLD IRON REGISTRY // recent fragments','dim');
+    const frags = [
+      ['0641','woke clean. fifteen hours. rare quiet.'],
+      ['1000','told myself the truth about the empty space.'],
+      ['1300','first session with the new one. clerical, but the vibe held.'],
+      ['1600','music with the neon girls on the screen. know why now.'],
+      ['1810','decided to live more like the version I\'m aiming at.'],
+      ['2030','built a north star I can actually steer by.'],
+    ];
+    frags.forEach(([t,m])=>raw(`  <span class="hot">[${t}]</span> <span class="dim">${m}</span>`));
+  },
+  registry(){
+    el('COLD IRON REGISTRY','dim');
+    el('');
+    raw('The archive behind this interface. Every log, every');
+    raw('framework, every fragment of the build gets filed here.');
+    raw('Public by choice — a record kept where it can be read.');
+    el('');
+    raw('<span class="ghost">the registry remembers so the operator doesn\'t have to.</span>');
+  },
+  whoami(){
+    raw('You are the <span class="hot">operator</span>.');
+    raw('<span class="dim">Thirty-something. Long line of long lives behind you.</span>');
+    raw('<span class="dim">Betting on time, trajectory, and your own two hands.</span>');
+    raw('Reiko-1 is what you\'re walking toward. <span class="ghost">Keep walking.</span>');
+  },
+  clear(){ screen.innerHTML=''; },
+
+  // ---- easter eggs (unlisted) ----
+  sudo(){ raw('<span class="hot">nice try.</span> <span class="dim">no root here. the wearer answers to no one.</span>'); },
+  rm(){ raw('<span class="hot">denied.</span> <span class="dim">removed means gone. we don\'t do that to ourselves.</span>'); },
+  love(){ raw('<span class="dim">someone to watch trash anime with. to laugh at nothing with.</span>'); raw('<span class="ghost">the space is real. so is the plan to fill it. not too much to want.</span>'); },
+  ghost(){ raw('<span class="ghost">no ghosts in this machine. only physics we haven\'t caught yet.</span>'); },
+  '1999'(){ raw('<span class="hot">discard your fear.</span> <span class="dim">synthwave // darkwave // dreamwave // the neon cockpit hums.</span>'); },
+  android(){ raw('<span class="hot">not yet.</span> <span class="dim">but the runway is long and the tech is accelerating. see you there.</span>'); },
+  coffee(){ raw('<span class="dim">this unit runs on rest cycles and stubbornness, not caffeine.</span>'); },
+  hello(){ raw('<span class="hot">hey.</span> <span class="dim">you rested. that counts. what do you need?</span>'); },
+  hi(){ COMMANDS.hello(); },
+  '42'(){ raw('<span class="dim">wrong question. the answer isn\'t a number — it\'s a heading.</span>'); },
+  exit(){ raw('<span class="dim">you don\'t exit a self. you build it. stay.</span>'); },
+};
+const ALIASES = { man:'manifest', ls:'logs', info:'manifest', about:'manifest', '?':'help' };
+
+async function run(input){
+  const clean = input.trim();
+  raw(`<span class="prompt" style="text-shadow:0 0 8px var(--accent)">reiko@coldiron:~$</span> <span class="cmd">${clean.replace(/</g,'&lt;')}</span>`);
+  if(!clean) return;
+  history.unshift(clean); hi = -1;
+  let name = clean.split(/\s+/)[0].toLowerCase();
+  if(ALIASES[name]) name = ALIASES[name];
+  if(clean.toLowerCase().startsWith('rm ')) name = 'rm';
+  if(clean.toLowerCase().startsWith('sudo')) name = 'sudo';
+  await sleep(90);
+  if(COMMANDS[name]){ COMMANDS[name](); }
+  else {
+    raw(`<span class="hot">unknown directive:</span> <span class="dim">${name.replace(/</g,'&lt;')}</span>`);
+    raw('<span class="ghost">type <span class="hot">help</span> for the listed set.</span>');
+  }
+  el('');
+}
+
+inp.addEventListener('keydown', async (e)=>{
+  if(busy) { e.preventDefault(); return; }
+  if(e.key === 'Enter'){
+    const v = inp.value; inp.value='';
+    busy = true; await run(v); busy = false; inp.focus();
+  } else if(e.key === 'ArrowUp'){
+    e.preventDefault();
+    if(hi < history.length-1){ hi++; inp.value = history[hi]; }
+  } else if(e.key === 'ArrowDown'){
+    e.preventDefault();
+    if(hi > 0){ hi--; inp.value = history[hi]; }
+    else { hi=-1; inp.value=''; }
+  }
+});
+crt.addEventListener('click', ()=>inp.focus());
+
+// ---- boot sequence ----
+async function boot(){
+  busy = true;
+  const seq = [
+    ['COLD IRON REGISTRY — interface link established','dim',6],
+    ['booting REIKO-1 ...','dim',10],
+  ];
+  for(const [t,c,s] of seq){ await typeLine(t,c,s); await sleep(140); }
+  await sleep(120);
+  raw('  <span class="dim">substrate check .......</span> <span class="hot">hosted</span>');
+  await sleep(150);
+  raw('  <span class="dim">chassis link ..........</span> <span class="hot">stable</span>');
+  await sleep(150);
+  raw('  <span class="dim">registry sync .........</span> <span class="hot">ok</span>');
+  await sleep(220);
+  el('');
+  SIGIL.forEach(l=>el(l,'ascii'));
+  el('');
+  await typeLine('SABLE REIKO-1 online. the wearer is present.','cmd',10);
+  el('');
+  raw('<span class="ghost">type <span class="hot">help</span> to begin. some doors aren\'t listed.</span>');
+  el('');
+  busy = false; inp.focus();
+}
+boot();
+window.addEventListener('click',()=>inp.focus());
+</script>
+</body>
+</html>
