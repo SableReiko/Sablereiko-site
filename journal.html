@@ -426,5 +426,8 @@ const target = location.hash && document.querySelector(location.hash);
 if (target && target.tagName === "DETAILS"){ target.open = true; target.scrollIntoView(); }
 </script>
 <script src="ambience.js" defer></script>
+<script>
+  try { localStorage.setItem("reiko_visited_" + "journal", "1"); } catch (e) {}
+</script>
 </body>
 </html>

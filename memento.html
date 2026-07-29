@@ -456,5 +456,8 @@
   survey(seedFromHash() ?? randomSeed());
 })();
 </script>
+<script>
+  try { localStorage.setItem("reiko_visited_" + "memento", "1"); } catch (e) {}
+</script>
 </body>
 </html>

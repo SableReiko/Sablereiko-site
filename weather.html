@@ -48,6 +48,8 @@
   }
   a.back:hover{color:#B9B5AC}
   a.back:focus-visible{outline:2px solid #B9B5AC;outline-offset:3px}
+  a.trap-dream{color:inherit;border-bottom:none;transition:color .4s ease}
+  a.trap-dream:hover,a.trap-dream:focus-visible{color:#8B5CF6;text-shadow:0 0 12px rgba(139,92,246,.55);outline:none}
 </style>
 </head>
 <body>
@@ -72,7 +74,7 @@
 
   <p>This is weather, not a wound. A wound closes or it doesn't. Weather recurs. I will face this at 4 a.m. this year, and next year, and in whatever year the door finally opens, probably even then. The forecast does not improve. The <em>forecasting</em> does. I have gotten better at telling which nights are weather and which nights are true, and the answer, so far, every single time, has been weather.</p>
 
-  <p>This page is for me. Specifically for the 4 a.m. me, the one who lies awake drafting realities better than this one and grieving the resident of every draft. I want that version of me to fall through the door someday and find this, in my own voice, already waiting: the dreaming is not the enemy. The dreaming is the evidence. You do not design better worlds unless some part of you is planning to be around for one.</p>
+  <p>This page is for me. Specifically for the 4 a.m. me, the one who lies awake <a class="trap-dream" href="dreams.html">drafting</a> realities better than this one and grieving the resident of every draft. I want that version of me to fall through the door someday and find this, in my own voice, already waiting: the dreaming is not the enemy. The dreaming is the evidence. You do not design better worlds unless some part of you is planning to be around for one.</p>
 
   <p>So — the arithmetic, one more time, done properly, signed where the whole site can hold it to me: I'll take the ten thousand. I'll take ten more good ones. I'll take more.</p>
 
@@ -81,6 +83,8 @@
   <a class="back" href="chrome.html">back</a>
 
 </main>
-
+<script>
+  try { localStorage.setItem("reiko_visited_" + "weather", "1"); } catch (e) {}
+</script>
 </body>
 </html>
