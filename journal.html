@@ -82,6 +82,80 @@
   a.trap-h:hover,a.trap-h:focus-visible{
     color:#E3A64C;text-shadow:0 0 12px rgba(227,166,76,.6);outline:none;
   }
+
+  /* ─── journal toolbar ─────────────────────────────────────── */
+  .jtools{
+    position:sticky;top:0;z-index:20;
+    background:var(--ink,#0c0c0f);
+    border-bottom:1px solid var(--hairline);
+    padding:.85rem .5rem;margin-bottom:.25rem;
+    display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+  }
+  .jtools .search-wrap{position:relative;flex:1 1 15rem;min-width:12rem}
+  .jtools input[type="search"]{
+    width:100%;box-sizing:border-box;
+    font-family:var(--body);font-size:.95rem;
+    color:var(--paper);background:transparent;
+    border:1px solid var(--hairline);border-radius:2px;
+    padding:.55rem 2rem .55rem .7rem;
+    transition:border-color .15s ease;
+  }
+  .jtools input[type="search"]:focus{outline:none;border-color:var(--violet)}
+  .jtools input[type="search"]::placeholder{color:var(--steel)}
+  .jtools .search-wrap::after{
+    content:"⌕";position:absolute;right:.6rem;top:50%;transform:translateY(-50%);
+    color:var(--steel);font-size:1rem;pointer-events:none;
+  }
+  .jtools select{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--paper);background:transparent;
+    border:1px solid var(--hairline);border-radius:2px;
+    padding:.5rem .7rem;cursor:pointer;max-width:14rem;
+  }
+  .jtools select:focus{outline:none;border-color:var(--violet)}
+  .jtools select option{background:var(--ink,#0c0c0f);color:var(--paper)}
+  .jtools .btn{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--steel);background:transparent;
+    border:1px solid var(--hairline);border-radius:2px;
+    padding:.5rem .7rem;cursor:pointer;transition:color .15s,border-color .15s;
+  }
+  .jtools .btn:hover,.jtools .btn:focus-visible{
+    color:var(--violet);border-color:var(--violet);outline:none;
+  }
+  .jtools .count{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--smoke);margin-left:auto;
+  }
+  @media (max-width:640px){
+    .jtools .count{margin-left:0;flex-basis:100%}
+    .jtools select{flex:1 1 8rem}
+  }
+
+  /* reading-time chip injected into each summary */
+  .entry .read-time{
+    font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--steel);
+    grid-column:2;justify-self:start;margin-top:.15rem;
+  }
+  @media (max-width:640px){.entry .read-time{grid-column:1}}
+
+  /* hidden by filter */
+  .entry.filtered{display:none}
+  .entry mark{background:rgba(227,166,76,.28);color:inherit;border-radius:1px}
+
+  .jempty{
+    display:none;padding:3rem .5rem;text-align:center;
+    font-family:"Cormorant Garamond",serif;font-style:italic;
+    font-size:1.2rem;color:var(--smoke);
+  }
+  .jempty.show{display:block}
+
+  .visually-hidden{
+    position:absolute!important;width:1px;height:1px;
+    padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap;border:0;
+  }
 </style>
 </head>
 <body>
@@ -105,6 +179,18 @@
     <h1 class="display">Day Log</h1>
     <p class="lede">The ordinary hours of a long life, entered as if they mattered — because, on inspection, they do.</p>
   </div>
+
+  <div class="jtools" role="search">
+    <div class="search-wrap">
+      <input type="search" id="j-search" placeholder="Search titles &amp; dates…" aria-label="Search entries by title or date" autocomplete="off">
+    </div>
+    <label class="visually-hidden" for="j-jump">Jump to entry</label>
+    <select id="j-jump" aria-label="Jump to entry"><option value="">Jump to…</option></select>
+    <button class="btn" id="j-expand" type="button">Expand all</button>
+    <button class="btn" id="j-collapse" type="button">Collapse all</button>
+    <span class="count" id="j-count" aria-live="polite"></span>
+  </div>
+  <p class="jempty" id="j-empty">Nothing in the record matches that. — as is the custom of this House.</p>
 
     <!-- ═══ 012 ═══ -->
   <details class="entry" id="log-012">
@@ -494,12 +580,172 @@
 </footer>
 
 <script>
-const target = location.hash && document.querySelector(location.hash);
-if (target && target.tagName === "DETAILS"){ target.open = true; target.scrollIntoView(); }
+(function () {
+  "use strict";
+  var entries = Array.prototype.slice.call(document.querySelectorAll(".entry"));
+  if (!entries.length) return;
+
+  var STORE_OPEN = "reiko_journal_open";
+  var STORE_SCROLL = "reiko_journal_scroll";
+  var WPM = 220; // reading speed for the per-entry estimate
+
+  var search = document.getElementById("j-search");
+  var jump = document.getElementById("j-jump");
+  var expandBtn = document.getElementById("j-expand");
+  var collapseBtn = document.getElementById("j-collapse");
+  var countEl = document.getElementById("j-count");
+  var emptyEl = document.getElementById("j-empty");
+
+  // ── build reading-time chips + jump-menu options ──────────────
+  entries.forEach(function (entry) {
+    var title = entry.querySelector(".sum-title");
+    var num = entry.querySelector(".num");
+    var log = entry.querySelector(".log");
+    var summary = entry.querySelector("summary");
+
+    if (log && summary && !summary.querySelector(".read-time")) {
+      var words = (log.textContent.trim().match(/\S+/g) || []).length;
+      var mins = Math.max(1, Math.round(words / WPM));
+      var chip = document.createElement("span");
+      chip.className = "read-time";
+      chip.setAttribute("aria-hidden", "true");
+      chip.textContent = mins + " min · " + words.toLocaleString() + " words";
+      var toggle = summary.querySelector(".toggle");
+      summary.insertBefore(chip, toggle || null);
+    }
+
+    if (jump && title && num && entry.id) {
+      var opt = document.createElement("option");
+      opt.value = entry.id;
+      opt.textContent = num.textContent.replace(/\s+/g, " ").trim() + " — " + title.textContent.trim();
+      jump.appendChild(opt);
+    }
+  });
+
+  // ── persistence: restore which entries were open ──────────────
+  var restored = false;
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE_OPEN) || "[]");
+    if (Array.isArray(saved) && saved.length) {
+      saved.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.open = true;
+      });
+      restored = true;
+    }
+  } catch (e) {}
+
+  // hash target wins over stored state
+  var target = location.hash && document.querySelector(location.hash);
+  if (target && target.tagName === "DETAILS") {
+    target.open = true;
+    requestAnimationFrame(function () { target.scrollIntoView(); });
+    restored = true;
+  }
+
+  // first visit, nothing to restore → open the newest (first in DOM)
+  if (!restored) entries[0].open = true;
+
+  function saveOpen() {
+    try {
+      var ids = entries.filter(function (e) { return e.open; }).map(function (e) { return e.id; });
+      localStorage.setItem(STORE_OPEN, JSON.stringify(ids));
+    } catch (e) {}
+  }
+  entries.forEach(function (entry) {
+    entry.addEventListener("toggle", saveOpen);
+  });
+
+  // ── search / filter ───────────────────────────────────────────
+  function clearMarks(el) {
+    el.querySelectorAll("mark").forEach(function (m) {
+      m.replaceWith(document.createTextNode(m.textContent));
+    });
+    el.normalize();
+  }
+  function highlight(el, q) {
+    clearMarks(el);
+    if (!q) return;
+    var rx = new RegExp("(" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig");
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodes = [], n;
+    while ((n = walker.nextNode())) if (rx.test(n.nodeValue)) nodes.push(n);
+    nodes.forEach(function (node) {
+      var span = document.createElement("span");
+      span.innerHTML = node.nodeValue.replace(rx, "<mark>$1</mark>");
+      node.replaceWith(span);
+      while (span.firstChild) span.parentNode.insertBefore(span.firstChild, span);
+      span.remove();
+    });
+  }
+
+  function applyFilter() {
+    var q = (search.value || "").trim().toLowerCase();
+    var shown = 0;
+    entries.forEach(function (entry) {
+      var title = entry.querySelector(".sum-title");
+      var date = entry.querySelector(".date");
+      var num = entry.querySelector(".num");
+      clearMarks(title); clearMarks(date);
+      var hay = [title, date, num].map(function (e) {
+        return e ? e.textContent.toLowerCase() : "";
+      }).join(" ");
+      var match = !q || hay.indexOf(q) !== -1;
+      entry.classList.toggle("filtered", !match);
+      if (match) {
+        shown++;
+        if (q) { highlight(title, q); highlight(date, q); }
+      }
+    });
+    if (countEl) {
+      countEl.textContent = q
+        ? shown + " of " + entries.length + " shown"
+        : entries.length + " entries";
+    }
+    if (emptyEl) emptyEl.classList.toggle("show", shown === 0);
+  }
+
+  var t;
+  search.addEventListener("input", function () {
+    clearTimeout(t);
+    t = setTimeout(applyFilter, 90);
+  });
+
+  // ── jump menu ─────────────────────────────────────────────────
+  jump.addEventListener("change", function () {
+    var el = document.getElementById(jump.value);
+    if (!el) return;
+    el.classList.remove("filtered");
+    el.open = true;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    jump.selectedIndex = 0;
+  });
+
+  // ── expand / collapse all ─────────────────────────────────────
+  expandBtn.addEventListener("click", function () {
+    entries.forEach(function (e) { if (!e.classList.contains("filtered")) e.open = true; });
+  });
+  collapseBtn.addEventListener("click", function () {
+    entries.forEach(function (e) { e.open = false; });
+  });
+
+  // ── restore scroll position on return ─────────────────────────
+  if (!location.hash) {
+    try {
+      var y = parseInt(sessionStorage.getItem(STORE_SCROLL) || "", 10);
+      if (!isNaN(y)) requestAnimationFrame(function () { window.scrollTo(0, y); });
+    } catch (e) {}
+  }
+  window.addEventListener("beforeunload", function () {
+    try { sessionStorage.setItem(STORE_SCROLL, String(window.scrollY)); } catch (e) {}
+  });
+
+  applyFilter();
+})();
 </script>
 <script src="ambience.js" defer></script>
 <script>
-  try { localStorage.setItem("reiko_visited_" + "journal", "1"); } catch (e) {}
+  try { localStorage.setItem("reiko_visited_" + "SLUG_HERE", "1"); } catch (e) {}
 </script>
 </body>
 </html>
