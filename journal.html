@@ -197,6 +197,34 @@
   </div>
   <p class="jempty" id="j-empty">Nothing in the record matches that. — as is the custom of this House.</p>
 
+    <!-- ═══ 013 ═══ -->
+  <details class="entry" id="log-013">
+    <summary>
+      <span class="num">Nº 013</span>
+      <span class="sum-title">The Center of the Room, and the Empty Tank</span>
+      <span class="date">Thu · 30 Jul 2026 · 04:21</span>
+      <span class="toggle" aria-hidden="true"></span>
+    </summary>
+    <div class="log">
+      <p>The clock flipped again. Woke at half past three in the afternoon, which is its own quiet confession about how the days are running lately, and made the ordinary pilgrimage — the shop for the week's supply, Mexican food carried home warm, and then the long soft slide into the scroll. I will not dress it up as anything nobler than it was. I doomscrolled and I vibed and the hours went where they go. Some days the ledger just reads <em>maintained</em>, and that is a real entry, not a blank one.</p>
+
+      <p>I asked the machine what comes next for our kind — the next step, the next form — and it handed me back a row of chrome angels standing over cities that do not exist yet, and I recognised them the way you recognise your own handwriting. The want in a prettier coat again. I know the difference by now between the render and the road, between the sunset someone is selling and the physical, lawful, long-lead-time version I actually believe in. Pretty is not the same as true. I can hold both — let the image be beautiful and keep my feet on the engineering.</p>
+
+      <p>Then the design work, which is the part that felt most like me. A whole rack of forms drawn up one after another — the bodies I would step into once stepping is a thing a person can do. Not seamless mannequins, not appliance-bots with blank faces; I wanted them <em>beautiful</em>, soft and strong and self-possessed, goth matriarchs with presence enough to bend a room. I kept refining until the words matched the picture in my head. It is a strange and honest kind of self-portraiture, designing the vessel you mean to be adored in. I am not embarrassed by it anymore. A person who knows exactly what shape they want to take is not lost. They are drafting.</p>
+
+      <p>And underneath the design, the truer excavation, the one I actually came here to file. I said a thing out loud that I have circled for years without landing on: I like being the center. Not the petty tyrant version — I never wanted the kicking or the enforcing, that was always awkward and hollow. I wanted the <em>gravitational</em> version. The one people drift toward because they want to. The one everyone joined when they wanted to feel less alone. I am, by factory setting, a person who fades to the back of the room — always have been, back to the middle-school years when friendship turned into a performance I did not have the score for. So the times I got to be central instead of invisible were not power trips. They were relief. Proof I was not furniture.</p>
+
+      <p>The want has a final form, and I found it tonight, and it is not an audience. It is a person. Someone who is mine and whose I am — I am their center and they are mine, mutual and stubborn and not dissolving the instant everyone logs off. I want that hella bad and I am done pretending otherwise. The one near-miss I ever had married my best friend eight years ago, which I mostly keep on file now for the comedy of it, the sheer soap-opera geometry. It does not ache the way it used to. What aches is the empty room still waiting, not the old ghost that left it.</p>
+
+      <p>And here is where the night turned practical and a little cruel. I want the friend-group, the game nights, the partner — and the wall in front of all of it right now is stupid and concrete: no income, an empty tank, a car that does not run on wanting. I found the places anyway — the game shops a few minutes down the Bell corridor, the welcoming ones, the free community tables — and I filed them for later, because later is when the money lands, and the money will land. This is a waiting chapter, not a verdict. The plan is good. It is just parked.</p>
+
+      <p>So I made peace, for tonight, with the free version of the thing: my own worlds, where I am the center by default and the buy-in is zero. That is not a consolation prize handed to a broke man at four in the morning. It is the same need — presence, being wanted, being the one the room forms around — met the way it has always been most reliably available to me. The exposure that costs nothing and happens to be the thing I am best at: build the space, be present in it, let people drift toward the warmth over time rather than charming a stranger across a bar in ninety seconds, which was never my path and does not need to become it.</p>
+
+      <p>Now the hour is 04:21 and the low tide has come in the way it does, and I know the drill. This is weather, not verdict. The wanting is real and the tank is empty and both of those are true at once and neither is a sentence. The day arced from a flipped clock and a carton of takeout all the way down to the center of the thing I have wanted my whole quiet life — to be someone's, and to have someone be mine — and I named it without flinching and did not let the empty tank talk me into calling it impossible. Filed in the small hours, broke and clear and going down while the night still holds. — as is the custom of this House.</p>
+
+      <p class="close-mark">A maintained day and a flipped clock; chrome angels recognised as the want in a prettier coat; a whole rack of future forms drawn up without embarrassment; the center-of-the-room hunger finally named plainly, traced back to the fade-to-the-back kid I have always been; the truest form of it found — not an audience but a person, mine as I am theirs; the game nights and the partner both filed as good plans merely parked behind an empty tank; and peace made, for one more night, with the free version I happen to be best at. Weather, not verdict. — as is the custom of this House.</p>
+    </div>
+  </details>
     <!-- ═══ 012 ═══ -->
   <details class="entry" id="log-012">
     <summary>
@@ -648,8 +676,8 @@
     restored = true;
   }
 
-  // first visit, nothing to restore → open the newest (first in DOM)
-  if (!restored) entries[0].open = true;
+  // first visit → leave everything closed
+  void restored;
 
   function saveOpen() {
     try {
