@@ -100,6 +100,10 @@
     text-transform:uppercase;color:var(--smoke);border-bottom:none;
   }
   .exit:hover{color:var(--venom)}
+
+  /* portal glyph: dim until touched, then violet */
+  .portal-mark{color:var(--steel,#4a3572);border-bottom:none;transition:color .25s,text-shadow .25s}
+  .portal-mark:hover,.portal-mark:focus-visible{color:var(--violet);text-shadow:0 0 12px rgba(139,92,246,.7);outline:none}
 </style>
 </head>
 <body>
@@ -113,6 +117,7 @@
     <a href="writing.html">Writing</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About</a>
+    <a href="portals.html" class="portal-mark" aria-label="the portals" title="the portals">◈</a>
   </nav>
 </header>
 

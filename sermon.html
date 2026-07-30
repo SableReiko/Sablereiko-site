@@ -134,6 +134,10 @@
 
   footer{color:#2A282E}
   footer a{color:#2A282E}
+
+  /* portal glyph: dim until touched, then violet */
+  .portal-mark{color:var(--steel,#4a3572);border-bottom:none;transition:color .25s,text-shadow .25s}
+  .portal-mark:hover,.portal-mark:focus-visible{color:var(--violet);text-shadow:0 0 12px rgba(139,92,246,.7);outline:none}
 </style>
 </head>
 <body>
@@ -147,6 +151,7 @@
     <a href="writing.html" aria-label="Writing">Wr̶iting</a>
     <a href="gallery.html" aria-label="Gallery">Gall░ry</a>
     <a href="about.html" aria-label="About">Ab0ut</a>
+    <a href="portals.html" class="portal-mark" aria-label="the portals" title="the portals">◈</a>
   </nav>
 </header>
 
