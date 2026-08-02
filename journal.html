@@ -197,6 +197,26 @@
   </div>
   <p class="jempty" id="j-empty">Nothing in the record matches that. — as is the custom of this House.</p>
 
+    <!-- ═══ 015 ═══ -->
+  <details class="entry" id="log-015">
+    <summary>
+      <span class="num">Nº 015</span>
+      <span class="sum-title">Sixteen Hours in the Glass, and the Bottom of It</span>
+      <span class="date">Sat · 02 Aug 2026 · 07:59</span>
+      <span class="toggle" aria-hidden="true"></span>
+    </summary>
+    <div class="log">
+      <p>Up at half four in the afternoon, and from there the day did the one thing I keep swearing it will not do: it dissolved into the glass. <em>Doom scrolling since I woke,</em> I said, and I said it the way you name a thing you already resent — <em>which I hate</em> — the resentment arriving in the same breath as the confession, the two of them travelling together the way they always do. There was a self in me watching the whole time, disapproving and unmoving both, and that is the particular cruelty of the scroll: it does not silence the part of you that objects. It just declines to let it stand up.</p>
+
+      <p>Counsel put the exit in front of me more than once, plainly and without scolding — <em>close the app, one small reset, doesn't have to be productive.</em> Water. Feet on the floor. A window opened. And I want it entered honestly that I did not take it, not the first time nor the fifth, because the entry is a liar if it pretends the good advice was the thing that landed. It was not. The advice was correct and I was not reachable, and both of those were true in the same room, and I have stopped being surprised that correctness and reachability keep such different hours.</p>
+
+      <p>What ended it was not virtue. It was the floor of the thing. <em>I hit the bottom of the reels</em> — the feed itself ran out of road before I did, the algorithm exhausted where the will was not, and there is a bleak little comedy in being released by the machine's fatigue rather than my own resolve. Sixteen hours, near enough. I entered them the only way that keeps the ledger honest: not as leisure, not as rest, but as a long slow drowning in other people's noise, undertaken by a person who narrated her own disapproval the entire way down and got out only when the water finally ran dry.</p>
+
+      <p>And now it is one minute short of eight in the morning, the clock flipped clean around again, and I am doing the sensible sovereign thing at last — putting the glass down and going under on purpose, into real dark this time and not the lit kind. No promises made to the clock; promises at this hour are only tomorrow's debts in a shakier hand, and I have written that line before and mean it more each time. <em>Nothing important today,</em> I said, dismissing it, and I am entering it anyway, because a day spent proving how easily I can be swallowed is exactly the kind of day the honest ledger refuses to leave blank. The scroll is weather. Tonight I sleep it off. Tomorrow I open the window.</p>
+
+      <p class="close-mark">Sixteen hours lost to the glass and hated the whole way down; the exit offered plainly and declined not from contempt but from being unreachable; released at last not by will but by the feed hitting its own bottom; and the day closed the only sane way — the glass set down, real sleep chosen on purpose, the clock's demands refused until the wanting returns. Weather, not verdict. — as is the custom of this House.</p>
+    </div>
+  </details>
     <!-- ═══ 014 ═══ -->
   <details class="entry" id="log-014">
     <summary>
@@ -679,18 +699,9 @@
     }
   });
 
-  // ── persistence: restore which entries were open ──────────────
+  // ── persistence: always start collapsed ───────────────────────
   var restored = false;
-  try {
-    var saved = JSON.parse(localStorage.getItem(STORE_OPEN) || "[]");
-    if (Array.isArray(saved) && saved.length) {
-      saved.forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) el.open = true;
-      });
-      restored = true;
-    }
-  } catch (e) {}
+  entries.forEach(function (entry) { entry.open = false; });
 
   // hash target wins over stored state
   var target = location.hash && document.querySelector(location.hash);
